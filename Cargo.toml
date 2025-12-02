@@ -13,6 +13,7 @@ members = [
     "crates/vault-cli",
     "crates/vault-migrations",
     "crates/vault-security",
+    "crates/vault-benchmarks",
 ]
 resolver = "2"
 
@@ -188,6 +189,7 @@ vault-sdk = { path = "crates/vault-sdk" }
 vault-cli = { path = "crates/vault-cli" }
 vault-migrations = { path = "crates/vault-migrations" }
 vault-security = { path = "crates/vault-security" }
+vault-benchmarks = { path = "crates/vault-benchmarks" }
 
 [dev-dependencies]
 tokio = { workspace = true, features = ["test-util", "macros", "rt-multi-thread"] }

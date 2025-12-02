@@ -9,6 +9,7 @@ mod api_keys;
 mod config_cmd;
 mod completion;
 mod devops;
+mod benchmark;
 
 use clap::{Parser, Subcommand};
 
@@ -24,6 +25,7 @@ pub use api_keys::ApiKeysCommands;
 pub use config_cmd::ConfigCommands;
 pub use completion::CompletionCommands;
 pub use devops::{StatusCommand, ScanCommand, AnonymizeFileCommand, EncryptCommand, DecryptCommand, LineageCommand, AuditLogCommand};
+pub use benchmark::BenchmarkCommands;
 
 /// LLM Data Vault CLI
 ///
@@ -139,6 +141,10 @@ pub enum Commands {
 
     /// Display CLI version and build info
     Version,
+
+    /// Run and manage benchmarks
+    #[command(alias = "bench")]
+    Benchmark(BenchmarkCommands),
 }
 
 impl Cli {
@@ -176,6 +182,7 @@ impl Cli {
             Commands::Completion(cmd) => cmd.run(),
             Commands::Health { detailed } => self.health(&client_config, detailed).await,
             Commands::Version => self.version(),
+            Commands::Benchmark(cmd) => cmd.run(self.format).await,
         }
     }
 

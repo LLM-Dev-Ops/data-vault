@@ -17,6 +17,7 @@ path = "src/main.rs"
 [dependencies]
 # SDK
 vault-sdk = { path = "../vault-sdk" }
+vault-benchmarks = { path = "../vault-benchmarks" }
 
 # CLI framework
 clap = { version = "4.4", features = ["derive", "env", "string", "wrap_help"] }
