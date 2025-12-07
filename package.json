@@ -1,5 +1,29 @@
 {
+  "name": "llm-data-vault",
+  "version": "0.1.0",
+  "description": "Enterprise-grade secure storage and anonymization for LLM data",
+  "private": true,
+  "scripts": {
+    "dev": "claude-flow swarm start",
+    "test": "claude-flow test"
+  },
   "dependencies": {
-    "claude-flow": "^2.7.31"
+    "claude-flow": "^2.7.41"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "phase2b": {
+    "infraIntegration": true,
+    "status": "compliant",
+    "integrationDate": "2025-12-07",
+    "consumedModules": [
+      "llm-infra-core",
+      "schema-registry-core",
+      "llm-config-core",
+      "llm-observatory-core",
+      "llm-memory-graph"
+    ]
   }
 }

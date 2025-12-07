@@ -24,9 +24,16 @@ pub use subscription::{Subscription, SubscriptionManager, EventFilter};
 pub use delivery::{DeliveryManager, DeliveryStatus, DeliveryAttempt};
 pub use handler::{EventHandler, HandlerRegistry};
 
-// LLM-Dev-Ops ecosystem adapter re-exports
+// LLM-Dev-Ops ecosystem adapter re-exports (Phase 2A)
 pub use adapters::{
     AdapterConfig, AdapterHealth, EcosystemAdapter,
     SchemaRegistryAdapter, ConfigManagerAdapter,
     ObservatoryAdapter, MemoryGraphAdapter,
+};
+
+// LLM-Infra adapter re-exports (Phase 2B)
+pub use adapters::{
+    InfraAdapter, InfraConfig, InfraCapabilities,
+    RetryPolicy, RateLimitPolicy, CachePolicy, CacheBackend,
+    LoggingConfig, TracingConfig, TracePropagation, ErrorConfig,
 };

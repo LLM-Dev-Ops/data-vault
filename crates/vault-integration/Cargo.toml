@@ -7,6 +7,11 @@ authors.workspace = true
 license.workspace = true
 description = "Event system and webhooks for LLM Data Vault"
 
+[features]
+default = []
+# Phase 2B: Enable LLM-Infra integration for shared infrastructure utilities
+infra = []
+
 [dependencies]
 vault-core = { path = "../vault-core" }
 
@@ -27,6 +32,9 @@ reqwest = { version = "0.11", features = ["json", "rustls-tls"], default-feature
 parking_lot = { workspace = true }
 dashmap = { workspace = true }
 rand = { workspace = true }
+
+# Phase 2B Infra dependencies (consumed through adapters)
+# llm-infra-core = { workspace = true, optional = true }
 
 [dev-dependencies]
 mockall = { workspace = true }

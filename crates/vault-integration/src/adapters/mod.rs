@@ -14,6 +14,9 @@
 //!   events, and storage health signals from LLM-Observatory.
 //! - [`memory_graph`]: Consumes lineage metadata and attaches graph-based
 //!   relationships to stored artifacts from LLM-Memory-Graph.
+//! - [`infra`]: Consumes centralized infrastructure utilities including config
+//!   loading, logging, tracing, caching, retry logic, and rate limiting from
+//!   LLM-Infra (Phase 2B).
 //!
 //! # Phase 2B Implementation
 //!
@@ -22,16 +25,23 @@
 //! - Do NOT modify existing public interfaces
 //! - Do NOT change anonymization logic, encryption workflows, or public APIs
 //! - Provide runtime integration hooks for downstream consumers
+//! - Consume from LLM-Infra for shared infrastructure utilities
 
 pub mod schema_registry;
 pub mod config_manager;
 pub mod observatory;
 pub mod memory_graph;
+pub mod infra;
 
 pub use schema_registry::SchemaRegistryAdapter;
 pub use config_manager::ConfigManagerAdapter;
 pub use observatory::ObservatoryAdapter;
 pub use memory_graph::MemoryGraphAdapter;
+pub use infra::{
+    InfraAdapter, InfraConfig, InfraCapabilities,
+    RetryPolicy, RateLimitPolicy, CachePolicy, CacheBackend,
+    LoggingConfig, TracingConfig, TracePropagation, ErrorConfig,
+};
 
 use crate::IntegrationResult;
 use async_trait::async_trait;

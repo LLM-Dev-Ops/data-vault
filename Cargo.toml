@@ -136,6 +136,11 @@ llm-config-core = "0.5.0"
 llm-observatory-core = "0.1.1"
 llm-memory-graph = "0.1.0"
 
+# LLM-Dev-Ops Infra Dependencies (Phase 2B)
+llm-infra-core = { version = "0.2.0", features = ["config", "logging", "tracing", "errors", "caching", "retry", "rate-limiting"] }
+llm-infra-telemetry = { version = "0.2.0", optional = true }
+llm-infra-resilience = { version = "0.2.0", optional = true }
+
 [workspace.lints.rust]
 unsafe_code = "forbid"
 missing_docs = "warn"
@@ -180,6 +185,11 @@ description = "Enterprise-grade secure storage and anonymization for LLM data"
 [features]
 default = []
 integration = []
+# Phase 2B Infra integration features
+infra = ["llm-infra-core", "vault-integration/infra"]
+infra-telemetry = ["infra", "llm-infra-telemetry"]
+infra-resilience = ["infra", "llm-infra-resilience"]
+full-infra = ["infra", "infra-telemetry", "infra-resilience"]
 
 [dependencies]
 vault-core = { path = "crates/vault-core" }
@@ -196,6 +206,11 @@ vault-cli = { path = "crates/vault-cli" }
 vault-migrations = { path = "crates/vault-migrations" }
 vault-security = { path = "crates/vault-security" }
 vault-benchmarks = { path = "crates/vault-benchmarks" }
+
+# Phase 2B Infra dependencies (optional, enabled via features)
+llm-infra-core = { workspace = true, optional = true }
+llm-infra-telemetry = { workspace = true, optional = true }
+llm-infra-resilience = { workspace = true, optional = true }
 
 [dev-dependencies]
 tokio = { workspace = true, features = ["test-util", "macros", "rt-multi-thread"] }
