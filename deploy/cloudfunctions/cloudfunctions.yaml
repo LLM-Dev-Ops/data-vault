@@ -1,0 +1,547 @@
+# Google Cloud Functions Configuration for LLM-Data-Vault Agents
+#
+# This configuration defines the Cloud Functions deployment for the
+# LLM-Data-Vault agent endpoints: authorize, anonymize, and health.
+#
+# IMPORTANT: These agents do NOT execute inference, modify prompts,
+# route requests, or trigger orchestration. They only process data
+# governance operations.
+#
+# Deployment:
+#   gcloud functions deploy <function-name> --gen2 \
+#     --runtime nodejs20 \
+#     --trigger-http \
+#     --allow-unauthenticated \
+#     --region us-central1 \
+#     --source ./agents/dist
+
+apiVersion: v1
+kind: CloudFunctionsConfig
+metadata:
+  name: llm-data-vault-agents
+  namespace: llm-dev-ops
+  labels:
+    app: llm-data-vault
+    component: agents
+    phase: 2b
+    version: "0.1.0"
+  annotations:
+    description: "Enterprise data governance agents for LLM workflows"
+    compliance: "GDPR,CCPA,HIPAA,SOC2"
+    boundaries: "no-inference,no-prompt-modify,no-routing,no-orchestration"
+
+# =============================================================================
+# GLOBAL CONFIGURATION
+# =============================================================================
+
+global:
+  project: ${GCP_PROJECT_ID}
+  region: us-central1
+  runtime: nodejs20
+  serviceAccount: llm-data-vault-agent@${GCP_PROJECT_ID}.iam.gserviceaccount.com
+
+  # Common environment variables for all functions
+  environmentVariables:
+    NODE_ENV: production
+    LOG_LEVEL: info
+    AGENT_VERSION: "0.1.0"
+    REGISTRY_NAMESPACE: llm-data-vault
+
+    # Integration endpoints
+    POLICY_ENGINE_URL: ${POLICY_ENGINE_URL}
+    ORCHESTRATOR_CALLBACK_URL: ${ORCHESTRATOR_CALLBACK_URL}
+    INFERENCE_GATEWAY_URL: ${INFERENCE_GATEWAY_URL}
+    EVENT_STORE_URL: ${EVENT_STORE_URL}
+
+    # Telemetry configuration
+    OTEL_EXPORTER_OTLP_ENDPOINT: ${OTEL_ENDPOINT}
+    OTEL_SERVICE_NAME: llm-data-vault
+
+  # Common VPC configuration
+  vpcConnector: projects/${GCP_PROJECT_ID}/locations/us-central1/connectors/llm-dev-ops-vpc
+  vpcConnectorEgressSettings: PRIVATE_RANGES_ONLY
+
+  # Common ingress settings
+  ingressSettings: ALLOW_ALL  # Can be restricted to ALLOW_INTERNAL_AND_GCLB for production
+
+# =============================================================================
+# FUNCTION DEFINITIONS
+# =============================================================================
+
+functions:
+  # ---------------------------------------------------------------------------
+  # AUTHORIZE FUNCTION
+  # ---------------------------------------------------------------------------
+  - name: llm-data-vault-authorize
+    description: |
+      Validates and authorizes data access requests against configured policies.
+      Emits DecisionEvents for governance auditing.
+
+      BOUNDARIES:
+      - Does NOT execute LLM inference
+      - Does NOT modify prompts
+      - Does NOT route requests to other services
+      - Does NOT trigger workflow orchestration
+
+    entryPoint: authorizeHandler
+    source: ./agents/dist/functions
+
+    trigger:
+      httpTrigger:
+        securityLevel: SECURE_ALWAYS
+        cors:
+          allowOrigins:
+            - "https://*.llm-dev-ops.io"
+            - "https://console.cloud.google.com"
+          allowMethods:
+            - POST
+            - OPTIONS
+          allowHeaders:
+            - Content-Type
+            - Authorization
+            - X-Request-Id
+            - X-Correlation-Id
+          maxAge: 3600
+
+    # Resource allocation
+    memory: 512Mi
+    cpu: 1
+    timeout: 30s
+    minInstances: 1
+    maxInstances: 100
+    concurrency: 80
+
+    # Environment variables specific to this function
+    environmentVariables:
+      FUNCTION_NAME: authorize
+      MAX_PAYLOAD_SIZE_BYTES: "1048576"  # 1MB
+      CACHE_TTL_SECONDS: "300"
+
+    # IAM permissions required
+    serviceAccountPermissions:
+      - roles/secretmanager.secretAccessor
+      - roles/cloudtrace.agent
+      - roles/monitoring.metricWriter
+      - roles/logging.logWriter
+
+    # Labels for organization
+    labels:
+      function-type: authorization
+      criticality: high
+      data-classification: sensitive
+
+  # ---------------------------------------------------------------------------
+  # ANONYMIZE FUNCTION
+  # ---------------------------------------------------------------------------
+  - name: llm-data-vault-anonymize
+    description: |
+      Detects and anonymizes PII/sensitive data in datasets.
+      Supports multiple strategies: redact, mask, hash, encrypt, generalize.
+      Tracks data lineage for compliance.
+
+      BOUNDARIES:
+      - Does NOT execute LLM inference
+      - Does NOT modify prompts
+      - Does NOT route requests to other services
+      - Does NOT trigger workflow orchestration
+
+    entryPoint: anonymizeHandler
+    source: ./agents/dist/functions
+
+    trigger:
+      httpTrigger:
+        securityLevel: SECURE_ALWAYS
+        cors:
+          allowOrigins:
+            - "https://*.llm-dev-ops.io"
+          allowMethods:
+            - POST
+            - OPTIONS
+          allowHeaders:
+            - Content-Type
+            - Authorization
+            - X-Request-Id
+            - X-Correlation-Id
+          maxAge: 3600
+
+    # Higher resource allocation for data processing
+    memory: 2Gi
+    cpu: 2
+    timeout: 300s  # 5 minutes for large datasets
+    minInstances: 0
+    maxInstances: 50
+    concurrency: 10  # Lower concurrency due to memory usage
+
+    environmentVariables:
+      FUNCTION_NAME: anonymize
+      MAX_PAYLOAD_SIZE_BYTES: "10485760"  # 10MB
+      MAX_RECORDS_PER_REQUEST: "10000"
+      PII_DETECTION_CONFIDENCE_THRESHOLD: "0.85"
+      TRACK_LINEAGE: "true"
+
+    serviceAccountPermissions:
+      - roles/secretmanager.secretAccessor
+      - roles/cloudtrace.agent
+      - roles/monitoring.metricWriter
+      - roles/logging.logWriter
+      - roles/storage.objectViewer  # For reading source datasets
+
+    labels:
+      function-type: anonymization
+      criticality: high
+      data-classification: pii
+
+  # ---------------------------------------------------------------------------
+  # HEALTH FUNCTION
+  # ---------------------------------------------------------------------------
+  - name: llm-data-vault-health
+    description: |
+      Health check endpoint for monitoring and load balancer probes.
+      Returns status of all components and dependencies.
+
+    entryPoint: healthHandler
+    source: ./agents/dist/functions
+
+    trigger:
+      httpTrigger:
+        securityLevel: SECURE_OPTIONAL  # Allow unauthenticated health checks
+
+    # Minimal resources for health checks
+    memory: 128Mi
+    cpu: 0.083  # 1/12 CPU
+    timeout: 10s
+    minInstances: 1
+    maxInstances: 10
+    concurrency: 100
+
+    environmentVariables:
+      FUNCTION_NAME: health
+      HEALTH_CHECK_TIMEOUT_MS: "5000"
+
+    labels:
+      function-type: health
+      criticality: low
+
+  # ---------------------------------------------------------------------------
+  # DETECT-PII FUNCTION
+  # ---------------------------------------------------------------------------
+  - name: llm-data-vault-detect-pii
+    description: |
+      Scans data for PII without transforming it.
+      Returns detected PII types, locations, and confidence scores.
+
+      BOUNDARIES:
+      - Does NOT execute LLM inference
+      - Does NOT modify the input data
+      - Does NOT route requests to other services
+
+    entryPoint: detectPiiHandler
+    source: ./agents/dist/functions
+
+    trigger:
+      httpTrigger:
+        securityLevel: SECURE_ALWAYS
+
+    memory: 1Gi
+    cpu: 1
+    timeout: 60s
+    minInstances: 0
+    maxInstances: 30
+    concurrency: 20
+
+    environmentVariables:
+      FUNCTION_NAME: detect-pii
+      MAX_PAYLOAD_SIZE_BYTES: "5242880"  # 5MB
+      DETECTION_MODE: "scan-only"
+
+    labels:
+      function-type: detection
+      criticality: medium
+
+  # ---------------------------------------------------------------------------
+  # ENCRYPT FUNCTION
+  # ---------------------------------------------------------------------------
+  - name: llm-data-vault-encrypt
+    description: |
+      Encrypts data using AES-256-GCM with KMS-managed keys.
+      Supports envelope encryption for large datasets.
+
+      BOUNDARIES:
+      - Does NOT execute LLM inference
+      - Does NOT modify prompts
+      - Does NOT route requests to other services
+
+    entryPoint: encryptHandler
+    source: ./agents/dist/functions
+
+    trigger:
+      httpTrigger:
+        securityLevel: SECURE_ALWAYS
+
+    memory: 1Gi
+    cpu: 2
+    timeout: 120s
+    minInstances: 0
+    maxInstances: 20
+    concurrency: 10
+
+    environmentVariables:
+      FUNCTION_NAME: encrypt
+      MAX_PAYLOAD_SIZE_BYTES: "104857600"  # 100MB
+      KMS_KEY_RING: llm-data-vault-keys
+      KMS_KEY_NAME: data-encryption-key
+      ENCRYPTION_ALGORITHM: AES-256-GCM
+
+    serviceAccountPermissions:
+      - roles/cloudkms.cryptoKeyEncrypterDecrypter
+      - roles/secretmanager.secretAccessor
+
+    labels:
+      function-type: encryption
+      criticality: critical
+      data-classification: encrypted
+
+  # ---------------------------------------------------------------------------
+  # DECISION EVENT HANDLER
+  # ---------------------------------------------------------------------------
+  - name: llm-data-vault-event-handler
+    description: |
+      Consumes DecisionEvents from other agents for audit correlation.
+      Persists events to the governance event store.
+
+    entryPoint: eventHandler
+    source: ./agents/dist/functions
+
+    trigger:
+      eventTrigger:
+        eventType: google.cloud.pubsub.topic.v1.messagePublished
+        pubsubTopic: projects/${GCP_PROJECT_ID}/topics/governance-decision-events
+        retryPolicy:
+          minimumBackoff: 10s
+          maximumBackoff: 600s
+
+    memory: 256Mi
+    cpu: 0.5
+    timeout: 60s
+    minInstances: 1
+    maxInstances: 20
+
+    environmentVariables:
+      FUNCTION_NAME: event-handler
+      EVENT_BATCH_SIZE: "100"
+      EVENT_FLUSH_INTERVAL_MS: "5000"
+
+    labels:
+      function-type: event-consumer
+      criticality: medium
+
+# =============================================================================
+# SECRETS CONFIGURATION
+# =============================================================================
+
+secrets:
+  - name: POLICY_ENGINE_API_KEY
+    secretManagerRef: projects/${GCP_PROJECT_ID}/secrets/policy-engine-api-key
+    version: latest
+
+  - name: EVENT_STORE_API_KEY
+    secretManagerRef: projects/${GCP_PROJECT_ID}/secrets/event-store-api-key
+    version: latest
+
+  - name: ENCRYPTION_MASTER_KEY
+    secretManagerRef: projects/${GCP_PROJECT_ID}/secrets/encryption-master-key
+    version: latest
+
+# =============================================================================
+# IAM CONFIGURATION
+# =============================================================================
+
+iam:
+  # Service account for the functions
+  serviceAccount:
+    name: llm-data-vault-agent
+    displayName: LLM Data Vault Agent Service Account
+    description: Service account for LLM-Data-Vault Cloud Functions
+
+  # Bindings for the service account
+  bindings:
+    - role: roles/secretmanager.secretAccessor
+      members:
+        - serviceAccount:llm-data-vault-agent@${GCP_PROJECT_ID}.iam.gserviceaccount.com
+
+    - role: roles/cloudkms.cryptoKeyEncrypterDecrypter
+      members:
+        - serviceAccount:llm-data-vault-agent@${GCP_PROJECT_ID}.iam.gserviceaccount.com
+
+    - role: roles/pubsub.subscriber
+      members:
+        - serviceAccount:llm-data-vault-agent@${GCP_PROJECT_ID}.iam.gserviceaccount.com
+
+    - role: roles/pubsub.publisher
+      members:
+        - serviceAccount:llm-data-vault-agent@${GCP_PROJECT_ID}.iam.gserviceaccount.com
+
+  # Invoker permissions for authenticated access
+  invokerBindings:
+    - function: llm-data-vault-authorize
+      members:
+        - serviceAccount:llm-orchestrator@${GCP_PROJECT_ID}.iam.gserviceaccount.com
+        - serviceAccount:llm-inference-gateway@${GCP_PROJECT_ID}.iam.gserviceaccount.com
+
+    - function: llm-data-vault-anonymize
+      members:
+        - serviceAccount:llm-orchestrator@${GCP_PROJECT_ID}.iam.gserviceaccount.com
+
+    - function: llm-data-vault-health
+      members:
+        - allUsers  # Health checks can be public
+
+# =============================================================================
+# MONITORING CONFIGURATION
+# =============================================================================
+
+monitoring:
+  # Alert policies
+  alertPolicies:
+    - name: high-error-rate
+      displayName: High Error Rate Alert
+      conditionThreshold:
+        filter: |
+          resource.type="cloud_function"
+          resource.labels.function_name=starts_with("llm-data-vault-")
+          metric.type="cloudfunctions.googleapis.com/function/execution_count"
+          metric.labels.status!="ok"
+        comparison: COMPARISON_GT
+        thresholdValue: 10
+        duration: 300s
+        aggregations:
+          - alignmentPeriod: 60s
+            perSeriesAligner: ALIGN_RATE
+      notificationChannels:
+        - ${ALERT_NOTIFICATION_CHANNEL}
+
+    - name: high-latency
+      displayName: High Latency Alert
+      conditionThreshold:
+        filter: |
+          resource.type="cloud_function"
+          resource.labels.function_name=starts_with("llm-data-vault-")
+          metric.type="cloudfunctions.googleapis.com/function/execution_times"
+        comparison: COMPARISON_GT
+        thresholdValue: 5000  # 5 seconds
+        duration: 300s
+        aggregations:
+          - alignmentPeriod: 60s
+            perSeriesAligner: ALIGN_PERCENTILE_99
+
+    - name: decision-event-failure
+      displayName: Decision Event Emission Failure
+      conditionThreshold:
+        filter: |
+          resource.type="cloud_function"
+          metric.type="logging.googleapis.com/user/decision_event_emission_failed"
+        comparison: COMPARISON_GT
+        thresholdValue: 0
+        duration: 60s
+
+  # Custom metrics
+  customMetrics:
+    - name: decision_events_emitted
+      displayName: Decision Events Emitted
+      description: Count of DecisionEvents emitted by the agent
+      metricKind: DELTA
+      valueType: INT64
+      unit: "1"
+      labels:
+        - key: decision_type
+          valueType: STRING
+        - key: function_name
+          valueType: STRING
+
+    - name: pii_detections
+      displayName: PII Detections
+      description: Count of PII instances detected
+      metricKind: DELTA
+      valueType: INT64
+      unit: "1"
+      labels:
+        - key: pii_type
+          valueType: STRING
+        - key: confidence_bucket
+          valueType: STRING
+
+    - name: anonymization_transformations
+      displayName: Anonymization Transformations
+      description: Count of data transformations performed
+      metricKind: DELTA
+      valueType: INT64
+      unit: "1"
+      labels:
+        - key: transformation_type
+          valueType: STRING
+        - key: field_type
+          valueType: STRING
+
+# =============================================================================
+# LOGGING CONFIGURATION
+# =============================================================================
+
+logging:
+  # Log sink for audit logs
+  sinks:
+    - name: audit-log-sink
+      destination: bigquery.googleapis.com/projects/${GCP_PROJECT_ID}/datasets/llm_audit_logs
+      filter: |
+        resource.type="cloud_function"
+        resource.labels.function_name=starts_with("llm-data-vault-")
+        jsonPayload.eventType="DecisionEvent"
+
+    - name: security-log-sink
+      destination: storage.googleapis.com/${GCP_PROJECT_ID}-security-logs
+      filter: |
+        resource.type="cloud_function"
+        resource.labels.function_name=starts_with("llm-data-vault-")
+        severity>=WARNING
+
+  # Exclusions to reduce noise
+  exclusions:
+    - name: health-check-exclusion
+      description: Exclude routine health check logs
+      filter: |
+        resource.type="cloud_function"
+        resource.labels.function_name="llm-data-vault-health"
+        httpRequest.status=200
+
+# =============================================================================
+# DEPLOYMENT CONFIGURATION
+# =============================================================================
+
+deployment:
+  # Blue-green deployment strategy
+  strategy: BLUE_GREEN
+
+  # Rollout configuration
+  rollout:
+    canaryPercent: 10
+    stableDuration: 300s  # 5 minutes before full rollout
+
+  # Rollback triggers
+  rollbackTriggers:
+    - errorRateThreshold: 0.05  # 5% error rate
+      latencyP99Threshold: 10000  # 10 seconds
+
+  # Pre-deployment checks
+  preDeploymentChecks:
+    - name: contract-validation
+      command: npm run test:contracts
+      timeout: 120s
+
+    - name: smoke-tests
+      command: npm run test:smoke
+      timeout: 180s
+
+  # Post-deployment validation
+  postDeploymentValidation:
+    - endpoint: /health
+      expectedStatus: 200
+      timeout: 30s

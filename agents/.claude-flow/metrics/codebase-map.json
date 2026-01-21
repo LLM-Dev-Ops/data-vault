@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-01-21T22:08:36.068Z",
+  "projectRoot": "/workspaces/data-vault/agents",
+  "structure": {
+    "hasPackageJson": true,
+    "hasTsConfig": true,
+    "hasClaudeConfig": false,
+    "hasClaudeFlow": true
+  },
+  "scannedAt": 1769033316068
+}

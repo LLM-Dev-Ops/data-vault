@@ -3,14 +3,49 @@
   "version": "0.1.0",
   "description": "Enterprise-grade secure storage and anonymization for LLM data",
   "private": true,
+  "type": "module",
+  "main": "./dist/cli/index.js",
+  "types": "./dist/cli/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/cli/index.js",
+      "types": "./dist/cli/index.d.ts"
+    },
+    "./runtime": {
+      "import": "./dist/runtime/index.js",
+      "types": "./dist/runtime/index.d.ts"
+    }
+  },
+  "bin": {
+    "data-vault": "./dist/cli/cli.js"
+  },
   "scripts": {
     "dev": "claude-flow swarm start",
-    "test": "claude-flow test"
+    "test": "claude-flow test",
+    "build": "tsc -p tsconfig.json",
+    "build:runtime": "tsc -p src/runtime/tsconfig.json",
+    "build:watch": "tsc -p tsconfig.json --watch",
+    "cli": "tsx src/cli/cli.ts",
+    "runtime:dev": "tsx src/runtime/entry.ts",
+    "lint": "eslint src/**/*.ts",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "claude-flow": "^2.7.41"
+    "@google-cloud/functions-framework": "^3.4.0",
+    "@opentelemetry/api": "^1.7.0",
+    "chalk": "^5.3.0",
+    "cli-table3": "^0.6.3",
+    "claude-flow": "^2.7.41",
+    "commander": "^12.1.0",
+    "ora": "^8.0.1",
+    "undici": "^6.6.0",
+    "zod": "^3.22.4"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.0"
+  },
   "engines": {
     "node": ">=18.0.0"
   },

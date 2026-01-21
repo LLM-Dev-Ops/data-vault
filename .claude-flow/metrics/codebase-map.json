@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-01-21T22:09:17.461Z",
+  "projectRoot": "/workspaces/data-vault",
+  "structure": {
+    "hasPackageJson": true,
+    "hasTsConfig": true,
+    "hasClaudeConfig": true,
+    "hasClaudeFlow": true
+  },
+  "scannedAt": 1769033357461
+}

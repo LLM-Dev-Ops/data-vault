@@ -1,0 +1,63 @@
+# Google Cloud Functions deployment configuration
+# LLM-Data-Vault: Dataset Anonymization Agent
+
+# Function: anonymization-function
+anonymization-function:
+  name: data-vault-anonymization
+  description: "Dataset Anonymization Agent - Apply privacy-preserving transformations"
+  runtime: nodejs20
+  region: us-central1
+  memory: 512MB
+  timeout: 60s
+  minInstances: 0
+  maxInstances: 100
+
+  # Entry point
+  entryPoint: anonymizationFunction
+  source: ./dist
+
+  # Environment variables
+  environmentVariables:
+    NODE_ENV: production
+    AGENT_ID: data-vault.anonymization.v1
+    AGENT_VERSION: "0.1.0"
+    LOG_LEVEL: info
+
+  # Secrets (from Secret Manager)
+  secretEnvironmentVariables:
+    - key: RUVECTOR_SERVICE_API_KEY
+      secret: ruvector-api-key
+      version: latest
+
+  # VPC connector for internal services
+  vpcConnector: projects/${PROJECT_ID}/locations/${REGION}/connectors/data-vault-vpc
+
+  # Ingress settings
+  ingressSettings: ALLOW_ALL
+
+  # Service account
+  serviceAccount: data-vault-agent@${PROJECT_ID}.iam.gserviceaccount.com
+
+  # Labels
+  labels:
+    service: llm-data-vault
+    agent: anonymization
+    version: v1
+    team: data-vault
+
+# Health check function (optional, for load balancer)
+health-check:
+  name: data-vault-health
+  description: "Health check endpoint for Data-Vault agents"
+  runtime: nodejs20
+  region: us-central1
+  memory: 128MB
+  timeout: 10s
+  minInstances: 1
+  maxInstances: 10
+  entryPoint: healthCheck
+  source: ./dist
+  ingressSettings: ALLOW_ALL
+  labels:
+    service: llm-data-vault
+    type: health-check

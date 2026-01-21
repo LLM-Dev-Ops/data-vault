@@ -1,0 +1,65 @@
+{
+  "name": "@llm-data-vault/agents",
+  "version": "0.1.0",
+  "description": "LLM-Data-Vault Agent Infrastructure for Google Cloud Edge Functions",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/functions/server.js",
+    "clean": "rm -rf dist",
+    "test": "vitest",
+    "test:smoke": "vitest run src/tests/smoke-tests.ts",
+    "test:contracts": "vitest run src/tests/contract-tests.ts",
+    "test:boundaries": "vitest run --grep 'Boundary'",
+    "verify:all": "npm run lint && npm run test:contracts && npm run test:smoke && npm run test:boundaries",
+    "lint": "eslint src --ext .ts || true",
+    "deploy": "gcloud functions deploy",
+    "deploy:all": "./deploy/scripts/deploy-all.sh",
+    "cli": "ts-node src/cli/index.ts",
+    "gcp-build": "npm run build"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./contracts": {
+      "import": "./dist/contracts/index.js",
+      "types": "./dist/contracts/index.d.ts"
+    },
+    "./functions": {
+      "import": "./dist/functions/index.js",
+      "types": "./dist/functions/index.d.ts"
+    },
+    "./platform": {
+      "import": "./dist/platform/index.js",
+      "types": "./dist/platform/index.d.ts"
+    }
+  },
+  "dependencies": {
+    "@google-cloud/functions-framework": "^3.4.0",
+    "zod": "^3.22.4",
+    "uuid": "^9.0.1",
+    "pino": "^8.17.2",
+    "pino-pretty": "^10.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/uuid": "^9.0.7",
+    "typescript": "^5.3.3",
+    "vitest": "^1.1.0",
+    "tsx": "^4.7.0",
+    "eslint": "^8.56.0",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "files": [
+    "dist",
+    "src"
+  ]
+}
