@@ -1,51 +1,51 @@
 {
   "running": true,
-  "startedAt": "2026-01-21T21:53:36.011Z",
+  "startedAt": "2026-01-21T21:24:17.429Z",
   "workers": {
     "map": {
+      "runCount": 4,
+      "successCount": 4,
+      "failureCount": 0,
+      "averageDurationMs": 0.25,
+      "isRunning": false,
+      "nextRun": "2026-01-21T22:24:17.462Z",
+      "lastRun": "2026-01-21T22:09:17.461Z"
+    },
+    "audit": {
+      "runCount": 3,
+      "successCount": 0,
+      "failureCount": 3,
+      "averageDurationMs": 0,
+      "isRunning": true,
+      "nextRun": "2026-01-21T22:11:17.717Z",
+      "lastRun": "2026-01-21T22:01:17.717Z"
+    },
+    "optimize": {
+      "runCount": 3,
+      "successCount": 0,
+      "failureCount": 3,
+      "averageDurationMs": 0,
+      "isRunning": false,
+      "nextRun": "2026-01-21T22:08:54.248Z",
+      "lastRun": "2026-01-21T22:13:54.305Z"
+    },
+    "consolidate": {
       "runCount": 2,
       "successCount": 2,
       "failureCount": 0,
-      "averageDurationMs": 0.5,
+      "averageDurationMs": 0,
       "isRunning": false,
-      "nextRun": "2026-01-21T22:23:36.068Z",
-      "lastRun": "2026-01-21T22:08:36.068Z"
+      "nextRun": "2026-01-21T22:30:17.599Z",
+      "lastRun": "2026-01-21T22:01:17.718Z"
     },
-    "audit": {
+    "testgaps": {
       "runCount": 2,
       "successCount": 0,
       "failureCount": 2,
       "averageDurationMs": 0,
       "isRunning": false,
-      "nextRun": "2026-01-21T22:10:36.043Z",
-      "lastRun": "2026-01-21T22:15:36.186Z"
-    },
-    "optimize": {
-      "runCount": 1,
-      "successCount": 0,
-      "failureCount": 1,
-      "averageDurationMs": 0,
-      "isRunning": false,
-      "nextRun": "2026-01-21T22:17:36.055Z",
-      "lastRun": "2026-01-21T22:02:36.054Z"
-    },
-    "consolidate": {
-      "runCount": 1,
-      "successCount": 1,
-      "failureCount": 0,
-      "averageDurationMs": 1,
-      "isRunning": false,
-      "nextRun": "2026-01-21T22:29:36.077Z",
-      "lastRun": "2026-01-21T22:00:36.044Z"
-    },
-    "testgaps": {
-      "runCount": 1,
-      "successCount": 0,
-      "failureCount": 1,
-      "averageDurationMs": 0,
-      "isRunning": false,
-      "nextRun": "2026-01-21T22:26:36.098Z",
-      "lastRun": "2026-01-21T22:06:36.098Z"
+      "nextRun": "2026-01-21T22:23:54.194Z",
+      "lastRun": "2026-01-21T22:03:54.194Z"
     },
     "predict": {
       "runCount": 0,
@@ -64,8 +64,8 @@
   },
   "config": {
     "autoStart": false,
-    "logDir": "/workspaces/data-vault/agents/.claude-flow/logs",
-    "stateFile": "/workspaces/data-vault/agents/.claude-flow/daemon-state.json",
+    "logDir": "/workspaces/data-vault/.claude-flow/logs",
+    "stateFile": "/workspaces/data-vault/.claude-flow/daemon-state.json",
     "maxConcurrent": 2,
     "workerTimeoutMs": 300000,
     "resourceThresholds": {
@@ -131,5 +131,5 @@
       }
     ]
   },
-  "savedAt": "2026-01-21T22:15:36.186Z"
+  "savedAt": "2026-01-21T22:13:54.305Z"
 }
