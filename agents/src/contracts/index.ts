@@ -17,8 +17,10 @@ export {
   AppliedConstraintSchema,
   ConfidenceBreakdownSchema,
   DecisionEventSchema,
+  Phase7IdentitySchema,
   validateDecisionEvent,
   createDecisionEvent,
+  getPhase7Identity,
 } from './decision-event.js';
 
 export type {
@@ -27,6 +29,7 @@ export type {
   AppliedConstraint,
   ConfidenceBreakdown,
   DecisionEvent,
+  Phase7Identity,
 } from './decision-event.js';
 
 // =============================================================================

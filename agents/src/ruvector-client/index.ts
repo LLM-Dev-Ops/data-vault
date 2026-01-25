@@ -285,16 +285,34 @@ export class RuVectorClient {
 
 /**
  * Create RuVector client from environment
+ *
+ * STANDARDIZED ENVIRONMENT VARIABLES (matching Google Secret Manager names):
+ * - RUVECTOR_SERVICE_URL: Service endpoint URL (required)
+ * - RUVECTOR_API_KEY: API key for authentication (required, from Secret Manager)
+ *
+ * NOTE: Legacy variable names (RUVECTOR_SERVICE_ENDPOINT, RUVECTOR_SERVICE_API_KEY)
+ * are supported for backward compatibility but deprecated.
  */
 export function createRuVectorClient(): RuVectorClient {
-  const endpoint = process.env['RUVECTOR_SERVICE_ENDPOINT'];
-  const apiKey = process.env['RUVECTOR_SERVICE_API_KEY'];
+  // Use standardized names, fall back to legacy names for backward compatibility
+  const endpoint = process.env['RUVECTOR_SERVICE_URL']
+    ?? process.env['RUVECTOR_SERVICE_ENDPOINT'];
+  const apiKey = process.env['RUVECTOR_API_KEY']
+    ?? process.env['RUVECTOR_SERVICE_API_KEY'];
 
   if (!endpoint) {
-    throw new Error('RUVECTOR_SERVICE_ENDPOINT environment variable is required');
+    throw new Error('RUVECTOR_SERVICE_URL environment variable is required');
   }
   if (!apiKey) {
-    throw new Error('RUVECTOR_SERVICE_API_KEY environment variable is required');
+    throw new Error('RUVECTOR_API_KEY environment variable is required (should come from Secret Manager)');
+  }
+
+  // Warn if using deprecated variable names
+  if (process.env['RUVECTOR_SERVICE_ENDPOINT'] && !process.env['RUVECTOR_SERVICE_URL']) {
+    console.warn('DEPRECATION WARNING: RUVECTOR_SERVICE_ENDPOINT is deprecated, use RUVECTOR_SERVICE_URL');
+  }
+  if (process.env['RUVECTOR_SERVICE_API_KEY'] && !process.env['RUVECTOR_API_KEY']) {
+    console.warn('DEPRECATION WARNING: RUVECTOR_SERVICE_API_KEY is deprecated, use RUVECTOR_API_KEY');
   }
 
   return new RuVectorClient({

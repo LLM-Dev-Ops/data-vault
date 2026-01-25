@@ -83,7 +83,7 @@ steps:
       - '--timeout'
       - '60s'
       - '--set-env-vars'
-      - 'SERVICE_NAME=${_SERVICE_NAME},SERVICE_VERSION=$COMMIT_SHA,PLATFORM_ENV=${_PLATFORM_ENV},NODE_ENV=production'
+      - 'SERVICE_NAME=${_SERVICE_NAME},SERVICE_VERSION=$COMMIT_SHA,PLATFORM_ENV=${_PLATFORM_ENV},NODE_ENV=production,AGENT_PHASE=phase7,AGENT_LAYER=layer2,AGENT_DOMAIN=data-vault,AGENT_NAME=llm-data-vault'
       - '--set-secrets'
       - 'RUVECTOR_API_KEY=ruvector-api-key:latest,RUVECTOR_SERVICE_URL=ruvector-service-url:latest,TELEMETRY_ENDPOINT=telemetry-endpoint:latest'
       - '--service-account'

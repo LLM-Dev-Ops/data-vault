@@ -24,6 +24,32 @@ export type TelemetryEventType =
   | 'policy_evaluation_completed';
 
 /**
+ * Phase 7 identity fields for telemetry events
+ */
+export interface Phase7TelemetryIdentity {
+  /** Source agent name (from AGENT_NAME env or agent_id) */
+  source_agent: string;
+  /** Agent domain (from AGENT_DOMAIN env or "data-vault") */
+  domain: string;
+  /** Phase identifier - always "phase7" */
+  phase: 'phase7';
+  /** Layer identifier - always "layer2" */
+  layer: 'layer2';
+}
+
+/**
+ * Get Phase 7 identity from environment variables with defaults
+ */
+export function getPhase7TelemetryIdentity(agentId: string): Phase7TelemetryIdentity {
+  return {
+    source_agent: process.env['AGENT_NAME'] ?? agentId,
+    domain: process.env['AGENT_DOMAIN'] ?? 'data-vault',
+    phase: 'phase7',
+    layer: 'layer2',
+  };
+}
+
+/**
  * Telemetry event payload
  */
 export interface TelemetryEvent {
@@ -36,6 +62,8 @@ export interface TelemetryEvent {
   tenant_id?: string;
   duration_ms?: number;
   metadata?: Record<string, unknown>;
+  /** Phase 7 identity metadata */
+  phase7_identity?: Phase7TelemetryIdentity;
 }
 
 /**
@@ -114,6 +142,9 @@ export class TelemetryEmitter {
    * Emit a telemetry event
    */
   emit(event: TelemetryEvent): void {
+    // Auto-populate Phase 7 identity if not provided
+    const phase7_identity = event.phase7_identity ?? getPhase7TelemetryIdentity(event.agent_id);
+
     // Log event in structured format for LLM-Observatory
     this.logger.info({
       event_type: event.event_type,
@@ -123,6 +154,11 @@ export class TelemetryEmitter {
       agent_id: event.agent_id,
       agent_version: event.agent_version,
       duration_ms: event.duration_ms,
+      // Phase 7 identity fields
+      source_agent: phase7_identity.source_agent,
+      domain: phase7_identity.domain,
+      phase: phase7_identity.phase,
+      layer: phase7_identity.layer,
       ...event.metadata,
     }, `${event.event_type}`);
 
@@ -155,6 +191,7 @@ export class TelemetryEmitter {
       execution_ref: executionRef,
       correlation_id: correlationId,
       tenant_id: tenantId,
+      phase7_identity: getPhase7TelemetryIdentity(agentId),
     });
     this.metrics.invocations_total++;
   }
@@ -178,6 +215,7 @@ export class TelemetryEmitter {
       execution_ref: executionRef,
       duration_ms: durationMs,
       metadata,
+      phase7_identity: getPhase7TelemetryIdentity(agentId),
     });
 
     if (success) {
@@ -205,6 +243,7 @@ export class TelemetryEmitter {
       agent_version: '',
       execution_ref: executionRef,
       metadata: { pii_count: piiCount, pii_types: piiTypes },
+      phase7_identity: getPhase7TelemetryIdentity(agentId),
     });
     this.metrics.pii_detections_total += piiCount;
   }
@@ -225,6 +264,7 @@ export class TelemetryEmitter {
       agent_version: '',
       execution_ref: executionRef,
       metadata: { fields_anonymized: fieldsAnonymized, strategies },
+      phase7_identity: getPhase7TelemetryIdentity(agentId),
     });
     this.metrics.anonymizations_total += fieldsAnonymized;
   }
@@ -245,6 +285,7 @@ export class TelemetryEmitter {
       agent_version: '',
       execution_ref: executionRef,
       metadata: { granted, reason },
+      phase7_identity: getPhase7TelemetryIdentity(agentId),
     });
 
     if (granted) {

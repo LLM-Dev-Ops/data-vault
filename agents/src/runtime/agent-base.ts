@@ -15,7 +15,14 @@ import {
   DecisionType,
   AppliedConstraint,
   ConfidenceBreakdown,
+  getPhase7Identity,
 } from '../contracts/index.js';
+import {
+  BudgetEnforcer,
+  BudgetExceededError,
+  PerformanceBudget,
+  DEFAULT_BUDGETS,
+} from './performance-budget.js';
 
 /**
  * Agent classification - determines what operations are allowed
@@ -143,13 +150,27 @@ export abstract class DataVaultAgent<TRequest, TResponse> {
   }>;
 
   /**
+   * Get performance budget for this agent
+   * Override to customize budgets for specific agents
+   */
+  protected getPerformanceBudget(): PerformanceBudget {
+    return DEFAULT_BUDGETS;
+  }
+
+  /**
    * Main invocation entry point
    *
    * This method:
-   * 1. Validates the request
-   * 2. Executes the core logic
-   * 3. Validates the response
-   * 4. Creates and returns a DecisionEvent
+   * 1. Initializes budget enforcer
+   * 2. Validates the request
+   * 3. Executes the core logic with budget checks
+   * 4. Validates the response
+   * 5. Creates and returns a DecisionEvent
+   *
+   * BUDGET ENFORCEMENT (Phase 7):
+   * - Execution time is checked against MAX_LATENCY_MS (5000ms)
+   * - If budget exceeded, execution is ABORTED with execution_aborted event
+   * - NO automatic retries on budget exceeded
    *
    * The DecisionEvent MUST be persisted to ruvector-service by the caller.
    */
@@ -157,25 +178,37 @@ export abstract class DataVaultAgent<TRequest, TResponse> {
     request: unknown,
     context: ExecutionContext
   ): Promise<AgentResult<TResponse>> {
-    const startTime = performance.now();
+    // Initialize budget enforcer for this execution
+    const budgetEnforcer = new BudgetEnforcer(this.getPerformanceBudget());
 
     try {
       // Validate request
       const validatedRequest = this.validateRequest(request);
 
+      // Check budget after validation
+      budgetEnforcer.checkLatency();
+
       // Hash inputs for auditability
       const inputsHash = await hashInputs(validatedRequest);
 
-      // Execute core logic
-      const { response, confidence, constraints } = await this.executeCore(
-        validatedRequest,
-        context
+      // Check budget after hashing
+      budgetEnforcer.checkLatency();
+
+      // Execute core logic with budget wrapper
+      const { response, confidence, constraints } = await budgetEnforcer.withLatencyCheck(
+        () => this.executeCore(validatedRequest, context)
       );
+
+      // Check budget after core execution
+      budgetEnforcer.checkLatency();
 
       // Validate response
       const validatedResponse = this.validateResponse(response);
 
-      // Create DecisionEvent
+      // Final budget check before creating event
+      budgetEnforcer.checkLatency();
+
+      // Create DecisionEvent with Phase 7 identity
       const decisionEvent = createDecisionEvent({
         agent_id: this.metadata.agent_id,
         agent_version: this.metadata.agent_version,
@@ -189,9 +222,13 @@ export abstract class DataVaultAgent<TRequest, TResponse> {
         parent_execution_ref: context.parent_execution_ref,
         tenant_id: context.tenant_id,
         request_source: context.request_source,
+        phase7_identity: getPhase7Identity(
+          this.metadata.agent_id,
+          this.metadata.agent_version
+        ),
       });
 
-      const executionTime = performance.now() - startTime;
+      const executionTime = budgetEnforcer.getElapsedMs();
 
       return {
         success: true,
@@ -200,10 +237,42 @@ export abstract class DataVaultAgent<TRequest, TResponse> {
         execution_time_ms: executionTime,
       };
     } catch (error) {
-      const executionTime = performance.now() - startTime;
+      const executionTime = budgetEnforcer.getElapsedMs();
+
+      // Handle budget exceeded errors specially
+      if (error instanceof BudgetExceededError) {
+        const inputsHash = await hashInputs(request).catch(() => 'hash-failed-' + Date.now());
+
+        // Create abort DecisionEvent for budget exceeded
+        const decisionEvent = budgetEnforcer.createAbortEvent({
+          agentId: this.metadata.agent_id,
+          agentVersion: this.metadata.agent_version,
+          inputsHash,
+          executionRef: context.execution_ref,
+          correlationId: context.correlation_id,
+          tenantId: context.tenant_id,
+          requestSource: context.request_source,
+        });
+
+        return {
+          success: false,
+          error: {
+            code: 'BUDGET_EXCEEDED',
+            message: error.message,
+            details: {
+              reason: error.reason,
+              limit: error.limit,
+              actual: error.actual,
+            },
+          },
+          decision_event: decisionEvent,
+          execution_time_ms: executionTime,
+        };
+      }
+
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
 
-      // Create failure DecisionEvent
+      // Create failure DecisionEvent with Phase 7 identity
       const decisionEvent = createDecisionEvent({
         agent_id: this.metadata.agent_id,
         agent_version: this.metadata.agent_version,
@@ -220,6 +289,10 @@ export abstract class DataVaultAgent<TRequest, TResponse> {
         correlation_id: context.correlation_id,
         tenant_id: context.tenant_id,
         request_source: context.request_source,
+        phase7_identity: getPhase7Identity(
+          this.metadata.agent_id,
+          this.metadata.agent_version
+        ),
       });
 
       return {

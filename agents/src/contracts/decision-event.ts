@@ -10,6 +10,43 @@
 import { z } from 'zod';
 
 /**
+ * Phase 7 Identity Schema
+ *
+ * Every DecisionEvent MUST include explicit Phase 7 identity metadata
+ * for proper attribution and tracing across the LLM-Data-Vault system.
+ */
+export const Phase7IdentitySchema = z.object({
+  /** Source agent name (from AGENT_NAME env or agent_id) */
+  source_agent: z.string().min(1),
+  /** Agent domain (from AGENT_DOMAIN env or "data-vault") */
+  domain: z.string().min(1),
+  /** Phase identifier - always "phase7" */
+  phase: z.literal('phase7'),
+  /** Layer identifier - always "layer2" */
+  layer: z.literal('layer2'),
+  /** Agent version (from AGENT_VERSION env or agent_version) */
+  agent_version: z.string().regex(/^\d+\.\d+\.\d+$/),
+});
+
+export type Phase7Identity = z.infer<typeof Phase7IdentitySchema>;
+
+/**
+ * Get Phase 7 identity from environment variables with defaults
+ */
+export function getPhase7Identity(
+  agentId: string,
+  agentVersion: string
+): Phase7Identity {
+  return {
+    source_agent: process.env['AGENT_NAME'] ?? agentId,
+    domain: process.env['AGENT_DOMAIN'] ?? 'data-vault',
+    phase: 'phase7',
+    layer: 'layer2',
+    agent_version: process.env['AGENT_VERSION'] ?? agentVersion,
+  };
+}
+
+/**
  * Decision types emitted by Data-Vault agents
  */
 export const DecisionTypeSchema = z.enum([
@@ -20,6 +57,7 @@ export const DecisionTypeSchema = z.enum([
   'dataset_inspection',
   'policy_violation',
   'privacy_transform_applied',
+  'execution_aborted',
 ]);
 
 export type DecisionType = z.infer<typeof DecisionTypeSchema>;
@@ -50,6 +88,9 @@ export const ConstraintTypeSchema = z.enum([
   'soc2_compliance',
   'data_residency',
   'retention_policy',
+
+  // Performance constraints (Phase 7)
+  'budget_exceeded',
 ]);
 
 export type ConstraintType = z.infer<typeof ConstraintTypeSchema>;
@@ -123,6 +164,9 @@ export const DecisionEventSchema = z.object({
     'cli',
     'api',
   ]).optional(),
+
+  // Phase 7 identity metadata (optional for backward compatibility)
+  phase7_identity: Phase7IdentitySchema.optional(),
 });
 
 export type DecisionEvent = z.infer<typeof DecisionEventSchema>;
@@ -136,6 +180,8 @@ export function validateDecisionEvent(event: unknown): DecisionEvent {
 
 /**
  * Create a new DecisionEvent with defaults
+ *
+ * Automatically populates phase7_identity from environment variables if not provided.
  */
 export function createDecisionEvent(
   partial: Omit<DecisionEvent, 'timestamp' | 'execution_ref'> & {
@@ -143,9 +189,16 @@ export function createDecisionEvent(
     timestamp?: string;
   }
 ): DecisionEvent {
+  // Auto-populate Phase 7 identity if not provided
+  const phase7_identity = partial.phase7_identity ?? getPhase7Identity(
+    partial.agent_id,
+    partial.agent_version
+  );
+
   return {
     ...partial,
     execution_ref: partial.execution_ref ?? crypto.randomUUID(),
     timestamp: partial.timestamp ?? new Date().toISOString(),
+    phase7_identity,
   };
 }

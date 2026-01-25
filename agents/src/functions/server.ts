@@ -10,6 +10,11 @@
  * - Shared runtime, configuration, telemetry
  * - All persistence via ruvector-service (NO direct SQL)
  *
+ * STARTUP BEHAVIOR:
+ * - FAIL-FAST: Service will CRASH if required environment variables are missing
+ * - Health check: RuVector service must be reachable before accepting traffic
+ * - This is intentional for Cloud Run - fail fast, let Cloud Run retry
+ *
  * @module functions/server
  */
 
@@ -18,49 +23,53 @@ import { URL } from 'url';
 import { AnonymizationFunctionHandler } from './anonymization-function.js';
 import { initTelemetry, getTelemetry } from '../telemetry/index.js';
 import { RuVectorClient } from '../ruvector-client/index.js';
+import {
+  runStartupValidation,
+  setValidatedConfig,
+  type EnvironmentConfig,
+} from '../startup/index.js';
 
 // =============================================================================
-// Configuration
+// Startup Validation (FAIL-FAST)
 // =============================================================================
 
-const CONFIG = {
-  serviceName: process.env['SERVICE_NAME'] ?? 'llm-data-vault',
-  serviceVersion: process.env['SERVICE_VERSION'] ?? '0.1.0',
-  platformEnv: process.env['PLATFORM_ENV'] ?? 'dev',
-  port: parseInt(process.env['PORT'] ?? '8080', 10),
-  ruvectorUrl: process.env['RUVECTOR_SERVICE_URL'] ?? 'https://ruvector-service.agentics.dev',
-  ruvectorApiKey: process.env['RUVECTOR_API_KEY'] ?? 'placeholder-ruvector-api-key',
-  telemetryEndpoint: process.env['TELEMETRY_ENDPOINT'],
-};
+// These will be initialized after startup validation
+let CONFIG: EnvironmentConfig;
+let ruvectorClient: RuVectorClient;
+let anonymizationHandler: AnonymizationFunctionHandler;
 
-// =============================================================================
-// Initialize Services
-// =============================================================================
+/**
+ * Initialize all services after validation passes
+ */
+function initializeServices(config: EnvironmentConfig): void {
+  CONFIG = config;
+  setValidatedConfig(config);
 
-// Initialize telemetry
-initTelemetry({
-  service_name: CONFIG.serviceName,
-  environment: CONFIG.platformEnv,
-  version: CONFIG.serviceVersion,
-  otlp_endpoint: CONFIG.telemetryEndpoint,
-  log_level: (process.env['LOG_LEVEL'] as 'debug' | 'info' | 'warn' | 'error') ?? 'info',
-});
+  // Initialize telemetry
+  initTelemetry({
+    service_name: config.serviceName,
+    environment: config.platformEnv,
+    version: config.serviceVersion,
+    otlp_endpoint: config.telemetryEndpoint,
+    log_level: config.logLevel,
+  });
 
-// Initialize ruvector client
-const ruvectorClient = new RuVectorClient({
-  endpoint: CONFIG.ruvectorUrl,
-  apiKey: CONFIG.ruvectorApiKey,
-});
+  // Initialize ruvector client
+  ruvectorClient = new RuVectorClient({
+    endpoint: config.ruvectorServiceUrl,
+    apiKey: config.ruvectorApiKey,
+  });
 
-// Initialize agent handlers
-const anonymizationHandler = new AnonymizationFunctionHandler({
-  agentId: 'data-vault.anonymization.v1',
-  agentVersion: CONFIG.serviceVersion,
-  environment: CONFIG.platformEnv,
-  ruvectorEndpoint: CONFIG.ruvectorUrl,
-  ruvectorApiKey: CONFIG.ruvectorApiKey,
-  otlpEndpoint: CONFIG.telemetryEndpoint,
-});
+  // Initialize agent handlers
+  anonymizationHandler = new AnonymizationFunctionHandler({
+    agentId: 'data-vault.anonymization.v1',
+    agentVersion: config.serviceVersion,
+    environment: config.platformEnv,
+    ruvectorEndpoint: config.ruvectorServiceUrl,
+    ruvectorApiKey: config.ruvectorApiKey,
+    otlpEndpoint: config.telemetryEndpoint,
+  });
+}
 
 // =============================================================================
 // Request Parsing
@@ -355,45 +364,71 @@ async function router(req: IncomingMessage, res: ServerResponse): Promise<void> 
 }
 
 // =============================================================================
-// Server Startup
+// Server Startup (with FAIL-FAST validation)
 // =============================================================================
 
-const server = createServer(router);
+let server: ReturnType<typeof createServer>;
 
-server.listen(CONFIG.port, () => {
-  console.log(`
-╔════════════════════════════════════════════════════════════╗
-║              LLM-Data-Vault Service Started                ║
-╠════════════════════════════════════════════════════════════╣
-║  Service: ${CONFIG.serviceName.padEnd(45)}║
-║  Version: ${CONFIG.serviceVersion.padEnd(45)}║
-║  Environment: ${CONFIG.platformEnv.padEnd(41)}║
-║  Port: ${String(CONFIG.port).padEnd(48)}║
-╠════════════════════════════════════════════════════════════╣
-║  Agents:                                                   ║
-║    - Data Access Control Agent    [READY]                  ║
-║    - Dataset Anonymization Agent  [READY]                  ║
-╠════════════════════════════════════════════════════════════╣
-║  Persistence: ruvector-service (NO direct SQL)             ║
-║  Telemetry: LLM-Observatory                                ║
-╚════════════════════════════════════════════════════════════╝
-  `);
-});
+/**
+ * Main entry point - runs startup validation then starts server
+ * CRASHES if validation fails (intentional for Cloud Run)
+ */
+async function main(): Promise<void> {
+  // STEP 1: Run startup validation (CRASHES on failure)
+  const config = await runStartupValidation();
 
-// Graceful shutdown
-process.on('SIGTERM', () => {
-  console.log('SIGTERM received, shutting down gracefully...');
-  server.close(() => {
-    console.log('Server closed');
-    process.exit(0);
+  // STEP 2: Initialize services with validated config
+  initializeServices(config);
+
+  // STEP 3: Create and start HTTP server
+  server = createServer(router);
+
+  server.listen(config.port, () => {
+    console.log(`
++============================================================+
+|              LLM-Data-Vault Service Started                |
++============================================================+
+|  Service: ${config.serviceName.padEnd(45)}|
+|  Version: ${config.serviceVersion.padEnd(45)}|
+|  Environment: ${config.platformEnv.padEnd(41)}|
+|  Port: ${String(config.port).padEnd(48)}|
+|  Phase: ${config.agentPhase.padEnd(47)}|
+|  Layer: ${config.agentLayer.padEnd(47)}|
++============================================================+
+|  Agents:                                                   |
+|    - Data Access Control Agent    [READY]                  |
+|    - Dataset Anonymization Agent  [READY]                  |
++============================================================+
+|  Persistence: ruvector-service (NO direct SQL)             |
+|  RuVector: ${config.ruvectorServiceUrl.substring(0, 43).padEnd(44)}|
+|  Telemetry: LLM-Observatory                                |
++============================================================+
+|  STARTUP VALIDATION: PASSED                                |
++============================================================+
+    `);
   });
-});
 
-process.on('SIGINT', () => {
-  console.log('SIGINT received, shutting down...');
-  server.close(() => {
-    process.exit(0);
+  // Graceful shutdown
+  process.on('SIGTERM', () => {
+    console.log('SIGTERM received, shutting down gracefully...');
+    server.close(() => {
+      console.log('Server closed');
+      process.exit(0);
+    });
   });
+
+  process.on('SIGINT', () => {
+    console.log('SIGINT received, shutting down...');
+    server.close(() => {
+      process.exit(0);
+    });
+  });
+}
+
+// Run main - unhandled errors will crash the process (intentional)
+main().catch((error) => {
+  console.error('FATAL: Unhandled error during startup:', error);
+  process.exit(1);
 });
 
 export { server };

@@ -17,3 +17,18 @@ export type {
   AgentResult,
   AgentClassification,
 } from './agent-base.js';
+
+// Performance budget enforcement (Phase 7)
+export {
+  BudgetEnforcer,
+  BudgetExceededError,
+  DEFAULT_BUDGETS,
+  createBudgetEnforcer,
+} from './performance-budget.js';
+
+export type {
+  PerformanceBudget,
+  BudgetViolationReason,
+  BudgetCheckResult,
+  BudgetMetrics,
+} from './performance-budget.js';
