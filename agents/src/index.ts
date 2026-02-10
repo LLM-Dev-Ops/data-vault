@@ -147,6 +147,23 @@ export {
 } from './platform/index.js';
 
 // =============================================================================
+// Agentics Execution Context
+// =============================================================================
+
+export {
+  ExecutionGraphBuilder,
+  extractExecutionContext,
+  validateExecutionContext,
+  EXECUTION_HEADERS,
+  type ExecutionContext as AgenticsExecutionContext,
+  type ExecutionGraphOutput,
+  type RepoSpan,
+  type AgentSpan,
+  type ArtifactRef,
+  type SpanStatus,
+} from './execution/index.js';
+
+// =============================================================================
 // Agent Boundaries (Runtime Enforcement)
 // =============================================================================
 

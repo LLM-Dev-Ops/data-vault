@@ -7,6 +7,11 @@
  */
 
 import type { z } from 'zod';
+import type {
+  ExecutionContext,
+  ExecutionGraphBuilder,
+  ExecutionGraphOutput,
+} from './execution-context.js';
 
 // =============================================================================
 // Request/Response Types
@@ -34,6 +39,10 @@ export interface EdgeRequest<T = unknown> {
   readonly sourceIp?: string;
   /** User agent string */
   readonly userAgent?: string;
+  /** Agentics execution context (present on agent invocation routes) */
+  readonly executionContext?: ExecutionContext;
+  /** Agentics execution graph builder (set by entry point for agent routes) */
+  readonly executionGraph?: ExecutionGraphBuilder;
 }
 
 /**
@@ -48,6 +57,8 @@ export interface EdgeResponse<T = unknown> {
   readonly headers?: Readonly<Record<string, string>>;
   /** Whether response body is already serialized */
   readonly isBase64Encoded?: boolean;
+  /** Agentics execution graph output (present when execution context was provided) */
+  readonly executionGraph?: ExecutionGraphOutput;
 }
 
 // =============================================================================

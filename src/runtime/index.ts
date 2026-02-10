@@ -172,6 +172,25 @@ export {
 } from './health.js';
 
 // =============================================================================
+// Execution Context Exports (Agentics)
+// =============================================================================
+
+export {
+  // Execution graph builder
+  ExecutionGraphBuilder,
+  // Header extraction
+  extractExecutionContext,
+  validateExecutionContext,
+  EXECUTION_HEADERS,
+  type ExecutionContext,
+  type ExecutionGraphOutput,
+  type RepoSpan,
+  type AgentSpan,
+  type ArtifactRef,
+  type SpanStatus,
+} from './execution-context.js';
+
+// =============================================================================
 // Entry Point Exports
 // =============================================================================
 

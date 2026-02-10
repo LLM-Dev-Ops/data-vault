@@ -28,6 +28,12 @@ import {
   setValidatedConfig,
   type EnvironmentConfig,
 } from '../startup/index.js';
+import {
+  extractExecutionContext,
+  validateExecutionContext,
+  ExecutionGraphBuilder,
+  type ExecutionGraphOutput,
+} from '../execution/index.js';
 
 // =============================================================================
 // Startup Validation (FAIL-FAST)
@@ -261,6 +267,30 @@ async function handlePolicies(res: ServerResponse): Promise<void> {
 }
 
 // =============================================================================
+// Agentics Execution Context
+// =============================================================================
+
+/** Routes that require execution context (agent invocation routes) */
+const AGENT_ROUTES = new Set(['anonymize', 'inspect', 'authorize']);
+
+/**
+ * Sends a response with execution graph attached.
+ * The _execution field is included in the JSON body.
+ */
+function sendJsonWithGraph(
+  res: ServerResponse,
+  status: number,
+  data: unknown,
+  executionGraph: ExecutionGraphOutput,
+  headers: Record<string, string> = {}
+): void {
+  const body = typeof data === 'object' && data !== null
+    ? { ...data, _execution: executionGraph }
+    : { data, _execution: executionGraph };
+  sendJson(res, status, body, headers);
+}
+
+// =============================================================================
 // Main Router
 // =============================================================================
 
@@ -272,7 +302,7 @@ async function router(req: IncomingMessage, res: ServerResponse): Promise<void> 
   // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Correlation-ID, X-Request-Source');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Correlation-ID, X-Request-Source, X-Execution-ID, X-Parent-Span-ID');
 
   // Handle preflight
   if (method === 'OPTIONS') {
@@ -282,7 +312,104 @@ async function router(req: IncomingMessage, res: ServerResponse): Promise<void> 
   }
 
   try {
-    // Route request
+    // --- Agentics: Enforce execution context on agent routes ---
+    if (AGENT_ROUTES.has(path)) {
+      const execCtx = extractExecutionContext(
+        req.headers as Record<string, string | string[] | undefined>
+      );
+      const validationError = validateExecutionContext(execCtx);
+
+      if (validationError) {
+        sendError(res, 400, 'MISSING_EXECUTION_CONTEXT', validationError);
+        return;
+      }
+
+      const graphBuilder = new ExecutionGraphBuilder(execCtx!);
+
+      // Route to the specific agent handler with span tracking
+      switch (path) {
+        case 'anonymize':
+        case 'inspect': {
+          if (method !== 'POST') {
+            sendError(res, 405, 'METHOD_NOT_ALLOWED', 'POST required');
+            return;
+          }
+
+          const agentSpan = graphBuilder.startAgentSpan('data-vault.anonymization.v1');
+
+          try {
+            const anonymizeResponse = await anonymizationHandler.handle({
+              method,
+              path,
+              headers: req.headers as Record<string, string>,
+              body: await parseBody(req),
+              query: parseQuery(url),
+            });
+
+            // Attach result artifact to agent span
+            graphBuilder.attachArtifact(agentSpan, {
+              id: `result-${path}-${Date.now()}`,
+              type: 'agent_result',
+            });
+
+            if (anonymizeResponse.status < 400) {
+              graphBuilder.completeAgentSpan(agentSpan);
+            } else {
+              graphBuilder.failAgentSpan(agentSpan, [
+                `Agent returned status ${anonymizeResponse.status}`,
+              ]);
+            }
+
+            const executionGraph = graphBuilder.finalize();
+            sendJsonWithGraph(
+              res,
+              anonymizeResponse.status,
+              anonymizeResponse.body,
+              executionGraph,
+              anonymizeResponse.headers
+            );
+          } catch (error) {
+            const msg = error instanceof Error ? error.message : 'Unknown error';
+            graphBuilder.failAgentSpan(agentSpan, [msg]);
+            const executionGraph = graphBuilder.finalize(true, [msg]);
+            sendJsonWithGraph(res, 500, { error: 'INTERNAL_ERROR', message: msg }, executionGraph);
+          }
+          break;
+        }
+
+        case 'authorize': {
+          if (method !== 'POST') {
+            sendError(res, 405, 'METHOD_NOT_ALLOWED', 'POST required');
+            return;
+          }
+
+          const agentSpan = graphBuilder.startAgentSpan('data-vault.access-control.v1');
+
+          const responseBody = {
+            request_id: crypto.randomUUID(),
+            decision: 'allow',
+            message: 'Access control agent placeholder - implement full logic',
+          };
+
+          graphBuilder.attachArtifact(agentSpan, {
+            id: `result-authorize-${responseBody.request_id}`,
+            type: 'access_decision',
+          });
+          graphBuilder.completeAgentSpan(agentSpan);
+
+          const executionGraph = graphBuilder.finalize();
+          sendJsonWithGraph(res, 200, responseBody, executionGraph);
+          break;
+        }
+
+        default:
+          // Should not reach here since we checked AGENT_ROUTES
+          sendError(res, 404, 'NOT_FOUND', `Endpoint not found: /${path}`);
+      }
+      return;
+    }
+
+    // --- Non-agent routes (no execution context required) ---
     switch (path) {
       // Health & Metadata
       case 'health':
@@ -301,39 +428,8 @@ async function router(req: IncomingMessage, res: ServerResponse): Promise<void> 
         await handleMetrics(res);
         break;
 
-      // Anonymization Agent
-      case 'anonymize':
-      case 'inspect':
-        if (method !== 'POST') {
-          sendError(res, 405, 'METHOD_NOT_ALLOWED', 'POST required');
-          return;
-        }
-        const anonymizeResponse = await anonymizationHandler.handle({
-          method,
-          path,
-          headers: req.headers as Record<string, string>,
-          body: await parseBody(req),
-          query: parseQuery(url),
-        });
-        sendJson(res, anonymizeResponse.status, anonymizeResponse.body, anonymizeResponse.headers);
-        break;
-
       case 'strategies':
         await handleStrategies(res);
-        break;
-
-      // Access Control Agent
-      case 'authorize':
-        if (method !== 'POST') {
-          sendError(res, 405, 'METHOD_NOT_ALLOWED', 'POST required');
-          return;
-        }
-        // Placeholder - would route to access control agent
-        sendJson(res, 200, {
-          request_id: crypto.randomUUID(),
-          decision: 'allow',
-          message: 'Access control agent placeholder - implement full logic',
-        });
         break;
 
       case 'policies':

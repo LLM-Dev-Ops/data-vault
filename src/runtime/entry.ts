@@ -27,6 +27,11 @@ import {
   handleAgentsRequest,
 } from './health.js';
 import type { EdgeFunction } from './edge-function.js';
+import {
+  extractExecutionContext,
+  validateExecutionContext,
+  ExecutionGraphBuilder,
+} from './execution-context.js';
 
 // =============================================================================
 // Runtime State
@@ -209,7 +214,21 @@ function sendResponse(res: ServerResponse, edgeResponse: EdgeResponse): void {
 }
 
 /**
+ * Returns true if the request path targets an agent execution route
+ * (as opposed to health/metadata/admin routes).
+ */
+function isAgentRoute(path: string): boolean {
+  return path.startsWith('/agents/') && path !== '/agents';
+}
+
+/**
  * Handles an incoming HTTP request
+ *
+ * Agentics Execution Contract:
+ * - Agent routes MUST include x-execution-id and x-parent-span-id headers
+ * - A repo-level span is created for every agent invocation
+ * - Agent-level spans are created by each handler via the ExecutionGraphBuilder
+ * - The execution graph is included in the response body
  *
  * @param req - Incoming request
  * @param res - Server response
@@ -229,7 +248,7 @@ async function handleRequest(
       console.debug(`${edgeRequest.method} ${edgeRequest.path}`);
     }
 
-    // Handle special routes
+    // Handle special routes (no execution context required)
     if (edgeRequest.path === '/health' && edgeRequest.method === 'GET') {
       const healthResponse = handleHealthRequest();
       res.statusCode = healthResponse.statusCode;
@@ -263,7 +282,78 @@ async function handleRequest(
       return;
     }
 
-    // Route to handler
+    // --- Agentics Execution Context Enforcement ---
+    // Agent routes MUST have a valid execution context with parent_span_id.
+    if (isAgentRoute(edgeRequest.path)) {
+      const execCtx = extractExecutionContext(edgeRequest.headers);
+      const validationError = validateExecutionContext(execCtx);
+
+      if (validationError) {
+        // Reject: parent_span_id is missing or invalid
+        res.statusCode = 400;
+        res.setHeader('Content-Type', 'application/json');
+        res.end(
+          JSON.stringify({
+            success: false,
+            error: {
+              code: 'MISSING_EXECUTION_CONTEXT',
+              message: validationError,
+              retryable: false,
+            },
+          })
+        );
+        return;
+      }
+
+      // Create repo-level execution span via builder
+      const graphBuilder = new ExecutionGraphBuilder(execCtx!);
+
+      // Augment the request with execution context and graph builder
+      const instrumentedRequest: EdgeRequest = {
+        ...edgeRequest,
+        executionContext: execCtx!,
+        executionGraph: graphBuilder,
+      };
+
+      // Route to handler (handler will create agent-level spans)
+      const edgeResponse = await routeRequest(instrumentedRequest);
+
+      // Finalize the execution graph
+      const executionGraph = graphBuilder.finalize(
+        edgeResponse.statusCode >= 500,
+        edgeResponse.statusCode >= 500
+          ? [`Agent handler returned status ${edgeResponse.statusCode}`]
+          : undefined
+      );
+
+      // Send response with execution graph attached
+      const responseBody = {
+        ...(typeof edgeResponse.body === 'object' && edgeResponse.body !== null
+          ? edgeResponse.body
+          : { data: edgeResponse.body }),
+        _execution: executionGraph,
+      };
+
+      res.setHeader('Content-Type', 'application/json');
+      if (edgeResponse.headers) {
+        for (const [key, value] of Object.entries(edgeResponse.headers)) {
+          res.setHeader(key, value);
+        }
+      }
+      res.statusCode = edgeResponse.statusCode;
+      res.end(JSON.stringify(responseBody));
+
+      // Log response
+      if (config.features.debugMode) {
+        const duration = Date.now() - startTime;
+        console.debug(
+          `  -> ${edgeResponse.statusCode} (${duration}ms) [spans: repo=1 agents=${executionGraph.agent_spans.length}]`
+        );
+      }
+      return;
+    }
+
+    // Non-agent routes: route without execution context enforcement
     const edgeResponse = await routeRequest(edgeRequest);
     sendResponse(res, edgeResponse);
 
@@ -417,8 +507,12 @@ export async function httpFunction(
 /**
  * CloudEvent entry point for event-driven functions
  *
+ * Agentics contract: Cloud events MUST include execution context
+ * in the event data or extensions. The execution_id and parent_span_id
+ * are extracted from the event data's `_execution` field.
+ *
  * @param cloudEvent - Cloud event
- * @returns Processing result
+ * @returns Processing result with execution graph
  */
 export async function cloudEventFunction(cloudEvent: {
   type: string;
@@ -430,6 +524,30 @@ export async function cloudEventFunction(cloudEvent: {
   if (!state.initialized) {
     initRuntime({ skipValidation: true });
   }
+
+  // Extract execution context from event data
+  const eventData = cloudEvent.data as Record<string, unknown> | null;
+  const execField = eventData?.['_execution'] as
+    | { execution_id?: string; parent_span_id?: string }
+    | undefined;
+
+  const execCtx = execField?.execution_id && execField?.parent_span_id
+    ? { execution_id: execField.execution_id, parent_span_id: execField.parent_span_id }
+    : null;
+
+  const validationError = validateExecutionContext(execCtx);
+  if (validationError) {
+    return {
+      success: false,
+      error: {
+        code: 'MISSING_EXECUTION_CONTEXT',
+        message: validationError,
+        retryable: false,
+      },
+    };
+  }
+
+  const graphBuilder = new ExecutionGraphBuilder(execCtx!);
 
   const request: EdgeRequest = {
     requestId: cloudEvent.id,
@@ -443,10 +561,25 @@ export async function cloudEventFunction(cloudEvent: {
     method: 'POST',
     path: `/events/${cloudEvent.type}`,
     timestamp: Date.now(),
+    executionContext: execCtx!,
+    executionGraph: graphBuilder,
   };
 
   const response = await routeRequest(request);
-  return response.body;
+
+  const executionGraph = graphBuilder.finalize(
+    response.statusCode >= 500,
+    response.statusCode >= 500
+      ? [`Event handler returned status ${response.statusCode}`]
+      : undefined
+  );
+
+  return {
+    ...(typeof response.body === 'object' && response.body !== null
+      ? response.body
+      : { data: response.body }),
+    _execution: executionGraph,
+  };
 }
 
 // =============================================================================

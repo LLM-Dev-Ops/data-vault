@@ -23,6 +23,7 @@ import {
   type ActiveSpan,
 } from './telemetry.js';
 import { getConfig } from './config.js';
+import type { AgentSpan, ExecutionGraphBuilder } from './execution-context.js';
 
 // =============================================================================
 // Error Codes
@@ -187,12 +188,25 @@ export abstract class EdgeFunction<TInput, TOutput> {
    * This is the main entry point called by the function registry.
    * It performs validation, telemetry, error handling, and stateless execution.
    *
+   * Agentics Execution Contract:
+   * - If the request carries an ExecutionGraphBuilder, an agent-level span
+   *   is created for this handler and attached to the execution graph.
+   * - Artifacts (decision events, results) are attached to the agent span.
+   * - Agent spans are NEVER shared or merged.
+   *
    * @param request - Incoming request
    * @returns Response with result or error
    */
   async handle(request: EdgeRequest): Promise<EdgeResponse<AgentResult<TOutput>>> {
     const startTime = Date.now();
     let span: ActiveSpan | null = null;
+
+    // Agentics: start agent-level execution span if graph builder is present
+    const graphBuilder: ExecutionGraphBuilder | undefined = request.executionGraph;
+    let agentSpan: AgentSpan | undefined;
+    if (graphBuilder) {
+      agentSpan = graphBuilder.startAgentSpan(this.metadata.agentId);
+    }
 
     try {
       // Validate input
@@ -226,6 +240,22 @@ export abstract class EdgeFunction<TInput, TOutput> {
         retryAttempts: 0,
       };
 
+      // Agentics: complete agent span and attach result artifact
+      if (graphBuilder && agentSpan) {
+        graphBuilder.attachArtifact(agentSpan, {
+          id: `result-${request.requestId}`,
+          type: 'agent_result',
+          hash: event.spanId,
+        });
+        if (result.success) {
+          graphBuilder.completeAgentSpan(agentSpan);
+        } else {
+          graphBuilder.failAgentSpan(agentSpan, [
+            result.error?.message ?? 'Agent returned unsuccessful result',
+          ]);
+        }
+      }
+
       return this.createResponse(200, {
         ...result,
         metadata,
@@ -241,6 +271,13 @@ export abstract class EdgeFunction<TInput, TOutput> {
           errorMessage: agentError.message,
         });
         getTelemetryClient().record(event);
+      }
+
+      // Agentics: fail agent span on error
+      if (graphBuilder && agentSpan) {
+        graphBuilder.failAgentSpan(agentSpan, [
+          `${agentError.code}: ${agentError.message}`,
+        ]);
       }
 
       const statusCode = this.getStatusCodeForError(agentError.code);
