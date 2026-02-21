@@ -12,3 +12,6 @@ export {
   getHandler,
   TestableHandler,
 } from './anonymization-function.js';
+
+// Cloud Functions unified entry point
+export { handler } from './cloud-function.js';

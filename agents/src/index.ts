@@ -65,6 +65,7 @@ export {
   AnonymizationFunctionHandler,
   anonymizationFunction,
   getHandler,
+  handler,
 } from './functions/index.js';
 
 // =============================================================================
