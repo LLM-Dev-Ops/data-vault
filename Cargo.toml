@@ -137,9 +137,13 @@ llm-observatory-core = "0.1.1"
 llm-memory-graph = "0.1.0"
 
 # LLM-Dev-Ops Infra Dependencies (Phase 2B)
-llm-infra-core = { version = "0.2.0", features = ["config", "logging", "tracing", "errors", "caching", "retry", "rate-limiting"] }
-llm-infra-telemetry = { version = "0.2.0", optional = true }
-llm-infra-resilience = { version = "0.2.0", optional = true }
+# infra publishes flat, unprefixed crates and is not on crates.io; pin by rev (repo has no tags).
+infra-config = { git = "https://github.com/LLM-Dev-Ops/infra", rev = "a8bc89c190f63b139812f30a54e21a25b8f70e81" }
+infra-errors = { git = "https://github.com/LLM-Dev-Ops/infra", rev = "a8bc89c190f63b139812f30a54e21a25b8f70e81" }
+infra-cache = { git = "https://github.com/LLM-Dev-Ops/infra", rev = "a8bc89c190f63b139812f30a54e21a25b8f70e81" }
+infra-otel = { git = "https://github.com/LLM-Dev-Ops/infra", rev = "a8bc89c190f63b139812f30a54e21a25b8f70e81" }
+infra-retry = { git = "https://github.com/LLM-Dev-Ops/infra", rev = "a8bc89c190f63b139812f30a54e21a25b8f70e81" }
+infra-rate-limit = { git = "https://github.com/LLM-Dev-Ops/infra", rev = "a8bc89c190f63b139812f30a54e21a25b8f70e81" }
 
 [workspace.lints.rust]
 unsafe_code = "forbid"
@@ -186,9 +190,9 @@ description = "Enterprise-grade secure storage and anonymization for LLM data"
 default = []
 integration = []
 # Phase 2B Infra integration features
-infra = ["llm-infra-core", "vault-integration/infra"]
-infra-telemetry = ["infra", "llm-infra-telemetry"]
-infra-resilience = ["infra", "llm-infra-resilience"]
+infra = ["dep:infra-config", "dep:infra-errors", "dep:infra-cache", "vault-integration/infra"]
+infra-telemetry = ["infra", "dep:infra-otel"]
+infra-resilience = ["infra", "dep:infra-retry", "dep:infra-rate-limit"]
 full-infra = ["infra", "infra-telemetry", "infra-resilience"]
 
 [dependencies]
@@ -208,9 +212,12 @@ vault-security = { path = "crates/vault-security" }
 vault-benchmarks = { path = "crates/vault-benchmarks" }
 
 # Phase 2B Infra dependencies (optional, enabled via features)
-llm-infra-core = { workspace = true, optional = true }
-llm-infra-telemetry = { workspace = true, optional = true }
-llm-infra-resilience = { workspace = true, optional = true }
+infra-config = { workspace = true, optional = true }
+infra-errors = { workspace = true, optional = true }
+infra-cache = { workspace = true, optional = true }
+infra-otel = { workspace = true, optional = true }
+infra-retry = { workspace = true, optional = true }
+infra-rate-limit = { workspace = true, optional = true }
 
 [dev-dependencies]
 tokio = { workspace = true, features = ["test-util", "macros", "rt-multi-thread"] }

@@ -34,7 +34,9 @@ dashmap = { workspace = true }
 rand = { workspace = true }
 
 # Phase 2B Infra dependencies (consumed through adapters)
-# llm-infra-core = { workspace = true, optional = true }
+# infra-config = { workspace = true, optional = true }
+# infra-errors = { workspace = true, optional = true }
+# infra-cache = { workspace = true, optional = true }
 
 [dev-dependencies]
 mockall = { workspace = true }

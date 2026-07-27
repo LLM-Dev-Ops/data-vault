@@ -54,7 +54,12 @@
     "status": "compliant",
     "integrationDate": "2025-12-07",
     "consumedModules": [
-      "llm-infra-core",
+      "infra-config",
+      "infra-errors",
+      "infra-cache",
+      "infra-otel",
+      "infra-retry",
+      "infra-rate-limit",
       "schema-registry-core",
       "llm-config-core",
       "llm-observatory-core",
