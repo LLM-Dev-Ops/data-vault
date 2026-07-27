@@ -45,6 +45,7 @@ pub use infra::{
 
 use crate::IntegrationResult;
 use async_trait::async_trait;
+use serde::{Deserialize, Serialize};
 
 /// Common trait for all LLM-Dev-Ops ecosystem adapters.
 #[async_trait]
@@ -107,7 +108,7 @@ impl AdapterHealth {
 }
 
 /// Configuration for ecosystem adapters.
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AdapterConfig {
     /// Base URL for the upstream service.
     pub base_url: Option<String>,

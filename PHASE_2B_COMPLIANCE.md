@@ -21,7 +21,7 @@ LLM-Data-Vault has been successfully updated to Phase 2B compliance, integrating
 
 | File | Changes |
 |------|---------|
-| `Cargo.toml` (workspace) | Added `llm-infra-core`, `llm-infra-telemetry`, `llm-infra-resilience` workspace dependencies; Added `infra`, `infra-telemetry`, `infra-resilience`, `full-infra` feature flags |
+| `Cargo.toml` (workspace) | Added `infra-config`, `infra-errors`, `infra-cache`, `infra-otel`, `infra-retry`, `infra-rate-limit` workspace dependencies (git-pinned); Added `infra`, `infra-telemetry`, `infra-resilience`, `full-infra` feature flags |
 | `package.json` | Added Phase 2B metadata and consumed modules list |
 | `crates/vault-integration/Cargo.toml` | Added `infra` feature flag |
 | `crates/vault-integration/src/adapters/mod.rs` | Added `infra` module and re-exports for InfraAdapter types |
@@ -32,17 +32,18 @@ LLM-Data-Vault has been successfully updated to Phase 2B compliance, integrating
 
 ## Infra Modules Consumed
 
-### From `llm-infra-core` (v0.2.0)
+### From `infra` (v0.1.0, git-pinned — not published to crates.io)
 
-| Module | Feature Flag | Purpose |
-|--------|--------------|---------|
-| `config` | `config` | Configuration loading and hot-reload |
-| `logging` | `logging` | Structured logging with context propagation |
-| `tracing` | `tracing` | Distributed tracing integration |
-| `errors` | `errors` | Standardized error handling utilities |
-| `caching` | `caching` | Caching abstractions with configurable backends |
-| `retry` | `retry` | Retry logic with exponential backoff |
-| `rate-limiting` | `rate-limiting` | Rate limiting with token bucket algorithm |
+`infra` has no aggregator crate; it publishes flat, unprefixed crates.
+
+| Crate | Data-Vault Feature | Purpose |
+|-------|--------------------|---------|
+| `infra-config` | `infra` | Configuration loading and hot-reload |
+| `infra-errors` | `infra` | Standardized error handling utilities |
+| `infra-cache` | `infra` | Caching abstractions with configurable backends |
+| `infra-otel` | `infra-telemetry` | Structured logging, distributed tracing, metrics |
+| `infra-retry` | `infra-resilience` | Retry logic with exponential backoff |
+| `infra-rate-limit` | `infra-resilience` | Rate limiting with token bucket algorithm |
 
 ### From Phase 2A (already integrated)
 
@@ -123,9 +124,9 @@ let rate_limit_policy = adapter.rate_limit_policy();
 default = []
 integration = []
 # Phase 2B Infra integration features
-infra = ["llm-infra-core", "vault-integration/infra"]
-infra-telemetry = ["infra", "llm-infra-telemetry"]
-infra-resilience = ["infra", "llm-infra-resilience"]
+infra = ["dep:infra-config", "dep:infra-errors", "dep:infra-cache", "vault-integration/infra"]
+infra-telemetry = ["infra", "dep:infra-otel"]
+infra-resilience = ["infra", "dep:infra-retry", "dep:infra-rate-limit"]
 full-infra = ["infra", "infra-telemetry", "infra-resilience"]
 ```
 
@@ -159,7 +160,7 @@ vault-core (foundation, no internal deps)
                         └── vault-server (root)
 
 External Dependencies:
-└── llm-infra-core (consumed, never imported back)
+└── infra-{config,errors,cache,otel,retry,rate-limit} (consumed, never imported back)
 └── schema-registry-core
 └── llm-config-core
 └── llm-observatory-core
@@ -231,7 +232,7 @@ The following Infra capabilities may be consumed in future iterations:
 |-------------|--------|-------|
 | Phase 1 Exposes-To validated | ✓ | SDK, CLI, REST API properly exposed |
 | Phase 2A Dependencies validated | ✓ | All ecosystem adapters functional |
-| Infra workspace dependencies added | ✓ | `llm-infra-core` added with features |
+| Infra workspace dependencies added | ✓ | Six `infra-*` crates added, git-pinned to a rev |
 | Feature flags enabled | ✓ | `infra`, `infra-telemetry`, `infra-resilience` |
 | InfraAdapter created | ✓ | Thin consumption layer implemented |
 | No circular dependencies | ✓ | Verified via dependency analysis |
