@@ -2,7 +2,7 @@
 import { createHash } from "node:crypto";
 import { spawnSync } from "node:child_process";
 import { mkdirSync, writeFileSync } from "node:fs";
-import { dirname, resolve } from "node:path";
+import { basename, dirname, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 
 const [baselineArg, candidateArg, outputArg] = process.argv.slice(2);
@@ -81,6 +81,10 @@ async function evaluate(policy, suite) {
         ...process.env,
         CARGO_INCREMENTAL: "0",
         CARGO_PROFILE_DEV_DEBUG: "0",
+        CARGO_TARGET_DIR: resolve(
+          process.env.EVAL_TARGET_ROOT ?? "/tmp/data-vault-flywheel-targets",
+          basename(repo),
+        ),
       },
       timeout: 300_000,
     });
