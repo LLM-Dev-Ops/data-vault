@@ -93,8 +93,10 @@ fn normalize_path(path: &str) -> String {
     let normalized = uuid_pattern.replace_all(path, "{id}");
 
     // Replace numeric IDs with placeholder
-    let numeric_pattern = regex::Regex::new(r"/\d+(?=/|$)").unwrap();
-    numeric_pattern.replace_all(&normalized, "/{id}").to_string()
+    let numeric_pattern = regex::Regex::new(r"/\d+(/|$)").unwrap();
+    numeric_pattern
+        .replace_all(&normalized, "/{id}$1")
+        .to_string()
 }
 
 /// API metrics collector.
@@ -216,6 +218,10 @@ mod tests {
         assert_eq!(
             normalize_path("/api/v1/users/123"),
             "/api/v1/users/{id}"
+        );
+        assert_eq!(
+            normalize_path("/api/v1/users/123/records"),
+            "/api/v1/users/{id}/records"
         );
         assert_eq!(
             normalize_path("/api/v1/datasets/{id}/records"),
