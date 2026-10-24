@@ -172,14 +172,21 @@ mod tests {
     use super::*;
 
     fn create_claims(roles: Vec<&str>, permissions: Vec<&str>) -> TokenClaims {
+        let now = chrono::Utc::now().timestamp();
+
         TokenClaims {
             sub: "user-123".to_string(),
-            exp: chrono::Utc::now().timestamp() as usize + 3600,
-            iat: chrono::Utc::now().timestamp() as usize,
-            jti: None,
-            tenant_id: None,
+            iss: "llm-data-vault".to_string(),
+            aud: None,
+            exp: now + 3600,
+            iat: now,
+            nbf: None,
+            jti: uuid::Uuid::new_v4().to_string(),
+            token_type: vault_access::TokenType::Access,
             roles: roles.into_iter().map(String::from).collect(),
             permissions: permissions.into_iter().map(String::from).collect(),
+            tenant_id: None,
+            custom: std::collections::HashMap::new(),
         }
     }
 
