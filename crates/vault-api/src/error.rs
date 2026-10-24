@@ -227,7 +227,9 @@ impl From<vault_access::AccessError> for ApiError {
         match e {
             vault_access::AccessError::Unauthorized(msg) => Self::Unauthorized(msg),
             vault_access::AccessError::Forbidden(msg) => Self::Forbidden(msg),
-            vault_access::AccessError::TokenExpired => Self::Unauthorized("Token expired".to_string()),
+            vault_access::AccessError::TokenExpired => {
+                Self::Unauthorized("Token expired".to_string())
+            }
             vault_access::AccessError::InvalidToken(msg) => Self::Unauthorized(msg),
             _ => Self::Internal(e.to_string()),
         }
@@ -365,8 +367,7 @@ mod tests {
 
         assert_eq!(body.message, "dataset_name: is required");
         assert_eq!(
-            body.errors.expect("validation fields should be included")
-                ["dataset_name"],
+            body.errors.expect("validation fields should be included")["dataset_name"],
             vec!["is required"]
         );
     }
