@@ -1,6 +1,6 @@
 //! Authentication middleware.
 
-use crate::{ApiError, state::RequestContext};
+use crate::{state::RequestContext, ApiError};
 use axum::{
     extract::{Request, State},
     http::{header, StatusCode},
@@ -73,11 +73,10 @@ impl AuthMiddleware {
             if key_str.len() >= 32 {
                 // Return minimal claims for API key auth
                 // In production, look up the key and return associated claims
-                return Ok(Some(TokenClaims::access(
-                    "api-key-user",
-                    "llm-data-vault",
-                    3600,
-                ).with_roles(vec!["api-user".to_string()])));
+                return Ok(Some(
+                    TokenClaims::access("api-key-user", "llm-data-vault", 3600)
+                        .with_roles(vec!["api-user".to_string()]),
+                ));
             }
         }
 
@@ -182,7 +181,7 @@ mod tests {
             iat: now,
             nbf: None,
             jti: uuid::Uuid::new_v4().to_string(),
-            token_type: vault_access::TokenType::Access,
+            token_type: vault_access::token::TokenType::Access,
             roles: roles.into_iter().map(String::from).collect(),
             permissions: permissions.into_iter().map(String::from).collect(),
             tenant_id: None,
