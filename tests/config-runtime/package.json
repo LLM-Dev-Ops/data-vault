@@ -1,0 +1,1 @@
+{"name":"vault-config-runtime-regression","private":true,"scripts":{"test":"node --experimental-strip-types ../../scripts/probe-config.mjs ../.."},"engines":{"node":"24.22.1"}}
