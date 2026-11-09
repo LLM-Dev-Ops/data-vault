@@ -1,0 +1,193 @@
+{
+  "task": "vault-20261109-config",
+  "source": "c21e765537d9546e8087cb68d05c6259624a6e19",
+  "runtime": "Node24.22.1/npm11.9.0",
+  "commands": [
+    {
+      "command": "npm run test:config",
+      "exit": 0,
+      "scope": "native config component 8/8+5/5"
+    },
+    {
+      "command": "npm ci --ignore-scripts --no-audit --no-fund",
+      "exit": 1
+    },
+    {
+      "command": "npm run build",
+      "exit": 127
+    },
+    {
+      "command": "npm run typecheck",
+      "exit": 127
+    },
+    {
+      "command": "npm run lint",
+      "exit": 127
+    },
+    {
+      "command": "npm test",
+      "exit": 127
+    },
+    {
+      "command": "cargo test --locked --workspace",
+      "exit": 127
+    },
+    {
+      "command": "npm audit --json",
+      "exit": 1
+    },
+    {
+      "command": "npm audit --omit=dev --json",
+      "exit": 1
+    },
+    {
+      "command": "node /tmp/copilot9-tools/node_modules/.bin/metaharness score . --json",
+      "exit": 0
+    },
+    {
+      "cwd": "/tmp/vault9-exact/tests/config-runtime",
+      "command": "timeout --kill-after=3 30 /tmp/copilot9-tools/node_modules/.bin/metaharness-darwin evolve . --generations 1 --children 1 --concurrency 1 --seed 2026110914 --risk-budget 0 --sandbox real --mutator deterministic",
+      "exit": 0,
+      "outcome": "NO_IMPROVEMENT; identical component scores not harness gain"
+    },
+    {
+      "command": "node scripts/evaluate-config.mjs /tmp/vault9-base /tmp/vault9-exact /tmp/copilot9-tools /tmp/vault9-flywheel.json",
+      "exit": 0,
+      "outcome": "0 promotions; full-gate veto; root-only replay"
+    },
+    {
+      "command": "node /home/ruv/.local/share/llm-dev-ops-tools/node_modules/ruflo/bin/ruflo.js --version",
+      "exit": 1
+    },
+    {
+      "command": "RUFLO_MODEL_DIR=/home/ruv/.cache/llm-dev-ops-models python3 /home/ruv/work/research-lab-runtime-recovery-20261016/scripts/offline-exec.py node --import /home/ruv/work/research-lab-runtime-recovery-20261016/scripts/ruflo-local-model.mjs /home/ruv/.local/share/llm-dev-ops-tools/node_modules/ruflo/bin/ruflo.js hooks post-task --task-id vault-20261109-config --success false --quality 0.8 --agent codex --task 'Whole safe integer configuration guard implemented;8native rejection/default holdouts and5anchorspass;projectinstall andfullvalidationblocked;nomerge' --store-results --format json",
+      "exit": 2
+    }
+  ],
+  "logs": {
+    "install": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\nnpm warn EBADENGINE Unsupported engine {\nnpm warn EBADENGINE   package: 'cloudevents@8.0.3',\nnpm warn EBADENGINE   required: { node: '>=16 <=22' },\nnpm warn EBADENGINE   current: { node: 'v24.22.1', npm: '11.9.0' }\nnpm warn EBADENGINE }\nnpm error code EUSAGE\nnpm error\nnpm error `npm ci` can only install packages when your package.json and package-lock.json or npm-shrinkwrap.json are in sync. Please update your lock file with `npm install` before continuing.\nnpm error\nnpm error Missing: worker_threads@ from lock file\nnpm error\nnpm error Clean install a project\nnpm error\nnpm error Usage:\nnpm error npm ci\nnpm error\nnpm error Options:\nnpm error [--install-strategy <hoisted|nested|shallow|linked>] [--legacy-bundling]\nnpm error [--global-style] [--omit <dev|optional|peer> [--omit <dev|optional|peer> ...]]\nnpm error [--include <prod|dev|optional|peer> [--include <prod|dev|optional|peer> ...]]\nnpm error [--strict-peer-deps] [--foreground-scripts] [--ignore-scripts]\nnpm error [--allow-git <all|none|root>] [--no-audit] [--no-bin-links] [--no-fund]\nnpm error [--dry-run]\nnpm error [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]\nnpm error [--workspaces] [--include-workspace-root] [--install-links]\nnpm error\nnpm error aliases: clean-install, ic, install-clean, isntall-clean\nnpm error\nnpm error Run \"npm help ci\" for more info\nnpm error A complete log of this run can be found in: /root/.npm/_logs/2026-11-09T18_59_17_470Z-debug-0.log\n",
+    "base-build": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> llm-data-vault@0.1.0 build\n> tsc -p tsconfig.json\n\nsh: 1: tsc: not found\n",
+    "base-type": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> llm-data-vault@0.1.0 typecheck\n> tsc --noEmit\n\nsh: 1: tsc: not found\n",
+    "base-lint": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> llm-data-vault@0.1.0 lint\n> eslint src/**/*.ts\n\nsh: 1: eslint: not found\n",
+    "root-test": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> llm-data-vault@0.1.0 test\n> claude-flow test\n\nsh: 1: claude-flow: not found\n",
+    "rust": "/bin/bash: line 1: cargo: command not found\n",
+    "ruflo": "node:internal/modules/cjs/loader:1568\n  throw err;\n  ^\n\nError: Cannot find module '/home/ruv/.local/share/llm-dev-ops-tools/node_modules/ruflo/bin/ruflo.js'\n    at Module._resolveFilename (node:internal/modules/cjs/loader:1564:15)\n    at wrapResolveFilename (node:internal/modules/cjs/loader:1118:27)\n    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1142:10)\n    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1169:12)\n    at Module._load (node:internal/modules/cjs/loader:1341:5)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)\n    at node:internal/main/run_main_module:33:47 {\n  code: 'MODULE_NOT_FOUND',\n  requireStack: []\n}\n\nNode.js v24.22.1\n",
+    "learning": "python3: can't open file '/home/ruv/work/research-lab-runtime-recovery-20261016/scripts/offline-exec.py': [Errno 2] No such file or directory\n",
+    "audit": {
+      "metadata": {
+        "vulnerabilities": {
+          "info": 0,
+          "low": 0,
+          "moderate": 14,
+          "high": 27,
+          "critical": 2,
+          "total": 43
+        },
+        "dependencies": {
+          "prod": 505,
+          "dev": 32,
+          "optional": 57,
+          "peer": 5,
+          "peerOptional": 0,
+          "total": 571
+        }
+      },
+      "sha256": "5b0f2923d42dd4f9d13c727024653d1ff319b83129398624c8230769d9f04518",
+      "bytes": 114933
+    },
+    "prod-audit": {
+      "metadata": {
+        "vulnerabilities": {
+          "info": 0,
+          "low": 0,
+          "moderate": 14,
+          "high": 27,
+          "critical": 2,
+          "total": 43
+        },
+        "dependencies": {
+          "prod": 505,
+          "dev": 32,
+          "optional": 57,
+          "peer": 5,
+          "peerOptional": 0,
+          "total": 571
+        }
+      },
+      "sha256": "5b0f2923d42dd4f9d13c727024653d1ff319b83129398624c8230769d9f04518",
+      "bytes": 114933
+    },
+    "pins": {
+      "node_modules/@metaharness/darwin": {
+        "version": "0.10.3",
+        "resolved": "https://registry.npmjs.org/@metaharness/darwin/-/darwin-0.10.3.tgz",
+        "integrity": "sha512-xqFWTqG8tHk2Gwts07EJgU2E7WANkhjwPc5Dk9nG3tbW8Hqb+O7Ut5ixp8+HoBlod8EgNigMT9MSrOpCpHSXEQ==",
+        "license": "MIT",
+        "bin": {
+          "metaharness-darwin": "dist/cli.js"
+        },
+        "engines": {
+          "node": ">=20.0.0"
+        }
+      },
+      "node_modules/@metaharness/flywheel": {
+        "version": "0.1.12",
+        "resolved": "https://registry.npmjs.org/@metaharness/flywheel/-/flywheel-0.1.12.tgz",
+        "integrity": "sha512-sfcgTRuXUay3qGinQpPkWZkI9IXWrDH209CvbJpzEFgOPaNgwsZjp4NOngAN5xzPUfuqC85AH7pcERa2KNvJsw==",
+        "license": "MIT"
+      },
+      "node_modules/metaharness": {
+        "version": "0.4.2",
+        "resolved": "https://registry.npmjs.org/metaharness/-/metaharness-0.4.2.tgz",
+        "integrity": "sha512-h94B47zBEuNEfKLFMZMV/fRnXBrkwV6L8kMukgioB/9621k6Lm6s2lR2gBKl3BAT1sfN/DYqhsqAJc+6H5PTGQ==",
+        "license": "MIT",
+        "dependencies": {
+          "@metaharness/darwin": "^0.2.2",
+          "@metaharness/flywheel": "^0.1.1",
+          "@metaharness/redblue": "^0.1.1",
+          "@metaharness/weight-eft": "^0.1.0",
+          "kolorist": "^1.8.0",
+          "prompts": "^2.4.2"
+        },
+        "bin": {
+          "harness": "dist/harness-bin.js",
+          "metaharness": "dist/bin.js"
+        },
+        "engines": {
+          "node": ">=20.0.0"
+        },
+        "optionalDependencies": {
+          "@ruvector/ruvllm": "^2.5.6"
+        },
+        "peerDependencies": {
+          "@metaharness/kernel": "^0.1.0"
+        },
+        "peerDependenciesMeta": {
+          "@metaharness/kernel": {
+            "optional": true
+          }
+        }
+      },
+      "node_modules/metaharness/node_modules/@metaharness/darwin": {
+        "version": "0.2.8",
+        "resolved": "https://registry.npmjs.org/@metaharness/darwin/-/darwin-0.2.8.tgz",
+        "integrity": "sha512-B8tF7IrrSxwKS6fEPEL6N2Juth9WWn+hppLUtUYPTJ2vcHzzZPIg2cS5T9qTyNNuANlTSWnQHnvzlfvYdGNfeQ==",
+        "license": "MIT",
+        "bin": {
+          "metaharness-darwin": "dist/cli.js"
+        },
+        "engines": {
+          "node": ">=20.0.0"
+        }
+      }
+    }
+  },
+  "exactVerification": {
+    "chunk_id": "68fef7",
+    "wall_time_seconds": 0.184278631,
+    "exit_code": 0,
+    "original_token_count": 426,
+    "output": "Inverse parent bytes VERIFIED; promotions 0 replay {\n  pass: true,\n  checks: {\n    receipts: true,\n    reachesRoot: true,\n    contiguousParents: true,\n    allPromoted: true,\n    gateUnchanged: true,\n    gateReExecutes: true,\n    allCommitsReceipts: true,\n    sealedFieldsAuthentic: true\n  },\n  failures: [],\n  chainSummary: 'gen0(root)'\n}\nnpm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> llm-data-vault@0.1.0 test:config\n> node --experimental-strip-types scripts/probe-config.mjs .\n\n{\"holdout\":[{\"name\":\"malformed-port-0\",\"port\":8080,\"timeout\":30000,\"errors\":[],\"passed\":true},{\"name\":\"malformed-port-1\",\"port\":8080,\"timeout\":30000,\"errors\":[],\"passed\":true},{\"name\":\"malformed-port-2\",\"port\":8080,\"timeout\":30000,\"errors\":[],\"passed\":true},{\"name\":\"malformed-port-3\",\"port\":8080,\"timeout\":30000,\"errors\":[],\"passed\":true},{\"name\":\"malformed-timeout-0\",\"port\":8080,\"timeout\":30000,\"errors\":[],\"passed\":true},{\"name\":\"malformed-timeout-1\",\"port\":8080,\"timeout\":30000,\"errors\":[],\"passed\":true},{\"name\":\"malformed-timeout-2\",\"port\":8080,\"timeout\":30000,\"errors\":[],\"passed\":true},{\"name\":\"malformed-timeout-3\",\"port\":8080,\"timeout\":30000,\"errors\":[],\"passed\":true}],\"anchors\":[{\"name\":\"defaults\",\"port\":8080,\"timeout\":30000,\"errors\":[],\"passed\":true},{\"name\":\"valid\",\"port\":8081,\"timeout\":2500,\"errors\":[],\"passed\":true},{\"name\":\"trimmed-signed\",\"port\":8081,\"timeout\":2500,\"errors\":[],\"passed\":true},{\"name\":\"invalid-port-range\",\"port\":-1,\"timeout\":30000,\"errors\":[\"Invalid PORT: -1 (must be 1-65535)\"],\"passed\":true},{\"name\":\"invalid-timeout-range\",\"port\":8080,\"timeout\":999,\"errors\":[\"REQUEST_TIMEOUT_MS too low: 999 (minimum 1000)\"],\"passed\":true}]}\n"
+  },
+  "rollbackVerified": "inverse matches git show fe843e97:path; workflow absent; main ancestor0; Rust/lock unchanged0"
+}

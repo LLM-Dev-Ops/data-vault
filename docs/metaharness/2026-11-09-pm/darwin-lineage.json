@@ -1,0 +1,26 @@
+{
+  "nodes": [
+    {
+      "id": "baseline",
+      "parentId": null,
+      "generation": 0,
+      "mutationSurface": "planner",
+      "finalScore": 0.985,
+      "promoted": true
+    },
+    {
+      "id": "g1_v0",
+      "parentId": "baseline",
+      "generation": 1,
+      "mutationSurface": "scorePolicy",
+      "finalScore": 0.985,
+      "promoted": false
+    }
+  ],
+  "edges": [
+    {
+      "from": "baseline",
+      "to": "g1_v0"
+    }
+  ]
+}

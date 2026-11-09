@@ -1,0 +1,1230 @@
+{
+  "trials": [
+    {
+      "i": 0,
+      "revision": "fe843e97e4236b23f04785ea02e12aace05892c9",
+      "report": {
+        "holdout": [
+          {
+            "name": "malformed-port-0",
+            "port": 1,
+            "timeout": 30000,
+            "errors": [],
+            "passed": false
+          },
+          {
+            "name": "malformed-port-1",
+            "port": 1,
+            "timeout": 30000,
+            "errors": [],
+            "passed": false
+          },
+          {
+            "name": "malformed-port-2",
+            "port": 8081,
+            "timeout": 30000,
+            "errors": [],
+            "passed": false
+          },
+          {
+            "name": "malformed-port-3",
+            "port": 9007199254740992,
+            "timeout": 30000,
+            "errors": [
+              "Invalid PORT: 9007199254740992 (must be 1-65535)"
+            ],
+            "passed": false
+          },
+          {
+            "name": "malformed-timeout-0",
+            "port": 8080,
+            "timeout": 2500,
+            "errors": [],
+            "passed": false
+          },
+          {
+            "name": "malformed-timeout-1",
+            "port": 8080,
+            "timeout": 1234,
+            "errors": [],
+            "passed": false
+          },
+          {
+            "name": "malformed-timeout-2",
+            "port": 8080,
+            "timeout": 9007199254740992,
+            "errors": [],
+            "passed": false
+          },
+          {
+            "name": "malformed-timeout-3",
+            "port": 8080,
+            "timeout": "Infinity",
+            "errors": [],
+            "passed": false
+          }
+        ],
+        "anchors": [
+          {
+            "name": "defaults",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "valid",
+            "port": 8081,
+            "timeout": 2500,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "trimmed-signed",
+            "port": 8081,
+            "timeout": 2500,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "invalid-port-range",
+            "port": -1,
+            "timeout": 30000,
+            "errors": [
+              "Invalid PORT: -1 (must be 1-65535)"
+            ],
+            "passed": true
+          },
+          {
+            "name": "invalid-timeout-range",
+            "port": 8080,
+            "timeout": 999,
+            "errors": [
+              "REQUEST_TIMEOUT_MS too low: 999 (minimum 1000)"
+            ],
+            "passed": true
+          }
+        ]
+      }
+    },
+    {
+      "i": 0,
+      "revision": "c21e765537d9546e8087cb68d05c6259624a6e19",
+      "report": {
+        "holdout": [
+          {
+            "name": "malformed-port-0",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "malformed-port-1",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "malformed-port-2",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "malformed-port-3",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "malformed-timeout-0",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "malformed-timeout-1",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "malformed-timeout-2",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "malformed-timeout-3",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          }
+        ],
+        "anchors": [
+          {
+            "name": "defaults",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "valid",
+            "port": 8081,
+            "timeout": 2500,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "trimmed-signed",
+            "port": 8081,
+            "timeout": 2500,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "invalid-port-range",
+            "port": -1,
+            "timeout": 30000,
+            "errors": [
+              "Invalid PORT: -1 (must be 1-65535)"
+            ],
+            "passed": true
+          },
+          {
+            "name": "invalid-timeout-range",
+            "port": 8080,
+            "timeout": 999,
+            "errors": [
+              "REQUEST_TIMEOUT_MS too low: 999 (minimum 1000)"
+            ],
+            "passed": true
+          }
+        ]
+      }
+    },
+    {
+      "i": 1,
+      "revision": "c21e765537d9546e8087cb68d05c6259624a6e19",
+      "report": {
+        "holdout": [
+          {
+            "name": "malformed-port-0",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "malformed-port-1",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "malformed-port-2",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "malformed-port-3",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "malformed-timeout-0",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "malformed-timeout-1",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "malformed-timeout-2",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "malformed-timeout-3",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          }
+        ],
+        "anchors": [
+          {
+            "name": "defaults",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "valid",
+            "port": 8081,
+            "timeout": 2500,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "trimmed-signed",
+            "port": 8081,
+            "timeout": 2500,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "invalid-port-range",
+            "port": -1,
+            "timeout": 30000,
+            "errors": [
+              "Invalid PORT: -1 (must be 1-65535)"
+            ],
+            "passed": true
+          },
+          {
+            "name": "invalid-timeout-range",
+            "port": 8080,
+            "timeout": 999,
+            "errors": [
+              "REQUEST_TIMEOUT_MS too low: 999 (minimum 1000)"
+            ],
+            "passed": true
+          }
+        ]
+      }
+    },
+    {
+      "i": 1,
+      "revision": "fe843e97e4236b23f04785ea02e12aace05892c9",
+      "report": {
+        "holdout": [
+          {
+            "name": "malformed-port-0",
+            "port": 1,
+            "timeout": 30000,
+            "errors": [],
+            "passed": false
+          },
+          {
+            "name": "malformed-port-1",
+            "port": 1,
+            "timeout": 30000,
+            "errors": [],
+            "passed": false
+          },
+          {
+            "name": "malformed-port-2",
+            "port": 8081,
+            "timeout": 30000,
+            "errors": [],
+            "passed": false
+          },
+          {
+            "name": "malformed-port-3",
+            "port": 9007199254740992,
+            "timeout": 30000,
+            "errors": [
+              "Invalid PORT: 9007199254740992 (must be 1-65535)"
+            ],
+            "passed": false
+          },
+          {
+            "name": "malformed-timeout-0",
+            "port": 8080,
+            "timeout": 2500,
+            "errors": [],
+            "passed": false
+          },
+          {
+            "name": "malformed-timeout-1",
+            "port": 8080,
+            "timeout": 1234,
+            "errors": [],
+            "passed": false
+          },
+          {
+            "name": "malformed-timeout-2",
+            "port": 8080,
+            "timeout": 9007199254740992,
+            "errors": [],
+            "passed": false
+          },
+          {
+            "name": "malformed-timeout-3",
+            "port": 8080,
+            "timeout": "Infinity",
+            "errors": [],
+            "passed": false
+          }
+        ],
+        "anchors": [
+          {
+            "name": "defaults",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "valid",
+            "port": 8081,
+            "timeout": 2500,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "trimmed-signed",
+            "port": 8081,
+            "timeout": 2500,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "invalid-port-range",
+            "port": -1,
+            "timeout": 30000,
+            "errors": [
+              "Invalid PORT: -1 (must be 1-65535)"
+            ],
+            "passed": true
+          },
+          {
+            "name": "invalid-timeout-range",
+            "port": 8080,
+            "timeout": 999,
+            "errors": [
+              "REQUEST_TIMEOUT_MS too low: 999 (minimum 1000)"
+            ],
+            "passed": true
+          }
+        ]
+      }
+    },
+    {
+      "i": 2,
+      "revision": "fe843e97e4236b23f04785ea02e12aace05892c9",
+      "report": {
+        "holdout": [
+          {
+            "name": "malformed-port-0",
+            "port": 1,
+            "timeout": 30000,
+            "errors": [],
+            "passed": false
+          },
+          {
+            "name": "malformed-port-1",
+            "port": 1,
+            "timeout": 30000,
+            "errors": [],
+            "passed": false
+          },
+          {
+            "name": "malformed-port-2",
+            "port": 8081,
+            "timeout": 30000,
+            "errors": [],
+            "passed": false
+          },
+          {
+            "name": "malformed-port-3",
+            "port": 9007199254740992,
+            "timeout": 30000,
+            "errors": [
+              "Invalid PORT: 9007199254740992 (must be 1-65535)"
+            ],
+            "passed": false
+          },
+          {
+            "name": "malformed-timeout-0",
+            "port": 8080,
+            "timeout": 2500,
+            "errors": [],
+            "passed": false
+          },
+          {
+            "name": "malformed-timeout-1",
+            "port": 8080,
+            "timeout": 1234,
+            "errors": [],
+            "passed": false
+          },
+          {
+            "name": "malformed-timeout-2",
+            "port": 8080,
+            "timeout": 9007199254740992,
+            "errors": [],
+            "passed": false
+          },
+          {
+            "name": "malformed-timeout-3",
+            "port": 8080,
+            "timeout": "Infinity",
+            "errors": [],
+            "passed": false
+          }
+        ],
+        "anchors": [
+          {
+            "name": "defaults",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "valid",
+            "port": 8081,
+            "timeout": 2500,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "trimmed-signed",
+            "port": 8081,
+            "timeout": 2500,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "invalid-port-range",
+            "port": -1,
+            "timeout": 30000,
+            "errors": [
+              "Invalid PORT: -1 (must be 1-65535)"
+            ],
+            "passed": true
+          },
+          {
+            "name": "invalid-timeout-range",
+            "port": 8080,
+            "timeout": 999,
+            "errors": [
+              "REQUEST_TIMEOUT_MS too low: 999 (minimum 1000)"
+            ],
+            "passed": true
+          }
+        ]
+      }
+    },
+    {
+      "i": 2,
+      "revision": "c21e765537d9546e8087cb68d05c6259624a6e19",
+      "report": {
+        "holdout": [
+          {
+            "name": "malformed-port-0",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "malformed-port-1",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "malformed-port-2",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "malformed-port-3",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "malformed-timeout-0",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "malformed-timeout-1",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "malformed-timeout-2",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "malformed-timeout-3",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          }
+        ],
+        "anchors": [
+          {
+            "name": "defaults",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "valid",
+            "port": 8081,
+            "timeout": 2500,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "trimmed-signed",
+            "port": 8081,
+            "timeout": 2500,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "invalid-port-range",
+            "port": -1,
+            "timeout": 30000,
+            "errors": [
+              "Invalid PORT: -1 (must be 1-65535)"
+            ],
+            "passed": true
+          },
+          {
+            "name": "invalid-timeout-range",
+            "port": 8080,
+            "timeout": 999,
+            "errors": [
+              "REQUEST_TIMEOUT_MS too low: 999 (minimum 1000)"
+            ],
+            "passed": true
+          }
+        ]
+      }
+    }
+  ],
+  "measurements": [
+    {
+      "revision": "fe843e97e4236b23f04785ea02e12aace05892c9",
+      "suite": "holdout",
+      "report": {
+        "holdout": [
+          {
+            "name": "malformed-port-0",
+            "port": 1,
+            "timeout": 30000,
+            "errors": [],
+            "passed": false
+          },
+          {
+            "name": "malformed-port-1",
+            "port": 1,
+            "timeout": 30000,
+            "errors": [],
+            "passed": false
+          },
+          {
+            "name": "malformed-port-2",
+            "port": 8081,
+            "timeout": 30000,
+            "errors": [],
+            "passed": false
+          },
+          {
+            "name": "malformed-port-3",
+            "port": 9007199254740992,
+            "timeout": 30000,
+            "errors": [
+              "Invalid PORT: 9007199254740992 (must be 1-65535)"
+            ],
+            "passed": false
+          },
+          {
+            "name": "malformed-timeout-0",
+            "port": 8080,
+            "timeout": 2500,
+            "errors": [],
+            "passed": false
+          },
+          {
+            "name": "malformed-timeout-1",
+            "port": 8080,
+            "timeout": 1234,
+            "errors": [],
+            "passed": false
+          },
+          {
+            "name": "malformed-timeout-2",
+            "port": 8080,
+            "timeout": 9007199254740992,
+            "errors": [],
+            "passed": false
+          },
+          {
+            "name": "malformed-timeout-3",
+            "port": 8080,
+            "timeout": "Infinity",
+            "errors": [],
+            "passed": false
+          }
+        ],
+        "anchors": [
+          {
+            "name": "defaults",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "valid",
+            "port": 8081,
+            "timeout": 2500,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "trimmed-signed",
+            "port": 8081,
+            "timeout": 2500,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "invalid-port-range",
+            "port": -1,
+            "timeout": 30000,
+            "errors": [
+              "Invalid PORT: -1 (must be 1-65535)"
+            ],
+            "passed": true
+          },
+          {
+            "name": "invalid-timeout-range",
+            "port": 8080,
+            "timeout": 999,
+            "errors": [
+              "REQUEST_TIMEOUT_MS too low: 999 (minimum 1000)"
+            ],
+            "passed": true
+          }
+        ]
+      },
+      "score": {
+        "primary": 0,
+        "itemWins": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "noopRate": 0,
+        "costPerWin": 0,
+        "regressed": true
+      }
+    },
+    {
+      "revision": "fe843e97e4236b23f04785ea02e12aace05892c9",
+      "suite": "anchors",
+      "report": {
+        "holdout": [
+          {
+            "name": "malformed-port-0",
+            "port": 1,
+            "timeout": 30000,
+            "errors": [],
+            "passed": false
+          },
+          {
+            "name": "malformed-port-1",
+            "port": 1,
+            "timeout": 30000,
+            "errors": [],
+            "passed": false
+          },
+          {
+            "name": "malformed-port-2",
+            "port": 8081,
+            "timeout": 30000,
+            "errors": [],
+            "passed": false
+          },
+          {
+            "name": "malformed-port-3",
+            "port": 9007199254740992,
+            "timeout": 30000,
+            "errors": [
+              "Invalid PORT: 9007199254740992 (must be 1-65535)"
+            ],
+            "passed": false
+          },
+          {
+            "name": "malformed-timeout-0",
+            "port": 8080,
+            "timeout": 2500,
+            "errors": [],
+            "passed": false
+          },
+          {
+            "name": "malformed-timeout-1",
+            "port": 8080,
+            "timeout": 1234,
+            "errors": [],
+            "passed": false
+          },
+          {
+            "name": "malformed-timeout-2",
+            "port": 8080,
+            "timeout": 9007199254740992,
+            "errors": [],
+            "passed": false
+          },
+          {
+            "name": "malformed-timeout-3",
+            "port": 8080,
+            "timeout": "Infinity",
+            "errors": [],
+            "passed": false
+          }
+        ],
+        "anchors": [
+          {
+            "name": "defaults",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "valid",
+            "port": 8081,
+            "timeout": 2500,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "trimmed-signed",
+            "port": 8081,
+            "timeout": 2500,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "invalid-port-range",
+            "port": -1,
+            "timeout": 30000,
+            "errors": [
+              "Invalid PORT: -1 (must be 1-65535)"
+            ],
+            "passed": true
+          },
+          {
+            "name": "invalid-timeout-range",
+            "port": 8080,
+            "timeout": 999,
+            "errors": [
+              "REQUEST_TIMEOUT_MS too low: 999 (minimum 1000)"
+            ],
+            "passed": true
+          }
+        ]
+      },
+      "score": {
+        "primary": 1,
+        "itemWins": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "noopRate": 0,
+        "costPerWin": 0,
+        "regressed": true
+      }
+    },
+    {
+      "revision": "c21e765537d9546e8087cb68d05c6259624a6e19",
+      "suite": "holdout",
+      "report": {
+        "holdout": [
+          {
+            "name": "malformed-port-0",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "malformed-port-1",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "malformed-port-2",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "malformed-port-3",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "malformed-timeout-0",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "malformed-timeout-1",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "malformed-timeout-2",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "malformed-timeout-3",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          }
+        ],
+        "anchors": [
+          {
+            "name": "defaults",
+            "port": 8080,
+            "timeout": 30000,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "valid",
+            "port": 8081,
+            "timeout": 2500,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "trimmed-signed",
+            "port": 8081,
+            "timeout": 2500,
+            "errors": [],
+            "passed": true
+          },
+          {
+            "name": "invalid-port-range",
+            "port": -1,
+            "timeout": 30000,
+            "errors": [
+              "Invalid PORT: -1 (must be 1-65535)"
+            ],
+            "passed": true
+          },
+          {
+            "name": "invalid-timeout-range",
+            "port": 8080,
+            "timeout": 999,
+            "errors": [
+              "REQUEST_TIMEOUT_MS too low: 999 (minimum 1000)"
+            ],
+            "passed": true
+          }
+        ]
+      },
+      "score": {
+        "primary": 1,
+        "itemWins": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "noopRate": 0,
+        "costPerWin": 0,
+        "regressed": true
+      }
+    }
+  ],
+  "result": {
+    "liftCurve": [
+      {
+        "generation": 0,
+        "primary": 0,
+        "delta": 0,
+        "anchor": 1
+      }
+    ],
+    "promotions": [],
+    "lineage": {
+      "commits": {}
+    },
+    "replayBundle": {
+      "data_source": "LIVE_NATIVE_TYPESCRIPT_CONFIG",
+      "root_id": "root",
+      "chain": [
+        {
+          "id": "root",
+          "generation": 0,
+          "parents": [],
+          "mutation": null,
+          "primaryDelta": 0,
+          "anchorScore": 1,
+          "verdict": "ROOT",
+          "failureReasons": [],
+          "receipt": {
+            "payload": {
+              "kind": "root",
+              "root": "root"
+            },
+            "signature": "4bixDzdP7pzOKUu3tl3Oz3Iq/pOCzazFX5ZMkOBkmaprYnE91RnrTm+9c4toTWSgvOll05Y752bqkT3jmWGqCA==",
+            "publicKey": "MCowBQYDK2VwAyEAcddk3cCLmiqwLQPj0hBQzWdYgA85p5qKGEAhmd7XR18=",
+            "alg": "ed25519"
+          },
+          "createdAt": "gen-0"
+        }
+      ],
+      "all_commits": [
+        {
+          "id": "root__revision_gen1",
+          "generation": 1,
+          "parents": [
+            "root"
+          ],
+          "mutation": {
+            "target": "revision",
+            "summary": "Require whole safe decimal integer environment values",
+            "inverse": [
+              {
+                "path": "src/runtime/config.ts",
+                "parentBytes": "/**\n * @fileoverview Runtime configuration management for Edge Functions\n * @module runtime/config\n *\n * Handles environment variable parsing, validation, and provides\n * typed configuration access for the Edge Function runtime.\n */\n\nimport type {\n  RuntimeConfig,\n  LogLevel,\n  FeatureFlags,\n  ServerConfig,\n  TelemetryConfig,\n} from './types.js';\n\n// =============================================================================\n// Environment Variable Names\n// =============================================================================\n\n/**\n * Environment variable names used by the runtime\n */\nexport const ENV_VARS = {\n  /** RuVector service URL */\n  RUVECTOR_SERVICE_URL: 'RUVECTOR_SERVICE_URL',\n  /** Telemetry endpoint URL */\n  TELEMETRY_ENDPOINT: 'TELEMETRY_ENDPOINT',\n  /** Log level */\n  LOG_LEVEL: 'LOG_LEVEL',\n  /** Server port */\n  PORT: 'PORT',\n  /** Server host */\n  HOST: 'HOST',\n  /** Enable telemetry */\n  TELEMETRY_ENABLED: 'TELEMETRY_ENABLED',\n  /** Enable caching */\n  CACHING_ENABLED: 'CACHING_ENABLED',\n  /** Enable debug mode */\n  DEBUG_MODE: 'DEBUG_MODE',\n  /** Enable health checks */\n  HEALTH_CHECKS_ENABLED: 'HEALTH_CHECKS_ENABLED',\n  /** Enable metrics */\n  METRICS_ENABLED: 'METRICS_ENABLED',\n  /** Request timeout in ms */\n  REQUEST_TIMEOUT_MS: 'REQUEST_TIMEOUT_MS',\n  /** Telemetry batch size */\n  TELEMETRY_BATCH_SIZE: 'TELEMETRY_BATCH_SIZE',\n  /** Telemetry flush interval */\n  TELEMETRY_FLUSH_INTERVAL_MS: 'TELEMETRY_FLUSH_INTERVAL_MS',\n  /** Telemetry max queue size */\n  TELEMETRY_MAX_QUEUE_SIZE: 'TELEMETRY_MAX_QUEUE_SIZE',\n  /** Telemetry sampling rate */\n  TELEMETRY_SAMPLING_RATE: 'TELEMETRY_SAMPLING_RATE',\n  /** Deployment environment */\n  DEPLOYMENT_ENVIRONMENT: 'DEPLOYMENT_ENVIRONMENT',\n  /** Service name */\n  SERVICE_NAME: 'SERVICE_NAME',\n  /** Service version */\n  SERVICE_VERSION: 'SERVICE_VERSION',\n} as const;\n\n// =============================================================================\n// Default Values\n// =============================================================================\n\n/**\n * Default configuration values\n */\nexport const DEFAULTS = {\n  ruvectorServiceUrl: 'http://localhost:8080',\n  telemetryEndpoint: 'http://localhost:4318/v1/traces',\n  logLevel: 'info' as LogLevel,\n  port: 8080,\n  host: '0.0.0.0',\n  requestTimeoutMs: 30000,\n  keepAliveTimeoutMs: 5000,\n  telemetryBatchSize: 100,\n  telemetryFlushIntervalMs: 5000,\n  telemetryMaxQueueSize: 10000,\n  telemetrySamplingRate: 1.0,\n  deploymentEnvironment: 'development',\n  serviceName: 'llm-data-vault-runtime',\n  serviceVersion: '0.1.0',\n} as const;\n\n// =============================================================================\n// Validation Helpers\n// =============================================================================\n\n/**\n * Valid log levels\n */\nconst VALID_LOG_LEVELS = ['debug', 'info', 'warn', 'error'] as const;\n\n/**\n * Validates and returns a log level\n *\n * @param value - The value to validate\n * @returns The validated log level or default\n */\nfunction parseLogLevel(value: string | undefined): LogLevel {\n  if (value && VALID_LOG_LEVELS.includes(value as LogLevel)) {\n    return value as LogLevel;\n  }\n  return DEFAULTS.logLevel;\n}\n\n/**\n * Parses a boolean environment variable\n *\n * @param value - The environment variable value\n * @param defaultValue - Default value if not set\n * @returns Parsed boolean value\n */\nfunction parseBoolean(value: string | undefined, defaultValue: boolean): boolean {\n  if (value === undefined) {\n    return defaultValue;\n  }\n  return value.toLowerCase() === 'true' || value === '1';\n}\n\n/**\n * Parses an integer environment variable\n *\n * @param value - The environment variable value\n * @param defaultValue - Default value if not set or invalid\n * @returns Parsed integer value\n */\nfunction parseInteger(value: string | undefined, defaultValue: number): number {\n  if (value === undefined) {\n    return defaultValue;\n  }\n  const parsed = parseInt(value, 10);\n  return isNaN(parsed) ? defaultValue : parsed;\n}\n\n/**\n * Parses a float environment variable\n *\n * @param value - The environment variable value\n * @param defaultValue - Default value if not set or invalid\n * @returns Parsed float value\n */\nfunction parseFloat(value: string | undefined, defaultValue: number): number {\n  if (value === undefined) {\n    return defaultValue;\n  }\n  const parsed = Number.parseFloat(value);\n  return isNaN(parsed) ? defaultValue : Math.max(0, Math.min(1, parsed));\n}\n\n/**\n * Parses a URL environment variable\n *\n * @param value - The environment variable value\n * @param defaultValue - Default value if not set\n * @returns Validated URL string\n */\nfunction parseUrl(value: string | undefined, defaultValue: string): string {\n  if (!value) {\n    return defaultValue;\n  }\n  try {\n    new URL(value);\n    return value;\n  } catch {\n    console.warn(`Invalid URL: ${value}, using default: ${defaultValue}`);\n    return defaultValue;\n  }\n}\n\n// =============================================================================\n// Configuration Loading\n// =============================================================================\n\n/**\n * Loads feature flags from environment variables\n *\n * @returns Feature flags configuration\n */\nfunction loadFeatureFlags(): FeatureFlags {\n  return {\n    telemetryEnabled: parseBoolean(\n      process.env[ENV_VARS.TELEMETRY_ENABLED],\n      true\n    ),\n    cachingEnabled: parseBoolean(\n      process.env[ENV_VARS.CACHING_ENABLED],\n      true\n    ),\n    debugMode: parseBoolean(\n      process.env[ENV_VARS.DEBUG_MODE],\n      false\n    ),\n    healthChecksEnabled: parseBoolean(\n      process.env[ENV_VARS.HEALTH_CHECKS_ENABLED],\n      true\n    ),\n    metricsEnabled: parseBoolean(\n      process.env[ENV_VARS.METRICS_ENABLED],\n      true\n    ),\n  };\n}\n\n/**\n * Loads server configuration from environment variables\n *\n * @returns Server configuration\n */\nfunction loadServerConfig(): ServerConfig {\n  return {\n    port: parseInteger(process.env[ENV_VARS.PORT], DEFAULTS.port),\n    host: process.env[ENV_VARS.HOST] ?? DEFAULTS.host,\n    requestTimeoutMs: parseInteger(\n      process.env[ENV_VARS.REQUEST_TIMEOUT_MS],\n      DEFAULTS.requestTimeoutMs\n    ),\n    keepAliveTimeoutMs: DEFAULTS.keepAliveTimeoutMs,\n  };\n}\n\n/**\n * Loads telemetry configuration from environment variables\n *\n * @returns Telemetry configuration\n */\nfunction loadTelemetryConfig(): TelemetryConfig {\n  return {\n    batchSize: parseInteger(\n      process.env[ENV_VARS.TELEMETRY_BATCH_SIZE],\n      DEFAULTS.telemetryBatchSize\n    ),\n    flushIntervalMs: parseInteger(\n      process.env[ENV_VARS.TELEMETRY_FLUSH_INTERVAL_MS],\n      DEFAULTS.telemetryFlushIntervalMs\n    ),\n    maxQueueSize: parseInteger(\n      process.env[ENV_VARS.TELEMETRY_MAX_QUEUE_SIZE],\n      DEFAULTS.telemetryMaxQueueSize\n    ),\n    samplingRate: parseFloat(\n      process.env[ENV_VARS.TELEMETRY_SAMPLING_RATE],\n      DEFAULTS.telemetrySamplingRate\n    ),\n  };\n}\n\n/**\n * Loads the complete runtime configuration from environment variables\n *\n * @returns Complete runtime configuration\n */\nexport function loadConfig(): RuntimeConfig {\n  return {\n    ruvectorServiceUrl: parseUrl(\n      process.env[ENV_VARS.RUVECTOR_SERVICE_URL],\n      DEFAULTS.ruvectorServiceUrl\n    ),\n    telemetryEndpoint: parseUrl(\n      process.env[ENV_VARS.TELEMETRY_ENDPOINT],\n      DEFAULTS.telemetryEndpoint\n    ),\n    logLevel: parseLogLevel(process.env[ENV_VARS.LOG_LEVEL]),\n    features: loadFeatureFlags(),\n    server: loadServerConfig(),\n    telemetry: loadTelemetryConfig(),\n  };\n}\n\n// =============================================================================\n// Service Metadata\n// =============================================================================\n\n/**\n * Service metadata for telemetry and health checks\n */\nexport interface ServiceMetadata {\n  /** Service name */\n  readonly name: string;\n  /** Service version */\n  readonly version: string;\n  /** Deployment environment */\n  readonly environment: string;\n}\n\n/**\n * Loads service metadata from environment variables\n *\n * @returns Service metadata\n */\nexport function loadServiceMetadata(): ServiceMetadata {\n  return {\n    name: process.env[ENV_VARS.SERVICE_NAME] ?? DEFAULTS.serviceName,\n    version: process.env[ENV_VARS.SERVICE_VERSION] ?? DEFAULTS.serviceVersion,\n    environment:\n      process.env[ENV_VARS.DEPLOYMENT_ENVIRONMENT] ??\n      DEFAULTS.deploymentEnvironment,\n  };\n}\n\n// =============================================================================\n// Configuration Singleton\n// =============================================================================\n\nlet cachedConfig: RuntimeConfig | null = null;\nlet cachedMetadata: ServiceMetadata | null = null;\n\n/**\n * Gets the runtime configuration (cached)\n *\n * @returns Runtime configuration\n */\nexport function getConfig(): RuntimeConfig {\n  if (!cachedConfig) {\n    cachedConfig = loadConfig();\n  }\n  return cachedConfig;\n}\n\n/**\n * Gets service metadata (cached)\n *\n * @returns Service metadata\n */\nexport function getServiceMetadata(): ServiceMetadata {\n  if (!cachedMetadata) {\n    cachedMetadata = loadServiceMetadata();\n  }\n  return cachedMetadata;\n}\n\n/**\n * Reloads configuration from environment variables\n * Useful for testing or hot-reloading\n *\n * @returns Newly loaded configuration\n */\nexport function reloadConfig(): RuntimeConfig {\n  cachedConfig = loadConfig();\n  cachedMetadata = loadServiceMetadata();\n  return cachedConfig;\n}\n\n/**\n * Validates the current configuration\n *\n * @returns Array of validation errors (empty if valid)\n */\nexport function validateConfig(): string[] {\n  const errors: string[] = [];\n  const config = getConfig();\n\n  // Validate RuVector URL\n  try {\n    new URL(config.ruvectorServiceUrl);\n  } catch {\n    errors.push(`Invalid RUVECTOR_SERVICE_URL: ${config.ruvectorServiceUrl}`);\n  }\n\n  // Validate telemetry endpoint\n  try {\n    new URL(config.telemetryEndpoint);\n  } catch {\n    errors.push(`Invalid TELEMETRY_ENDPOINT: ${config.telemetryEndpoint}`);\n  }\n\n  // Validate port range\n  if (config.server.port < 1 || config.server.port > 65535) {\n    errors.push(`Invalid PORT: ${config.server.port} (must be 1-65535)`);\n  }\n\n  // Validate timeout\n  if (config.server.requestTimeoutMs < 1000) {\n    errors.push(\n      `REQUEST_TIMEOUT_MS too low: ${config.server.requestTimeoutMs} (minimum 1000)`\n    );\n  }\n\n  // Validate sampling rate\n  if (config.telemetry.samplingRate < 0 || config.telemetry.samplingRate > 1) {\n    errors.push(\n      `Invalid TELEMETRY_SAMPLING_RATE: ${config.telemetry.samplingRate} (must be 0-1)`\n    );\n  }\n\n  return errors;\n}\n",
+                "sha256": "1533ed8e977c3cbc63fd7d9355d0f0b4096f8024183bb1e41b5ea4286b78ef96"
+              },
+              {
+                "path": "package.json",
+                "parentBytes": "{\n  \"name\": \"llm-data-vault\",\n  \"version\": \"0.1.0\",\n  \"description\": \"Enterprise-grade secure storage and anonymization for LLM data\",\n  \"private\": true,\n  \"type\": \"module\",\n  \"main\": \"./dist/cli/index.js\",\n  \"types\": \"./dist/cli/index.d.ts\",\n  \"exports\": {\n    \".\": {\n      \"import\": \"./dist/cli/index.js\",\n      \"types\": \"./dist/cli/index.d.ts\"\n    },\n    \"./runtime\": {\n      \"import\": \"./dist/runtime/index.js\",\n      \"types\": \"./dist/runtime/index.d.ts\"\n    }\n  },\n  \"bin\": {\n    \"data-vault\": \"./dist/cli/cli.js\"\n  },\n  \"scripts\": {\n    \"dev\": \"claude-flow swarm start\",\n    \"test\": \"claude-flow test\",\n    \"build\": \"tsc -p tsconfig.json\",\n    \"build:runtime\": \"tsc -p src/runtime/tsconfig.json\",\n    \"build:watch\": \"tsc -p tsconfig.json --watch\",\n    \"cli\": \"tsx src/cli/cli.ts\",\n    \"runtime:dev\": \"tsx src/runtime/entry.ts\",\n    \"lint\": \"eslint src/**/*.ts\",\n    \"typecheck\": \"tsc --noEmit\"\n  },\n  \"dependencies\": {\n    \"@google-cloud/functions-framework\": \"^3.4.0\",\n    \"@opentelemetry/api\": \"^1.7.0\",\n    \"chalk\": \"^5.3.0\",\n    \"cli-table3\": \"^0.6.3\",\n    \"claude-flow\": \"^2.7.41\",\n    \"commander\": \"^12.1.0\",\n    \"ora\": \"^8.0.1\",\n    \"undici\": \"^6.6.0\",\n    \"zod\": \"^3.22.4\"\n  },\n  \"devDependencies\": {\n    \"@types/node\": \"^20.10.0\",\n    \"tsx\": \"^4.7.0\",\n    \"typescript\": \"^5.3.0\"\n  },\n  \"engines\": {\n    \"node\": \">=18.0.0\"\n  },\n  \"phase2b\": {\n    \"infraIntegration\": true,\n    \"status\": \"compliant\",\n    \"integrationDate\": \"2025-12-07\",\n    \"consumedModules\": [\n      \"infra-config\",\n      \"infra-errors\",\n      \"infra-cache\",\n      \"infra-otel\",\n      \"infra-retry\",\n      \"infra-rate-limit\",\n      \"schema-registry-core\",\n      \"llm-config-core\",\n      \"llm-observatory-core\",\n      \"llm-memory-graph\"\n    ]\n  }\n}\n",
+                "sha256": "d3b3a28b21824b47292b89c132cb9198d9d3bf2acb15e5e782ffe8c8847c1a4b"
+              },
+              {
+                "path": ".github/workflows/runtime-config.yml",
+                "absent": true
+              }
+            ]
+          },
+          "primaryDelta": 1,
+          "anchorScore": null,
+          "verdict": "REJECTED",
+          "failureReasons": [
+            "safety_regressed"
+          ],
+          "receipt": {
+            "payload": {
+              "kind": "candidate",
+              "id": "root__revision_gen1",
+              "target": "revision",
+              "verdict": "REJECTED",
+              "primaryDelta": 1,
+              "baselineScore": {
+                "primary": 0,
+                "itemWins": [
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false
+                ],
+                "noopRate": 0,
+                "costPerWin": 0,
+                "regressed": true
+              },
+              "candidateScore": {
+                "primary": 1,
+                "itemWins": [
+                  true,
+                  true,
+                  true,
+                  true,
+                  true,
+                  true,
+                  true,
+                  true
+                ],
+                "noopRate": 0,
+                "costPerWin": 0,
+                "regressed": true
+              },
+              "anchorScore": null,
+              "failureReasons": [
+                "safety_regressed"
+              ],
+              "parents": [
+                "root"
+              ],
+              "generation": 1
+            },
+            "signature": "MB7/QFARj4CLSaUa4rb697rfQeq8Rt+j4Ap9wd30tLUR6ITcmEd31BEN9/sK7okGEVyPmtyx2IsCfYqAraniAg==",
+            "publicKey": "MCowBQYDK2VwAyEAcddk3cCLmiqwLQPj0hBQzWdYgA85p5qKGEAhmd7XR18=",
+            "alg": "ed25519"
+          },
+          "createdAt": "gen-1",
+          "baselineScore": {
+            "primary": 0,
+            "itemWins": [
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false
+            ],
+            "noopRate": 0,
+            "costPerWin": 0,
+            "regressed": true
+          },
+          "candidateScore": {
+            "primary": 1,
+            "itemWins": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ],
+            "noopRate": 0,
+            "costPerWin": 0,
+            "regressed": true
+          }
+        }
+      ],
+      "lift_curve": [
+        {
+          "generation": 0,
+          "primary": 0,
+          "delta": 0,
+          "anchor": 1
+        }
+      ],
+      "gate_fingerprint": "c5942e7c9bf8f28fe7af47a6ec3887d11eeb3f8c8e8601cc6a7a54969ea0b981",
+      "verified_improvements": 0,
+      "anchor_surviving_improvements": 0,
+      "milestone_reached": false,
+      "created_at": "gen-1"
+    },
+    "generationsRun": 1,
+    "milestoneReached": false,
+    "finalPolicy": {
+      "revision": "fe843e97e4236b23f04785ea02e12aace05892c9"
+    }
+  },
+  "replay": {
+    "pass": true,
+    "checks": {
+      "receipts": true,
+      "reachesRoot": true,
+      "contiguousParents": true,
+      "allPromoted": true,
+      "gateUnchanged": true,
+      "gateReExecutes": true,
+      "allCommitsReceipts": true,
+      "sealedFieldsAuthentic": true
+    },
+    "failures": [],
+    "chainSummary": "gen0(root)"
+  },
+  "fingerprint": "c5942e7c9bf8f28fe7af47a6ec3887d11eeb3f8c8e8601cc6a7a54969ea0b981",
+  "inverse": [
+    {
+      "path": "src/runtime/config.ts",
+      "parentBytes": "/**\n * @fileoverview Runtime configuration management for Edge Functions\n * @module runtime/config\n *\n * Handles environment variable parsing, validation, and provides\n * typed configuration access for the Edge Function runtime.\n */\n\nimport type {\n  RuntimeConfig,\n  LogLevel,\n  FeatureFlags,\n  ServerConfig,\n  TelemetryConfig,\n} from './types.js';\n\n// =============================================================================\n// Environment Variable Names\n// =============================================================================\n\n/**\n * Environment variable names used by the runtime\n */\nexport const ENV_VARS = {\n  /** RuVector service URL */\n  RUVECTOR_SERVICE_URL: 'RUVECTOR_SERVICE_URL',\n  /** Telemetry endpoint URL */\n  TELEMETRY_ENDPOINT: 'TELEMETRY_ENDPOINT',\n  /** Log level */\n  LOG_LEVEL: 'LOG_LEVEL',\n  /** Server port */\n  PORT: 'PORT',\n  /** Server host */\n  HOST: 'HOST',\n  /** Enable telemetry */\n  TELEMETRY_ENABLED: 'TELEMETRY_ENABLED',\n  /** Enable caching */\n  CACHING_ENABLED: 'CACHING_ENABLED',\n  /** Enable debug mode */\n  DEBUG_MODE: 'DEBUG_MODE',\n  /** Enable health checks */\n  HEALTH_CHECKS_ENABLED: 'HEALTH_CHECKS_ENABLED',\n  /** Enable metrics */\n  METRICS_ENABLED: 'METRICS_ENABLED',\n  /** Request timeout in ms */\n  REQUEST_TIMEOUT_MS: 'REQUEST_TIMEOUT_MS',\n  /** Telemetry batch size */\n  TELEMETRY_BATCH_SIZE: 'TELEMETRY_BATCH_SIZE',\n  /** Telemetry flush interval */\n  TELEMETRY_FLUSH_INTERVAL_MS: 'TELEMETRY_FLUSH_INTERVAL_MS',\n  /** Telemetry max queue size */\n  TELEMETRY_MAX_QUEUE_SIZE: 'TELEMETRY_MAX_QUEUE_SIZE',\n  /** Telemetry sampling rate */\n  TELEMETRY_SAMPLING_RATE: 'TELEMETRY_SAMPLING_RATE',\n  /** Deployment environment */\n  DEPLOYMENT_ENVIRONMENT: 'DEPLOYMENT_ENVIRONMENT',\n  /** Service name */\n  SERVICE_NAME: 'SERVICE_NAME',\n  /** Service version */\n  SERVICE_VERSION: 'SERVICE_VERSION',\n} as const;\n\n// =============================================================================\n// Default Values\n// =============================================================================\n\n/**\n * Default configuration values\n */\nexport const DEFAULTS = {\n  ruvectorServiceUrl: 'http://localhost:8080',\n  telemetryEndpoint: 'http://localhost:4318/v1/traces',\n  logLevel: 'info' as LogLevel,\n  port: 8080,\n  host: '0.0.0.0',\n  requestTimeoutMs: 30000,\n  keepAliveTimeoutMs: 5000,\n  telemetryBatchSize: 100,\n  telemetryFlushIntervalMs: 5000,\n  telemetryMaxQueueSize: 10000,\n  telemetrySamplingRate: 1.0,\n  deploymentEnvironment: 'development',\n  serviceName: 'llm-data-vault-runtime',\n  serviceVersion: '0.1.0',\n} as const;\n\n// =============================================================================\n// Validation Helpers\n// =============================================================================\n\n/**\n * Valid log levels\n */\nconst VALID_LOG_LEVELS = ['debug', 'info', 'warn', 'error'] as const;\n\n/**\n * Validates and returns a log level\n *\n * @param value - The value to validate\n * @returns The validated log level or default\n */\nfunction parseLogLevel(value: string | undefined): LogLevel {\n  if (value && VALID_LOG_LEVELS.includes(value as LogLevel)) {\n    return value as LogLevel;\n  }\n  return DEFAULTS.logLevel;\n}\n\n/**\n * Parses a boolean environment variable\n *\n * @param value - The environment variable value\n * @param defaultValue - Default value if not set\n * @returns Parsed boolean value\n */\nfunction parseBoolean(value: string | undefined, defaultValue: boolean): boolean {\n  if (value === undefined) {\n    return defaultValue;\n  }\n  return value.toLowerCase() === 'true' || value === '1';\n}\n\n/**\n * Parses an integer environment variable\n *\n * @param value - The environment variable value\n * @param defaultValue - Default value if not set or invalid\n * @returns Parsed integer value\n */\nfunction parseInteger(value: string | undefined, defaultValue: number): number {\n  if (value === undefined) {\n    return defaultValue;\n  }\n  const parsed = parseInt(value, 10);\n  return isNaN(parsed) ? defaultValue : parsed;\n}\n\n/**\n * Parses a float environment variable\n *\n * @param value - The environment variable value\n * @param defaultValue - Default value if not set or invalid\n * @returns Parsed float value\n */\nfunction parseFloat(value: string | undefined, defaultValue: number): number {\n  if (value === undefined) {\n    return defaultValue;\n  }\n  const parsed = Number.parseFloat(value);\n  return isNaN(parsed) ? defaultValue : Math.max(0, Math.min(1, parsed));\n}\n\n/**\n * Parses a URL environment variable\n *\n * @param value - The environment variable value\n * @param defaultValue - Default value if not set\n * @returns Validated URL string\n */\nfunction parseUrl(value: string | undefined, defaultValue: string): string {\n  if (!value) {\n    return defaultValue;\n  }\n  try {\n    new URL(value);\n    return value;\n  } catch {\n    console.warn(`Invalid URL: ${value}, using default: ${defaultValue}`);\n    return defaultValue;\n  }\n}\n\n// =============================================================================\n// Configuration Loading\n// =============================================================================\n\n/**\n * Loads feature flags from environment variables\n *\n * @returns Feature flags configuration\n */\nfunction loadFeatureFlags(): FeatureFlags {\n  return {\n    telemetryEnabled: parseBoolean(\n      process.env[ENV_VARS.TELEMETRY_ENABLED],\n      true\n    ),\n    cachingEnabled: parseBoolean(\n      process.env[ENV_VARS.CACHING_ENABLED],\n      true\n    ),\n    debugMode: parseBoolean(\n      process.env[ENV_VARS.DEBUG_MODE],\n      false\n    ),\n    healthChecksEnabled: parseBoolean(\n      process.env[ENV_VARS.HEALTH_CHECKS_ENABLED],\n      true\n    ),\n    metricsEnabled: parseBoolean(\n      process.env[ENV_VARS.METRICS_ENABLED],\n      true\n    ),\n  };\n}\n\n/**\n * Loads server configuration from environment variables\n *\n * @returns Server configuration\n */\nfunction loadServerConfig(): ServerConfig {\n  return {\n    port: parseInteger(process.env[ENV_VARS.PORT], DEFAULTS.port),\n    host: process.env[ENV_VARS.HOST] ?? DEFAULTS.host,\n    requestTimeoutMs: parseInteger(\n      process.env[ENV_VARS.REQUEST_TIMEOUT_MS],\n      DEFAULTS.requestTimeoutMs\n    ),\n    keepAliveTimeoutMs: DEFAULTS.keepAliveTimeoutMs,\n  };\n}\n\n/**\n * Loads telemetry configuration from environment variables\n *\n * @returns Telemetry configuration\n */\nfunction loadTelemetryConfig(): TelemetryConfig {\n  return {\n    batchSize: parseInteger(\n      process.env[ENV_VARS.TELEMETRY_BATCH_SIZE],\n      DEFAULTS.telemetryBatchSize\n    ),\n    flushIntervalMs: parseInteger(\n      process.env[ENV_VARS.TELEMETRY_FLUSH_INTERVAL_MS],\n      DEFAULTS.telemetryFlushIntervalMs\n    ),\n    maxQueueSize: parseInteger(\n      process.env[ENV_VARS.TELEMETRY_MAX_QUEUE_SIZE],\n      DEFAULTS.telemetryMaxQueueSize\n    ),\n    samplingRate: parseFloat(\n      process.env[ENV_VARS.TELEMETRY_SAMPLING_RATE],\n      DEFAULTS.telemetrySamplingRate\n    ),\n  };\n}\n\n/**\n * Loads the complete runtime configuration from environment variables\n *\n * @returns Complete runtime configuration\n */\nexport function loadConfig(): RuntimeConfig {\n  return {\n    ruvectorServiceUrl: parseUrl(\n      process.env[ENV_VARS.RUVECTOR_SERVICE_URL],\n      DEFAULTS.ruvectorServiceUrl\n    ),\n    telemetryEndpoint: parseUrl(\n      process.env[ENV_VARS.TELEMETRY_ENDPOINT],\n      DEFAULTS.telemetryEndpoint\n    ),\n    logLevel: parseLogLevel(process.env[ENV_VARS.LOG_LEVEL]),\n    features: loadFeatureFlags(),\n    server: loadServerConfig(),\n    telemetry: loadTelemetryConfig(),\n  };\n}\n\n// =============================================================================\n// Service Metadata\n// =============================================================================\n\n/**\n * Service metadata for telemetry and health checks\n */\nexport interface ServiceMetadata {\n  /** Service name */\n  readonly name: string;\n  /** Service version */\n  readonly version: string;\n  /** Deployment environment */\n  readonly environment: string;\n}\n\n/**\n * Loads service metadata from environment variables\n *\n * @returns Service metadata\n */\nexport function loadServiceMetadata(): ServiceMetadata {\n  return {\n    name: process.env[ENV_VARS.SERVICE_NAME] ?? DEFAULTS.serviceName,\n    version: process.env[ENV_VARS.SERVICE_VERSION] ?? DEFAULTS.serviceVersion,\n    environment:\n      process.env[ENV_VARS.DEPLOYMENT_ENVIRONMENT] ??\n      DEFAULTS.deploymentEnvironment,\n  };\n}\n\n// =============================================================================\n// Configuration Singleton\n// =============================================================================\n\nlet cachedConfig: RuntimeConfig | null = null;\nlet cachedMetadata: ServiceMetadata | null = null;\n\n/**\n * Gets the runtime configuration (cached)\n *\n * @returns Runtime configuration\n */\nexport function getConfig(): RuntimeConfig {\n  if (!cachedConfig) {\n    cachedConfig = loadConfig();\n  }\n  return cachedConfig;\n}\n\n/**\n * Gets service metadata (cached)\n *\n * @returns Service metadata\n */\nexport function getServiceMetadata(): ServiceMetadata {\n  if (!cachedMetadata) {\n    cachedMetadata = loadServiceMetadata();\n  }\n  return cachedMetadata;\n}\n\n/**\n * Reloads configuration from environment variables\n * Useful for testing or hot-reloading\n *\n * @returns Newly loaded configuration\n */\nexport function reloadConfig(): RuntimeConfig {\n  cachedConfig = loadConfig();\n  cachedMetadata = loadServiceMetadata();\n  return cachedConfig;\n}\n\n/**\n * Validates the current configuration\n *\n * @returns Array of validation errors (empty if valid)\n */\nexport function validateConfig(): string[] {\n  const errors: string[] = [];\n  const config = getConfig();\n\n  // Validate RuVector URL\n  try {\n    new URL(config.ruvectorServiceUrl);\n  } catch {\n    errors.push(`Invalid RUVECTOR_SERVICE_URL: ${config.ruvectorServiceUrl}`);\n  }\n\n  // Validate telemetry endpoint\n  try {\n    new URL(config.telemetryEndpoint);\n  } catch {\n    errors.push(`Invalid TELEMETRY_ENDPOINT: ${config.telemetryEndpoint}`);\n  }\n\n  // Validate port range\n  if (config.server.port < 1 || config.server.port > 65535) {\n    errors.push(`Invalid PORT: ${config.server.port} (must be 1-65535)`);\n  }\n\n  // Validate timeout\n  if (config.server.requestTimeoutMs < 1000) {\n    errors.push(\n      `REQUEST_TIMEOUT_MS too low: ${config.server.requestTimeoutMs} (minimum 1000)`\n    );\n  }\n\n  // Validate sampling rate\n  if (config.telemetry.samplingRate < 0 || config.telemetry.samplingRate > 1) {\n    errors.push(\n      `Invalid TELEMETRY_SAMPLING_RATE: ${config.telemetry.samplingRate} (must be 0-1)`\n    );\n  }\n\n  return errors;\n}\n",
+      "sha256": "1533ed8e977c3cbc63fd7d9355d0f0b4096f8024183bb1e41b5ea4286b78ef96"
+    },
+    {
+      "path": "package.json",
+      "parentBytes": "{\n  \"name\": \"llm-data-vault\",\n  \"version\": \"0.1.0\",\n  \"description\": \"Enterprise-grade secure storage and anonymization for LLM data\",\n  \"private\": true,\n  \"type\": \"module\",\n  \"main\": \"./dist/cli/index.js\",\n  \"types\": \"./dist/cli/index.d.ts\",\n  \"exports\": {\n    \".\": {\n      \"import\": \"./dist/cli/index.js\",\n      \"types\": \"./dist/cli/index.d.ts\"\n    },\n    \"./runtime\": {\n      \"import\": \"./dist/runtime/index.js\",\n      \"types\": \"./dist/runtime/index.d.ts\"\n    }\n  },\n  \"bin\": {\n    \"data-vault\": \"./dist/cli/cli.js\"\n  },\n  \"scripts\": {\n    \"dev\": \"claude-flow swarm start\",\n    \"test\": \"claude-flow test\",\n    \"build\": \"tsc -p tsconfig.json\",\n    \"build:runtime\": \"tsc -p src/runtime/tsconfig.json\",\n    \"build:watch\": \"tsc -p tsconfig.json --watch\",\n    \"cli\": \"tsx src/cli/cli.ts\",\n    \"runtime:dev\": \"tsx src/runtime/entry.ts\",\n    \"lint\": \"eslint src/**/*.ts\",\n    \"typecheck\": \"tsc --noEmit\"\n  },\n  \"dependencies\": {\n    \"@google-cloud/functions-framework\": \"^3.4.0\",\n    \"@opentelemetry/api\": \"^1.7.0\",\n    \"chalk\": \"^5.3.0\",\n    \"cli-table3\": \"^0.6.3\",\n    \"claude-flow\": \"^2.7.41\",\n    \"commander\": \"^12.1.0\",\n    \"ora\": \"^8.0.1\",\n    \"undici\": \"^6.6.0\",\n    \"zod\": \"^3.22.4\"\n  },\n  \"devDependencies\": {\n    \"@types/node\": \"^20.10.0\",\n    \"tsx\": \"^4.7.0\",\n    \"typescript\": \"^5.3.0\"\n  },\n  \"engines\": {\n    \"node\": \">=18.0.0\"\n  },\n  \"phase2b\": {\n    \"infraIntegration\": true,\n    \"status\": \"compliant\",\n    \"integrationDate\": \"2025-12-07\",\n    \"consumedModules\": [\n      \"infra-config\",\n      \"infra-errors\",\n      \"infra-cache\",\n      \"infra-otel\",\n      \"infra-retry\",\n      \"infra-rate-limit\",\n      \"schema-registry-core\",\n      \"llm-config-core\",\n      \"llm-observatory-core\",\n      \"llm-memory-graph\"\n    ]\n  }\n}\n",
+      "sha256": "d3b3a28b21824b47292b89c132cb9198d9d3bf2acb15e5e782ffe8c8847c1a4b"
+    },
+    {
+      "path": ".github/workflows/runtime-config.yml",
+      "absent": true
+    }
+  ],
+  "contract": {
+    "baseline": "e3f668e433d823297110a933ee1a2fa1e7bce00c",
+    "acceptance": "Eight malformed integer config values fall back to documented defaults rather than prefix truncation/unsafe or infinite values; retain five default/valid/signed/range-validation anchors. Real config module execution, no mock functions. Preserve Rust core, TypeScript integration, env configuration and RuVector persistence. Full repository,CI,security,Ruflo/Flywheel gates required before merge.",
+    "trials": 3,
+    "bounds": {
+      "generations": 1,
+      "children": 1,
+      "concurrency": 1,
+      "risk_budget": 0
+    },
+    "runtime": "Node24.22.1 native TypeScript stripping; not a substitute for project build or older-Node compatibility",
+    "rollback": "Forward revert config.ts and test script wiring; retain append-only evidence."
+  },
+  "boundary": "regressed=true is an explicit full-gate veto for failed locked install/unavailable full Rust/Node builds/Ruflo/offline learning, not newly observed component regression. cost/noop0 neutral/unmeasured; root-only replay is not promoted candidate proof."
+}

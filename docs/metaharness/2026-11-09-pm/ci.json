@@ -1,0 +1,478 @@
+{
+  "source": "c21e765537d9546e8087cb68d05c6259624a6e19",
+  "jobs": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "jobs": [
+        {
+          "id": 129370549888,
+          "name": "Clippy",
+          "status": "completed",
+          "conclusion": "failure",
+          "run_id": 42679688956,
+          "logs_url": null,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2
+            },
+            {
+              "name": "Install Rust",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3
+            },
+            {
+              "name": "Cache cargo",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4
+            },
+            {
+              "name": "Clippy",
+              "status": "completed",
+              "conclusion": "failure",
+              "number": 5
+            },
+            {
+              "name": "Post Cache cargo",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 9
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11
+            }
+          ]
+        },
+        {
+          "id": 129370550006,
+          "name": "Security Audit",
+          "status": "completed",
+          "conclusion": "failure",
+          "run_id": 42679688956,
+          "logs_url": null,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2
+            },
+            {
+              "name": "Install cargo-audit",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3
+            },
+            {
+              "name": "Security audit",
+              "status": "completed",
+              "conclusion": "failure",
+              "number": 4
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9
+            }
+          ]
+        },
+        {
+          "id": 129370550105,
+          "name": "Test",
+          "status": "completed",
+          "conclusion": "failure",
+          "run_id": 42679688956,
+          "logs_url": null,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1
+            },
+            {
+              "name": "Initialize containers",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3
+            },
+            {
+              "name": "Install Rust",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4
+            },
+            {
+              "name": "Cache cargo",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5
+            },
+            {
+              "name": "Run tests",
+              "status": "completed",
+              "conclusion": "failure",
+              "number": 6
+            },
+            {
+              "name": "Post Cache cargo",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 10
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11
+            },
+            {
+              "name": "Stop containers",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 12
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 13
+            }
+          ]
+        },
+        {
+          "id": 129370550224,
+          "name": "Format",
+          "status": "completed",
+          "conclusion": "failure",
+          "run_id": 42679688956,
+          "logs_url": null,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2
+            },
+            {
+              "name": "Install Rust",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3
+            },
+            {
+              "name": "Check formatting",
+              "status": "completed",
+              "conclusion": "failure",
+              "number": 4
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9
+            }
+          ]
+        },
+        {
+          "id": 129370550228,
+          "name": "Check",
+          "status": "completed",
+          "conclusion": "failure",
+          "run_id": 42679688956,
+          "logs_url": null,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2
+            },
+            {
+              "name": "Install Rust",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3
+            },
+            {
+              "name": "Cache cargo",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4
+            },
+            {
+              "name": "Check",
+              "status": "completed",
+              "conclusion": "failure",
+              "number": 5
+            },
+            {
+              "name": "Post Cache cargo",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 9
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11
+            }
+          ]
+        },
+        {
+          "id": 129370550231,
+          "name": "Code Coverage",
+          "status": "completed",
+          "conclusion": "failure",
+          "run_id": 42679688956,
+          "logs_url": null,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2
+            },
+            {
+              "name": "Install Rust",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3
+            },
+            {
+              "name": "Install cargo-llvm-cov",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4
+            },
+            {
+              "name": "Cache cargo",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5
+            },
+            {
+              "name": "Generate coverage report",
+              "status": "completed",
+              "conclusion": "failure",
+              "number": 6
+            },
+            {
+              "name": "Upload to Codecov",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 7
+            },
+            {
+              "name": "Post Cache cargo",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 13
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 14
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 15
+            }
+          ]
+        },
+        {
+          "id": 129370550673,
+          "name": "Documentation",
+          "status": "completed",
+          "conclusion": "success",
+          "run_id": 42679688956,
+          "logs_url": null,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2
+            },
+            {
+              "name": "Install Rust",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3
+            },
+            {
+              "name": "Cache cargo",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4
+            },
+            {
+              "name": "Build docs",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5
+            },
+            {
+              "name": "Post Cache cargo",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11
+            }
+          ]
+        }
+      ]
+    },
+    "isError": false
+  },
+  "runs": [
+    {
+      "id": 42679688956,
+      "status": "in_progress",
+      "conclusion": null
+    },
+    {
+      "id": 42679689446,
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "protection": {
+    "content": [
+      {
+        "type": "text",
+        "text": "GitHub API error 403: {\"message\":\"Resource not accessible by integration\",\"documentation_url\":\"https://docs.github.com/rest/branches/branch-protection#get-branch-protection\",\"status\":\"403\"}"
+      }
+    ],
+    "structuredContent": {
+      "error": "GitHub API error 403: {\"message\":\"Resource not accessible by integration\",\"documentation_url\":\"https://docs.github.com/rest/branches/branch-protection#get-branch-protection\",\"status\":\"403\"}",
+      "error_code": "FORBIDDEN",
+      "error_data": {
+        "message": "Resource not accessible by integration",
+        "documentation_url": "https://docs.github.com/rest/branches/branch-protection#get-branch-protection",
+        "status": "403"
+      }
+    },
+    "isError": true
+  },
+  "excerpts": {
+    "129370549888": {
+      "excerptOnly": true,
+      "length": 169613,
+      "head": "﻿2026-11-09T19:03:42.3868416Z Current runner version: '2.338.2'\n2026-11-09T19:03:42.3887436Z ##[group]Runner Image Provisioner\n2026-11-09T19:03:42.3888069Z Hosted Compute Agent\n2026-11-09T19:03:42.3888461Z Version: 20261028.624\n2026-11-09T19:03:42.3888873Z Commit: 54898b74c23fde5556c9b3c3a2290865feef0dfe\n2026-11-09T19:03:42.3889467Z Build Date: 2026-10-28T21:51:42Z\n2026-11-09T19:03:42.3889933Z Worker ID: {4726e91e-5377-4f45-b564-1c915212f926}\n2026-11-09T19:03:42.3890368Z Region: westus2\n2026-11-09T19:03:42.3890775Z Cloud: Azure\n2026-11-09T19:03:42.3891128Z ##[endgroup]\n2026-11-09T19:03:42.3892060Z ##[group]Operating System\n2026-11-09T19:03:42.3892448Z Ubuntu\n2026-11-09T19:03:42.3892778Z 26.04.1\n2026-11-09T19:03:42.3893162Z LTS\n2026-11-09T19:03:42.3893643Z ##[endgroup]\n2026-11-09T19:03:42.3894028Z ##[group]Runner Image\n2026-11-09T19:03:42.3894466Z Image: ubuntu-26.04\n2026-11-09T19:03:42.3894832Z Version: 20261101.186.1\n2026-11-09T19:03:42.3895675Z Included Software: https://github.com/a",
+      "tail": "m \u001b[1m\u001b[91m|_^\u001b[0m\n2026-11-09T19:04:32.4921227Z     \u001b[1m\u001b[94m|\u001b[0m\n2026-11-09T19:04:32.4921942Z     \u001b[1m\u001b[94m= \u001b[0m\u001b[1mhelp\u001b[0m: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.99.0/index.html#derivable_impls\n2026-11-09T19:04:32.4922874Z \u001b[1m\u001b[96mhelp\u001b[0m: replace the manual implementation with a derive attribute and mark the default variant\n2026-11-09T19:04:32.4923595Z     \u001b[1m\u001b[94m|\u001b[0m\n2026-11-09T19:04:32.4923955Z \u001b[1m\u001b[94m162\u001b[0m \u001b[92m+ #[derive(Default)]\u001b[0m\n2026-11-09T19:04:32.4924437Z \u001b[1m\u001b[94m163\u001b[0m \u001b[1m\u001b[94m|\u001b[0m pub enum CompressionType {\n2026-11-09T19:04:32.4924929Z \u001b[1m\u001b[94m164\u001b[0m \u001b[1m\u001b[94m|\u001b[0m     /// No compression.\n2026-11-09T19:04:32.4925386Z \u001b[1m\u001b[94m165\u001b[0m \u001b[92m~ \u001b[0m    \u001b[92m#[default]\u001b[0m\n2026-11-09T19:04:32.4925805Z \u001b[1m\u001b[94m166\u001b[0m \u001b[92m~     \u001b[0mNone,\n2026-11-09T19:04:32.4926177Z     \u001b[1m\u001b[94m|\u001b[0m\n2026-11-09T19:04:32.4926877Z \n2026-11-09T19:04:32.4959531Z \u001b[1m\u001b[91merror\u001b[0m\u001b[1m: docs for function which may panic missing `# Panics` section\u001b[0m\n2026-11-09T19:04:32.4960223Z    \u001b[1m\u001b[94m--> \u001b[0mcrates/vault-core/src/audit.rs:134:5\n2026-11-09T19:04:32.4960671Z     \u001b[1m\u001b[94m|\u001b[0m\n2026-11-09T19:04:32.4961094Z \u001b[1m\u001b[94m134\u001b[0m \u001b[1m\u001b[94m|\u001b[0m     pub fn build(self) -> AuditEvent {\n2026-11-09T19:04:32.4961840Z     \u001b[1m\u001b[94m|\u001b[0m     \u001b[1m\u001b[91m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\u001b[0m\n2026-11-09T19:04:32.4962272Z     \u001b[1m\u001b[94m|\u001b[0m\n2026-11-09T19:04:32.4962651Z \u001b[1m\u001b[92mnote\u001b[0m: first possible panic found here\n2026-11-09T19:04:32.4963128Z    \u001b[1m\u001b[94m--> \u001b[0mcrates/vault-core/src/audit.rs:137:24\n2026-11-09T19:04:32.4963657Z     \u001b[1m\u001b[94m|\u001b[0m\n2026-11-09T19:04:32.4964189Z \u001b[1m\u001b[94m137\u001b[0m \u001b[1m\u001b[94m|\u001b[0m             tenant_id: self.tenant_id.expect(\"tenant_id is required\"),\n2026-11-09T19:04:32.4964831Z     \u001b[1m\u001b[94m|\u001b[0m                        \u001b[1m\u001b[92m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\u001b[0m\n2026-11-09T19:04:32.4965719Z     \u001b[1m\u001b[94m= \u001b[0m\u001b[1mhelp\u001b[0m: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.99.0/index.html#missing_panics_doc\n2026-11-09T19:04:32.4966314Z \n2026-11-09T19:04:32.5011246Z \u001b[1m\u001b[91merror\u001b[0m\u001b[1m: item in documentation is missing backticks\u001b[0m\n2026-11-09T19:04:32.5011849Z    \u001b[1m\u001b[94m--> \u001b[0mcrates/vault-core/src/audit.rs:354:9\n2026-11-09T19:04:32.5012289Z     \u001b[1m\u001b[94m|\u001b[0m\n2026-11-09T19:04:32.5012672Z \u001b[1m\u001b[94m354\u001b[0m \u001b[1m\u001b[94m|\u001b[0m     /// OAuth2.\n2026-11-09T19:04:32.5013098Z     \u001b[1m\u001b[94m|\u001b[0m         \u001b[1m\u001b[91m^^^^^^\u001b[0m\n2026-11-09T19:04:32.5013586Z     \u001b[1m\u001b[94m|\u001b[0m\n2026-11-09T19:04:32.5014358Z     \u001b[1m\u001b[94m= \u001b[0m\u001b[1mhelp\u001b[0m: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.99.0/index.html#doc_markdown\n2026-11-09T19:04:32.5015260Z \u001b[1m\u001b[96mhelp\u001b[0m: try\n2026-11-09T19:04:32.5044076Z     \u001b[1m\u001b[94m|\u001b[0m\n2026-11-09T19:04:32.5070555Z \u001b[1m\u001b[94m354\u001b[0m \u001b[91m- \u001b[0m    /// \u001b[91mOAuth2\u001b[0m.\n2026-11-09T19:04:32.5071121Z \u001b[1m\u001b[94m354\u001b[0m \u001b[92m+ \u001b[0m    /// \u001b[92m`OAuth2`\u001b[0m.\n2026-11-09T19:04:32.5081448Z     \u001b[1m\u001b[94m|\u001b[0m\n2026-11-09T19:04:32.5081732Z \n2026-11-09T19:04:32.5082088Z \u001b[1m\u001b[91merror\u001b[0m\u001b[1m: this `impl` can be derived\u001b[0m\n2026-11-09T19:04:32.5082836Z    \u001b[1m\u001b[94m--> \u001b[0mcrates/vault-core/src/audit.rs:418:1\n2026-11-09T19:04:32.5083276Z     \u001b[1m\u001b[94m|\u001b[0m\n2026-11-09T19:04:32.5083868Z \u001b[1m\u001b[94m418\u001b[0m \u001b[1m\u001b[94m|\u001b[0m \u001b[1m\u001b[91m/\u001b[0m impl Default for ActionResult {\n2026-11-09T19:04:32.5084486Z \u001b[1m\u001b[94m419\u001b[0m \u001b[1m\u001b[94m|\u001b[0m \u001b[1m\u001b[91m|\u001b[0m     fn default() -> Self {\n2026-11-09T19:04:32.5085149Z \u001b[1m\u001b[94m420\u001b[0m \u001b[1m\u001b[94m|\u001b[0m \u001b[1m\u001b[91m|\u001b[0m         Self::Success\n2026-11-09T19:04:32.5086030Z \u001b[1m\u001b[94m421\u001b[0m \u001b[1m\u001b[94m|\u001b[0m \u001b[1m\u001b[91m|\u001b[0m     }\n2026-11-09T19:04:32.5086459Z \u001b[1m\u001b[94m422\u001b[0m \u001b[1m\u001b[94m|\u001b[0m \u001b[1m\u001b[91m|\u001b[0m }\n2026-11-09T19:04:32.5086861Z     \u001b[1m\u001b[94m|\u001b[0m \u001b[1m\u001b[91m|_^\u001b[0m\n2026-11-09T19:04:32.5087228Z     \u001b[1m\u001b[94m|\u001b[0m\n2026-11-09T19:04:32.5087931Z     \u001b[1m\u001b[94m= \u001b[0m\u001b[1mhelp\u001b[0m: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.99.0/index.html#derivable_impls\n2026-11-09T19:04:32.5088846Z \u001b[1m\u001b[96mhelp\u001b[0m: replace the manual implementation with a derive attribute and mark the default variant\n2026-11-09T19:04:32.5089403Z     \u001b[1m\u001b[94m|\u001b[0m\n2026-11-09T19:04:32.5089766Z \u001b[1m\u001b[94m407\u001b[0m \u001b[92m+ #[derive(Default)]\u001b[0m\n2026-11-09T19:04:32.5090211Z \u001b[1m\u001b[94m408\u001b[0m \u001b[1m\u001b[94m|\u001b[0m pub enum ActionResult {\n2026-11-09T19:04:32.5090695Z \u001b[1m\u001b[94m409\u001b[0m \u001b[1m\u001b[94m|\u001b[0m     /// Action succeeded.\n2026-11-09T19:04:32.5091160Z \u001b[1m\u001b[94m410\u001b[0m \u001b[92m~ \u001b[0m    \u001b[92m#[default]\u001b[0m\n2026-11-09T19:04:32.5091594Z \u001b[1m\u001b[94m411\u001b[0m \u001b[92m~     \u001b[0mSuccess,\n2026-11-09T19:04:32.5091976Z     \u001b[1m\u001b[94m|\u001b[0m\n2026-11-09T19:04:32.5092201Z \n2026-11-09T19:04:32.6438827Z \u001b[1m\u001b[91merror\u001b[0m: could not compile `vault-core` (lib) due to 53 previous errors\n2026-11-09T19:04:32.6439514Z \u001b[1m\u001b[33mwarning\u001b[0m: build failed, waiting for other jobs to finish...\n2026-11-09T19:04:37.9471192Z ##[error]Process completed with exit code 101.\n2026-11-09T19:04:37.9594872Z Post job cleanup.\n2026-11-09T19:04:38.0198523Z [command]/usr/bin/git version\n2026-11-09T19:04:38.0231626Z git version 2.56.0\n2026-11-09T19:04:38.0256884Z Temporarily overriding HOME='/home/runner/work/_temp/7775605b-88b4-4f18-b048-7746cd1e44f4' before making global git config changes\n2026-11-09T19:04:38.0257976Z Adding repository directory to the temporary git global config as a safe directory\n2026-11-09T19:04:38.0261231Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/data-vault/data-vault\n2026-11-09T19:04:38.0297999Z [command]/usr/bin/git config --local --name-only --get-regexp core\\.sshCommand\n2026-11-09T19:04:38.0330379Z [command]/usr/bin/git submodule foreach --recursive sh -c \"git config --local --name-only --get-regexp 'core\\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\"\n2026-11-09T19:04:38.0581613Z [command]/usr/bin/git config --local --name-only --get-regexp http\\.https\\:\\/\\/github\\.com\\/\\.extraheader\n2026-11-09T19:04:38.0612695Z http.https://github.com/.extraheader\n2026-11-09T19:04:38.0621931Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader\n2026-11-09T19:04:38.0657088Z [command]/usr/bin/git submodule foreach --recursive sh -c \"git config --local --name-only --get-regexp 'http\\.https\\:\\/\\/github\\.com\\/\\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\"\n2026-11-09T19:04:38.0897786Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\\.gitdir:\n2026-11-09T19:04:38.0926505Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url\n2026-11-09T19:04:38.1293066Z Cleaning up orphan processes\n2026-11-09T19:04:38.1553828Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/\n"
+    },
+    "129370550006": {
+      "excerptOnly": true,
+      "length": 111816,
+      "head": "﻿2026-11-09T19:03:43.1894973Z Current runner version: '2.338.2'\n2026-11-09T19:03:43.1917285Z ##[group]Runner Image Provisioner\n2026-11-09T19:03:43.1918254Z Hosted Compute Agent\n2026-11-09T19:03:43.1919012Z Version: 20261028.624\n2026-11-09T19:03:43.1919790Z Commit: 54898b74c23fde5556c9b3c3a2290865feef0dfe\n2026-11-09T19:03:43.1920715Z Build Date: 2026-10-28T21:51:42Z\n2026-11-09T19:03:43.1921546Z Worker ID: {75136e6c-7427-4a0a-a2b1-be59a9d7f300}\n2026-11-09T19:03:43.1922423Z Region: westus2\n2026-11-09T19:03:43.1923125Z Cloud: Azure\n2026-11-09T19:03:43.1923911Z ##[endgroup]\n2026-11-09T19:03:43.1925381Z ##[group]Operating System\n2026-11-09T19:03:43.1926180Z Ubuntu\n2026-11-09T19:03:43.1926768Z 26.04.1\n2026-11-09T19:03:43.1927372Z LTS\n2026-11-09T19:03:43.1928011Z ##[endgroup]\n2026-11-09T19:03:43.1928635Z ##[group]Runner Image\n2026-11-09T19:03:43.1929717Z Image: ubuntu-26.04\n2026-11-09T19:03:43.1930204Z Version: 20261101.186.1\n2026-11-09T19:03:43.1931396Z Included Software: https://github.com/a",
+      "tail": "tsec.org/advisories/RUSTSEC-2026-0406\n2026-11-09T19:06:21.9650213Z \n2026-11-09T19:06:21.9650324Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mCrate:    \u001b[0m zstd-safe\n2026-11-09T19:06:21.9650557Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mVersion:  \u001b[0m 7.2.4\n2026-11-09T19:06:21.9650781Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mWarning:  \u001b[0m unsound\n2026-11-09T19:06:21.9651086Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mTitle:    \u001b[0m Double free in `DCtx::try_clone`\n2026-11-09T19:06:21.9651368Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mDate:     \u001b[0m 2026-10-16\n2026-11-09T19:06:21.9651614Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mID:       \u001b[0m RUSTSEC-2026-0404\n2026-11-09T19:06:21.9651926Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mURL:      \u001b[0m https://rustsec.org/advisories/RUSTSEC-2026-0404\n2026-11-09T19:06:21.9652129Z \n2026-11-09T19:06:21.9652231Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mCrate:    \u001b[0m zstd-safe\n2026-11-09T19:06:21.9652461Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mVersion:  \u001b[0m 7.2.4\n2026-11-09T19:06:21.9652691Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mWarning:  \u001b[0m unsound\n2026-11-09T19:06:21.9653045Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mTitle:    \u001b[0m Use-after-free through `init_using_cdict` and `init_using_ddict`\n2026-11-09T19:06:21.9653397Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mDate:     \u001b[0m 2026-10-16\n2026-11-09T19:06:21.9653809Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mID:       \u001b[0m RUSTSEC-2026-0399\n2026-11-09T19:06:21.9654130Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mURL:      \u001b[0m https://rustsec.org/advisories/RUSTSEC-2026-0399\n2026-11-09T19:06:21.9654335Z \n2026-11-09T19:06:21.9654431Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mCrate:    \u001b[0m zstd-safe\n2026-11-09T19:06:21.9654663Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mVersion:  \u001b[0m 7.2.4\n2026-11-09T19:06:21.9654886Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mWarning:  \u001b[0m unsound\n2026-11-09T19:06:21.9655237Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mTitle:    \u001b[0m Use-after-free with `CParameter::StableInBuffer`\n2026-11-09T19:06:21.9655559Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mDate:     \u001b[0m 2026-10-16\n2026-11-09T19:06:21.9655804Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mID:       \u001b[0m RUSTSEC-2026-0395\n2026-11-09T19:06:21.9656267Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mURL:      \u001b[0m https://rustsec.org/advisories/RUSTSEC-2026-0395\n2026-11-09T19:06:21.9656467Z \n2026-11-09T19:06:21.9656576Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mCrate:    \u001b[0m zstd-safe\n2026-11-09T19:06:21.9656898Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mVersion:  \u001b[0m 7.2.4\n2026-11-09T19:06:21.9657121Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mWarning:  \u001b[0m unsound\n2026-11-09T19:06:21.9657492Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mTitle:    \u001b[0m Out-of-bounds read in `train_from_buffer` when sample sizes overflow\n2026-11-09T19:06:21.9657847Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mDate:     \u001b[0m 2026-10-16\n2026-11-09T19:06:21.9658093Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mID:       \u001b[0m RUSTSEC-2026-0401\n2026-11-09T19:06:21.9658416Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mURL:      \u001b[0m https://rustsec.org/advisories/RUSTSEC-2026-0401\n2026-11-09T19:06:21.9658616Z \n2026-11-09T19:06:21.9658723Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mCrate:    \u001b[0m zstd-safe\n2026-11-09T19:06:21.9658960Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mVersion:  \u001b[0m 7.2.4\n2026-11-09T19:06:21.9659190Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mWarning:  \u001b[0m unsound\n2026-11-09T19:06:21.9659617Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mTitle:    \u001b[0m Use-after-free of a dictionary after a one-shot call on a context with an open stream\n2026-11-09T19:06:21.9660023Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mDate:     \u001b[0m 2026-10-16\n2026-11-09T19:06:21.9660273Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mID:       \u001b[0m RUSTSEC-2026-0400\n2026-11-09T19:06:21.9660592Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mURL:      \u001b[0m https://rustsec.org/advisories/RUSTSEC-2026-0400\n2026-11-09T19:06:21.9660798Z \n2026-11-09T19:06:21.9660903Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mCrate:    \u001b[0m zstd-safe\n2026-11-09T19:06:21.9661134Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mVersion:  \u001b[0m 7.2.4\n2026-11-09T19:06:21.9661359Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mWarning:  \u001b[0m unsound\n2026-11-09T19:06:21.9661715Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mTitle:    \u001b[0m `OutBuffer::around_pos` exposes uninitialized memory\n2026-11-09T19:06:21.9662037Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mDate:     \u001b[0m 2026-10-16\n2026-11-09T19:06:21.9662281Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mID:       \u001b[0m RUSTSEC-2026-0397\n2026-11-09T19:06:21.9662603Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mURL:      \u001b[0m https://rustsec.org/advisories/RUSTSEC-2026-0397\n2026-11-09T19:06:21.9662812Z \n2026-11-09T19:06:21.9662911Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mCrate:    \u001b[0m zstd-safe\n2026-11-09T19:06:21.9663138Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mVersion:  \u001b[0m 7.2.4\n2026-11-09T19:06:21.9663371Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mWarning:  \u001b[0m unsound\n2026-11-09T19:06:21.9663946Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mTitle:    \u001b[0m Heap buffer overflow in `CCtx::try_clone` on a multithreaded context\n2026-11-09T19:06:21.9664305Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mDate:     \u001b[0m 2026-10-16\n2026-11-09T19:06:21.9664551Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mID:       \u001b[0m RUSTSEC-2026-0402\n2026-11-09T19:06:21.9664870Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mURL:      \u001b[0m https://rustsec.org/advisories/RUSTSEC-2026-0402\n2026-11-09T19:06:21.9665080Z \n2026-11-09T19:06:21.9665183Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mCrate:    \u001b[0m keccak\n2026-11-09T19:06:21.9665411Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mVersion:  \u001b[0m 0.1.5\n2026-11-09T19:06:21.9665638Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mWarning:  \u001b[0m yanked\n2026-11-09T19:06:21.9665772Z \n2026-11-09T19:06:21.9665873Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mCrate:    \u001b[0m spin\n2026-11-09T19:06:21.9666103Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mVersion:  \u001b[0m 0.9.8\n2026-11-09T19:06:21.9666324Z \u001b[0m\u001b[0m\u001b[1m\u001b[33mWarning:  \u001b[0m yanked\n2026-11-09T19:06:21.9666449Z \n2026-11-09T19:06:21.9675687Z ##[error]Process completed with exit code 1.\n2026-11-09T19:06:21.9785492Z Post job cleanup.\n2026-11-09T19:06:22.0485879Z [command]/usr/bin/git version\n2026-11-09T19:06:22.0523159Z git version 2.56.0\n2026-11-09T19:06:22.0551748Z Temporarily overriding HOME='/home/runner/work/_temp/b53d51fb-8fdf-4e54-9c9b-a1f4966c4030' before making global git config changes\n2026-11-09T19:06:22.0552732Z Adding repository directory to the temporary git global config as a safe directory\n2026-11-09T19:06:22.0556681Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/data-vault/data-vault\n2026-11-09T19:06:22.0590005Z [command]/usr/bin/git config --local --name-only --get-regexp core\\.sshCommand\n2026-11-09T19:06:22.0620121Z [command]/usr/bin/git submodule foreach --recursive sh -c \"git config --local --name-only --get-regexp 'core\\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\"\n2026-11-09T19:06:22.1008006Z [command]/usr/bin/git config --local --name-only --get-regexp http\\.https\\:\\/\\/github\\.com\\/\\.extraheader\n2026-11-09T19:06:22.1032978Z http.https://github.com/.extraheader\n2026-11-09T19:06:22.1041330Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader\n2026-11-09T19:06:22.1072393Z [command]/usr/bin/git submodule foreach --recursive sh -c \"git config --local --name-only --get-regexp 'http\\.https\\:\\/\\/github\\.com\\/\\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\"\n2026-11-09T19:06:22.1315480Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\\.gitdir:\n2026-11-09T19:06:22.1345473Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url\n2026-11-09T19:06:22.1711394Z Cleaning up orphan processes\n2026-11-09T19:06:22.2014314Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/\n"
+    },
+    "129370550224": {
+      "excerptOnly": true,
+      "length": 646416,
+      "head": "﻿2026-11-09T19:03:42.4527229Z Current runner version: '2.338.2'\n2026-11-09T19:03:42.4546365Z ##[group]Runner Image Provisioner\n2026-11-09T19:03:42.4547130Z Hosted Compute Agent\n2026-11-09T19:03:42.4547747Z Version: 20261028.624\n2026-11-09T19:03:42.4548283Z Commit: 54898b74c23fde5556c9b3c3a2290865feef0dfe\n2026-11-09T19:03:42.4548942Z Build Date: 2026-10-28T21:51:42Z\n2026-11-09T19:03:42.4549535Z Worker ID: {29d2be38-14d5-4f38-a91a-7c097d0bcfe5}\n2026-11-09T19:03:42.4550201Z Region: westus3\n2026-11-09T19:03:42.4550695Z Cloud: Azure\n2026-11-09T19:03:42.4551406Z ##[endgroup]\n2026-11-09T19:03:42.4552571Z ##[group]Operating System\n2026-11-09T19:03:42.4553127Z Ubuntu\n2026-11-09T19:03:42.4553577Z 26.04.1\n2026-11-09T19:03:42.4554020Z LTS\n2026-11-09T19:03:42.4554505Z ##[endgroup]\n2026-11-09T19:03:42.4554978Z ##[group]Runner Image\n2026-11-09T19:03:42.4555504Z Image: ubuntu-26.04\n2026-11-09T19:03:42.4555981Z Version: 20261101.186.1\n2026-11-09T19:03:42.4557045Z Included Software: https://github.com/a",
+      "tail": "26-11-09T19:03:47.9378391Z -use serde_json::{json, Value};\n2026-11-09T19:03:47.9378534Z +use crate::common::{TestApp, TestClient, TestWebhook};\n2026-11-09T19:03:47.9378631Z  use axum::http::StatusCode;\n2026-11-09T19:03:47.9378730Z +use serde_json::{json, Value};\n2026-11-09T19:03:47.9378803Z  \n2026-11-09T19:03:47.9378900Z  /// Tests creating a webhook.\n2026-11-09T19:03:47.9379064Z  #[tokio::test]\n2026-11-09T19:03:47.9379439Z Diff in /home/runner/work/data-vault/data-vault/tests/integration/webhooks/management.rs:111:\n2026-11-09T19:03:47.9379544Z      let token = app.admin_token();\n2026-11-09T19:03:47.9379700Z      let client = TestClient::new(app.router).with_auth(&token);\n2026-11-09T19:03:47.9379781Z  \n2026-11-09T19:03:47.9379985Z -    let response = client.post(\"/api/v1/webhooks/webhook-123/test\", json!({})).await;\n2026-11-09T19:03:47.9380074Z +    let response = client\n2026-11-09T19:03:47.9380217Z +        .post(\"/api/v1/webhooks/webhook-123/test\", json!({}))\n2026-11-09T19:03:47.9380293Z +        .await;\n2026-11-09T19:03:47.9380374Z  \n2026-11-09T19:03:47.9380452Z      assert!(\n2026-11-09T19:03:47.9380630Z          response.status == StatusCode::OK\n2026-11-09T19:03:47.9380863Z Diff in /home/runner/work/data-vault/data-vault/tests/integration/webhooks/management.rs:147:\n2026-11-09T19:03:47.9380957Z      let token = app.admin_token();\n2026-11-09T19:03:47.9381234Z      let client = TestClient::new(app.router).with_auth(&token);\n2026-11-09T19:03:47.9381415Z  \n2026-11-09T19:03:47.9381647Z -    let response = client.get(\"/api/v1/webhooks/webhook-123/deliveries/delivery-456\").await;\n2026-11-09T19:03:47.9381737Z +    let response = client\n2026-11-09T19:03:47.9381904Z +        .get(\"/api/v1/webhooks/webhook-123/deliveries/delivery-456\")\n2026-11-09T19:03:47.9381991Z +        .await;\n2026-11-09T19:03:47.9382064Z  \n2026-11-09T19:03:47.9382148Z      assert!(\n2026-11-09T19:03:47.9382257Z          response.status == StatusCode::OK\n2026-11-09T19:03:47.9382489Z Diff in /home/runner/work/data-vault/data-vault/tests/integration/webhooks/management.rs:166:\n2026-11-09T19:03:47.9382637Z      let client = TestClient::new(app.router).with_auth(&token);\n2026-11-09T19:03:47.9382721Z  \n2026-11-09T19:03:47.9382811Z      let response = client\n2026-11-09T19:03:47.9383017Z -        .post(\"/api/v1/webhooks/webhook-123/deliveries/delivery-456/retry\", json!({}))\n2026-11-09T19:03:47.9383099Z +        .post(\n2026-11-09T19:03:47.9383252Z +            \"/api/v1/webhooks/webhook-123/deliveries/delivery-456/retry\",\n2026-11-09T19:03:47.9383339Z +            json!({}),\n2026-11-09T19:03:47.9383413Z +        )\n2026-11-09T19:03:47.9383494Z          .await;\n2026-11-09T19:03:47.9383567Z  \n2026-11-09T19:03:47.9383649Z      assert!(\n2026-11-09T19:03:47.9383876Z Diff in /home/runner/work/data-vault/data-vault/tests/integration/webhooks/management.rs:307:\n2026-11-09T19:03:47.9383949Z  \n2026-11-09T19:03:47.9384042Z          // Disable webhook\n2026-11-09T19:03:47.9384151Z          let update = json!({ \"active\": false });\n2026-11-09T19:03:47.9384331Z -        client.put(&format!(\"/api/v1/webhooks/{}\", webhook_id), &update).await;\n2026-11-09T19:03:47.9384410Z +        client\n2026-11-09T19:03:47.9384572Z +            .put(&format!(\"/api/v1/webhooks/{}\", webhook_id), &update)\n2026-11-09T19:03:47.9384650Z +            .await;\n2026-11-09T19:03:47.9384723Z  \n2026-11-09T19:03:47.9384861Z          // Webhook should not receive deliveries when disabled\n2026-11-09T19:03:47.9384936Z      }\n2026-11-09T19:03:47.9385160Z Diff in /home/runner/work/data-vault/data-vault/tests/integration/webhooks/management.rs:338:\n2026-11-09T19:03:47.9385290Z          let token2 = app.generate_token(\"user-2\", &[\"user\"]);\n2026-11-09T19:03:47.9385537Z          let client2 = TestClient::new(app.router.clone()).with_auth(&token2);\n2026-11-09T19:03:47.9385618Z  \n2026-11-09T19:03:47.9385817Z -        let get_response = client2.get(&format!(\"/api/v1/webhooks/{}\", webhook_id)).await;\n2026-11-09T19:03:47.9385917Z +        let get_response = client2\n2026-11-09T19:03:47.9386044Z +            .get(&format!(\"/api/v1/webhooks/{}\", webhook_id))\n2026-11-09T19:03:47.9386129Z +            .await;\n2026-11-09T19:03:47.9386213Z  \n2026-11-09T19:03:47.9386321Z          // Should be forbidden or not found\n2026-11-09T19:03:47.9386397Z          assert!(\n2026-11-09T19:03:47.9386601Z Diff in /home/runner/work/data-vault/data-vault/tests/integration_tests.rs:22:\n2026-11-09T19:03:47.9386697Z  // Re-export test modules\n2026-11-09T19:03:47.9386789Z  pub use integration::api;\n2026-11-09T19:03:47.9386888Z  pub use integration::auth;\n2026-11-09T19:03:47.9386983Z -pub use integration::storage;\n2026-11-09T19:03:47.9387082Z  pub use integration::pii;\n2026-11-09T19:03:47.9387177Z +pub use integration::storage;\n2026-11-09T19:03:47.9387278Z  pub use integration::webhooks;\n2026-11-09T19:03:47.9387355Z  \n2026-11-09T19:03:47.9413654Z ##[error]Process completed with exit code 1.\n2026-11-09T19:03:47.9559551Z Post job cleanup.\n2026-11-09T19:03:48.0367446Z [command]/usr/bin/git version\n2026-11-09T19:03:48.0399304Z git version 2.56.0\n2026-11-09T19:03:48.0429409Z Temporarily overriding HOME='/home/runner/work/_temp/7bd9399a-1e43-4c18-ab66-e6c66919898c' before making global git config changes\n2026-11-09T19:03:48.0430112Z Adding repository directory to the temporary git global config as a safe directory\n2026-11-09T19:03:48.0433799Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/data-vault/data-vault\n2026-11-09T19:03:48.0463195Z [command]/usr/bin/git config --local --name-only --get-regexp core\\.sshCommand\n2026-11-09T19:03:48.0489465Z [command]/usr/bin/git submodule foreach --recursive sh -c \"git config --local --name-only --get-regexp 'core\\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\"\n2026-11-09T19:03:48.0699566Z [command]/usr/bin/git config --local --name-only --get-regexp http\\.https\\:\\/\\/github\\.com\\/\\.extraheader\n2026-11-09T19:03:48.0716071Z http.https://github.com/.extraheader\n2026-11-09T19:03:48.0723617Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader\n2026-11-09T19:03:48.0750051Z [command]/usr/bin/git submodule foreach --recursive sh -c \"git config --local --name-only --get-regexp 'http\\.https\\:\\/\\/github\\.com\\/\\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\"\n2026-11-09T19:03:48.0950321Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\\.gitdir:\n2026-11-09T19:03:48.0973947Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url\n2026-11-09T19:03:48.1256391Z Cleaning up orphan processes\n2026-11-09T19:03:48.1547863Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/\n"
+    },
+    "129370550228": {
+      "excerptOnly": true,
+      "length": 103757,
+      "head": "﻿2026-11-09T19:03:41.8094490Z Current runner version: '2.338.2'\n2026-11-09T19:03:41.8114211Z ##[group]Runner Image Provisioner\n2026-11-09T19:03:41.8115009Z Hosted Compute Agent\n2026-11-09T19:03:41.8115507Z Version: 20261028.624\n2026-11-09T19:03:41.8116023Z Commit: 54898b74c23fde5556c9b3c3a2290865feef0dfe\n2026-11-09T19:03:41.8116684Z Build Date: 2026-10-28T21:51:42Z\n2026-11-09T19:03:41.8117407Z Worker ID: {7d5bb0d1-680b-463c-827b-2057a195805f}\n2026-11-09T19:03:41.8118197Z Region: northcentralus\n2026-11-09T19:03:41.8118901Z Cloud: Azure\n2026-11-09T19:03:41.8119506Z ##[endgroup]\n2026-11-09T19:03:41.8120977Z ##[group]Operating System\n2026-11-09T19:03:41.8121573Z Ubuntu\n2026-11-09T19:03:41.8121993Z 26.04.1\n2026-11-09T19:03:41.8122505Z LTS\n2026-11-09T19:03:41.8122937Z ##[endgroup]\n2026-11-09T19:03:41.8123427Z ##[group]Runner Image\n2026-11-09T19:03:41.8123979Z Image: ubuntu-26.04\n2026-11-09T19:03:41.8124448Z Version: 20261101.186.1\n2026-11-09T19:03:41.8125538Z Included Software: https://githu",
+      "tail": "ls v0.26.4\n2026-11-09T19:05:00.3701801Z \u001b[1m\u001b[92m    Checking\u001b[0m sqlx v0.7.4\n2026-11-09T19:05:00.4381449Z \u001b[1m\u001b[92m   Compiling\u001b[0m pest_generator v2.8.4\n2026-11-09T19:05:00.4481277Z \u001b[1m\u001b[92m    Checking\u001b[0m hyper-rustls v0.27.7\n2026-11-09T19:05:00.5591449Z \u001b[1m\u001b[92m    Checking\u001b[0m aws-smithy-http-client v1.1.4\n2026-11-09T19:05:00.7352457Z \u001b[1m\u001b[92m    Checking\u001b[0m redis v0.24.0\n2026-11-09T19:05:00.9761486Z \u001b[1m\u001b[92m    Checking\u001b[0m aws-smithy-checksums v0.63.11\n2026-11-09T19:05:00.9871344Z \u001b[1m\u001b[92m    Checking\u001b[0m aws-smithy-runtime v1.9.4\n2026-11-09T19:05:01.1071529Z \u001b[1m\u001b[92m    Checking\u001b[0m dlv-list v0.5.2\n2026-11-09T19:05:01.2348984Z \u001b[1m\u001b[92m   Compiling\u001b[0m itertools v0.12.1\n2026-11-09T19:05:01.3548667Z \u001b[1m\u001b[92m   Compiling\u001b[0m axum-core v0.3.4\n2026-11-09T19:05:01.4532427Z \u001b[1m\u001b[92m    Checking\u001b[0m infra-errors v0.1.0 (https://github.com/LLM-Dev-Ops/infra?rev=a8bc89c190f63b139812f30a54e21a25b8f70e81#a8bc89c1)\n2026-11-09T19:05:01.8651231Z \u001b[1m\u001b[92m    Checking\u001b[0m pem v3.0.6\n2026-11-09T19:05:01.9544488Z \u001b[1m\u001b[92m    Checking\u001b[0m toml_datetime v0.6.11\n2026-11-09T19:05:02.0611324Z \u001b[1m\u001b[92m    Checking\u001b[0m serde_spanned v0.6.9\n2026-11-09T19:05:02.1271522Z \u001b[1m\u001b[92m   Compiling\u001b[0m rustls v0.22.4\n2026-11-09T19:05:02.2141502Z \u001b[1m\u001b[92m    Checking\u001b[0m spin v0.9.8\n2026-11-09T19:05:02.2511457Z \u001b[1m\u001b[92m    Checking\u001b[0m toml_write v0.1.2\n2026-11-09T19:05:02.3361353Z \u001b[1m\u001b[92m    Checking\u001b[0m winnow v0.7.14\n2026-11-09T19:05:02.6083230Z \u001b[1m\u001b[92m    Checking\u001b[0m deadpool-redis v0.14.0\n2026-11-09T19:05:02.7912867Z \u001b[1m\u001b[92m    Checking\u001b[0m aws-runtime v1.5.16\n2026-11-09T19:05:02.8442016Z \u001b[1m\u001b[92m   Compiling\u001b[0m prost-derive v0.12.6\n2026-11-09T19:05:03.2673513Z \u001b[1m\u001b[92m    Checking\u001b[0m jsonwebtoken v9.3.1\n2026-11-09T19:05:03.4400977Z \u001b[1m\u001b[92m    Checking\u001b[0m toml_edit v0.22.27\n2026-11-09T19:05:03.4751514Z \u001b[1m\u001b[92m    Checking\u001b[0m aws-sdk-sts v1.94.0\n2026-11-09T19:05:03.6949373Z \u001b[1m\u001b[92m    Checking\u001b[0m aws-sdk-sso v1.90.0\n2026-11-09T19:05:03.8601587Z \u001b[1m\u001b[92m    Checking\u001b[0m aws-sdk-ssooidc v1.92.0\n2026-11-09T19:05:04.3564400Z \u001b[1m\u001b[92m    Checking\u001b[0m aws-sdk-kms v1.96.0\n2026-11-09T19:05:04.4821383Z \u001b[1m\u001b[92m    Checking\u001b[0m aws-sdk-s3 v1.115.0\n2026-11-09T19:05:04.7428360Z \u001b[1m\u001b[92m    Checking\u001b[0m ordered-multimap v0.7.3\n2026-11-09T19:05:04.7742270Z \u001b[1m\u001b[92m    Checking\u001b[0m aws-config v1.8.11\n2026-11-09T19:05:05.0131428Z \u001b[1m\u001b[92m   Compiling\u001b[0m pest_derive v2.8.4\n2026-11-09T19:05:05.1485961Z \u001b[1m\u001b[92m    Checking\u001b[0m tokio-tungstenite v0.24.0\n2026-11-09T19:05:05.2931568Z \u001b[1m\u001b[92m    Checking\u001b[0m rustls-webpki v0.102.8\n2026-11-09T19:05:05.5631286Z \u001b[1m\u001b[92m    Checking\u001b[0m axum-core v0.4.5\n2026-11-09T19:05:06.6399745Z \u001b[1m\u001b[92m   Compiling\u001b[0m axum v0.6.20\n2026-11-09T19:05:06.7361546Z \u001b[1m\u001b[92m    Checking\u001b[0m raw-cpuid v11.6.0\n2026-11-09T19:05:06.7931376Z \u001b[1m\u001b[92m   Compiling\u001b[0m axum-macros v0.4.2\n2026-11-09T19:05:07.8595410Z \u001b[1m\u001b[92m    Checking\u001b[0m serde_path_to_error v0.1.20\n2026-11-09T19:05:07.9809648Z \u001b[1m\u001b[92m    Checking\u001b[0m webpki-roots v0.25.4\n2026-11-09T19:05:08.0421514Z \u001b[1m\u001b[92m   Compiling\u001b[0m protobuf v2.28.0\n2026-11-09T19:05:08.0731452Z \u001b[1m\u001b[92m    Checking\u001b[0m arraydeque v0.5.1\n2026-11-09T19:05:08.2421609Z \u001b[1m\u001b[92m    Checking\u001b[0m yaml-rust2 v0.8.1\n2026-11-09T19:05:08.4291704Z \u001b[1m\u001b[92m    Checking\u001b[0m convert_case v0.6.0\n2026-11-09T19:05:08.4901361Z \u001b[1m\u001b[92m    Checking\u001b[0m axum v0.7.9\n2026-11-09T19:05:08.5281378Z \u001b[1m\u001b[92m    Checking\u001b[0m reqwest v0.11.27\n2026-11-09T19:05:09.0051309Z \u001b[1m\u001b[92m    Checking\u001b[0m quanta v0.12.6\n2026-11-09T19:05:10.2861745Z \u001b[1m\u001b[92m    Checking\u001b[0m vault-crypto v0.1.0 (/home/runner/work/data-vault/data-vault/crates/vault-crypto)\n2026-11-09T19:05:10.4831519Z \u001b[1m\u001b[92m    Checking\u001b[0m json5 v0.4.1\n2026-11-09T19:05:10.5211624Z \u001b[1m\u001b[91merror\u001b[0m\u001b[1m: unused import: `DataKey`\u001b[0m\n2026-11-09T19:05:10.5240758Z  \u001b[1m\u001b[94m--> \u001b[0mcrates/vault-crypto/src/envelope.rs:4:46\n2026-11-09T19:05:10.5241412Z   \u001b[1m\u001b[94m|\u001b[0m\n2026-11-09T19:05:10.5271110Z \u001b[1m\u001b[94m4\u001b[0m \u001b[1m\u001b[94m|\u001b[0m     AesGcmCipher, CryptoError, CryptoResult, DataKey, EncryptedData, EncryptionContext,\n2026-11-09T19:05:10.5300918Z   \u001b[1m\u001b[94m|\u001b[0m                                              \u001b[1m\u001b[91m^^^^^^^\u001b[0m\n2026-11-09T19:05:10.5330638Z   \u001b[1m\u001b[94m|\u001b[0m\n2026-11-09T19:05:10.5331406Z   \u001b[1m\u001b[94m= \u001b[0m\u001b[1mnote\u001b[0m: `-D unused-imports` implied by `-D warnings`\n2026-11-09T19:05:10.5360953Z   \u001b[1m\u001b[94m= \u001b[0m\u001b[1mhelp\u001b[0m: to override `-D warnings` add `#[allow(unused_imports)]`\n2026-11-09T19:05:10.5390474Z \n2026-11-09T19:05:10.7172034Z \u001b[1m\u001b[92m    Checking\u001b[0m tokio-native-tls v0.3.1\n2026-11-09T19:05:10.7988143Z \u001b[1m\u001b[92m    Checking\u001b[0m rust-ini v0.20.0\n2026-11-09T19:05:11.0160992Z \u001b[1m\u001b[91merror\u001b[0m: could not compile `vault-crypto` (lib) due to 1 previous error\n2026-11-09T19:05:11.0162464Z \u001b[1m\u001b[33mwarning\u001b[0m: build failed, waiting for other jobs to finish...\n2026-11-09T19:05:16.4149035Z ##[error]Process completed with exit code 101.\n2026-11-09T19:05:16.4277299Z Post job cleanup.\n2026-11-09T19:05:16.4992342Z [command]/usr/bin/git version\n2026-11-09T19:05:16.5025325Z git version 2.56.0\n2026-11-09T19:05:16.5051838Z Temporarily overriding HOME='/home/runner/work/_temp/9f08b483-2afd-4bba-b68a-08401421fd24' before making global git config changes\n2026-11-09T19:05:16.5052791Z Adding repository directory to the temporary git global config as a safe directory\n2026-11-09T19:05:16.5055748Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/data-vault/data-vault\n2026-11-09T19:05:16.5086055Z [command]/usr/bin/git config --local --name-only --get-regexp core\\.sshCommand\n2026-11-09T19:05:16.5114219Z [command]/usr/bin/git submodule foreach --recursive sh -c \"git config --local --name-only --get-regexp 'core\\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\"\n2026-11-09T19:05:16.5348195Z [command]/usr/bin/git config --local --name-only --get-regexp http\\.https\\:\\/\\/github\\.com\\/\\.extraheader\n2026-11-09T19:05:16.5368119Z http.https://github.com/.extraheader\n2026-11-09T19:05:16.5375904Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader\n2026-11-09T19:05:16.5404642Z [command]/usr/bin/git submodule foreach --recursive sh -c \"git config --local --name-only --get-regexp 'http\\.https\\:\\/\\/github\\.com\\/\\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\"\n2026-11-09T19:05:16.5629053Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\\.gitdir:\n2026-11-09T19:05:16.5655187Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url\n2026-11-09T19:05:16.6018336Z Cleaning up orphan processes\n2026-11-09T19:05:16.6289443Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/\n"
+    }
+  }
+}

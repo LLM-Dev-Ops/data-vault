@@ -1,0 +1,120 @@
+{
+  "start": {
+    "content": [
+      {
+        "type": "text",
+        "text": "McpServerError: API returned 502 Bad Gateway: {\"error\":\"*ruos-af940f7f-509c-4227-9498-* has an unresolved launch cancellation; a new start was not sent.\"}"
+      }
+    ],
+    "structuredContent": {
+      "error": "McpServerError: API returned 502 Bad Gateway: {\"error\":\"*ruos-af940f7f-509c-4227-9498-* has an unresolved launch cancellation; a new start was not sent.\"}",
+      "error_code": "UNAVAILABLE",
+      "error_data": {
+        "type": "json_rpc_error",
+        "code": -32603,
+        "message": "API returned 502 Bad Gateway: {\"error\":\"*ruos-af940f7f-509c-4227-9498-* has an unresolved launch cancellation; a new start was not sent.\"}"
+      }
+    },
+    "isError": true
+  },
+  "finalDesktop": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"desktops\": [\n    {\n      \"active_connections\": 0,\n      \"display_name\": \"My ruOS Desktop\",\n      \"fly_machine_id\": \"8ee959f7363638\",\n      \"heartbeat_status\": \"asleep\",\n      \"heartbeat_supported\": true,\n      \"idle_seconds\": 1869,\n      \"last_heartbeat_at\": 1794198360,\n      \"machine_id\": \"40eb5828d43bfce01110e62d334a6de0\",\n      \"name\": \"ruos-af940f7f-509c-4227-9498-\",\n      \"presence_note\": null,\n      \"presence_status\": null,\n      \"ready\": true,\n      \"ready_at\": \"2026-11-09T03:54:57Z\",\n      \"relocation\": null,\n      \"state\": \"stopped\",\n      \"state_observed_at\": 1794251237,\n      \"state_source\": \"cached\"\n    },\n    {\n      \"active_connections\": null,\n      \"display_name\": null,\n      \"fly_machine_id\": null,\n      \"heartbeat_status\": \"missing\",\n      \"heartbeat_supported\": false,\n      \"idle_seconds\": null,\n      \"last_heartbeat_at\": null,\n      \"machine_id\": \"fa79757220093984f808e17aebeb4528\",\n      \"name\": \"Nicholass-MacBook-Pro\",\n      \"presence_note\": \"Local RustDesk presence is not observed by cloud heartbeat. Missing heartbeat is not offline.\",\n      \"presence_status\": \"unknown\",\n      \"ready\": false,\n      \"ready_at\": null,\n      \"relocation\": null,\n      \"state\": null,\n      \"state_observed_at\": null,\n      \"state_source\": \"cached\"\n    }\n  ],\n  \"lite_browsers\": [\n    {\n      \"ai_control\": {\n        \"enabled\": true,\n        \"how_to_enable\": null,\n        \"source\": \"default\",\n        \"stopped_for_session\": false,\n        \"usable_now\": true\n      },\n      \"display_name\": \"ruOS Lite browser\",\n      \"how_to_use\": \"Use this machine_id with desktop_start (restores the saved browser), computer_screenshot / computer_action (machine), desktop_control and desktop_stop. Payment, checkout and password-change pages need the user's confirmation in ruOS Lite.\",\n      \"kind\": \"lite_browser\",\n      \"last_saved_at\": 1791003632,\n      \"last_used_at\": 1791002624,\n      \"machine_id\": \"lite-8cf5c480e130f1b7346a6ffe83175a1e\",\n      \"name\": \"ruOS Lite\",\n      \"open_url\": \"https://ruos.cognitum.one/dashboard/#desktops\",\n      \"state\": \"saved\"\n    }\n  ],\n  \"ready_is_not_a_probe\": \"`ready` is the provisioning flag recorded when the desktop was created. `last_heartbeat_at` is the only field here that is evidence the machine is up now.\",\n  \"state_is_an_observation\": \"`state` is the Fly run state last observed (at `state_observed_at`), overridden to `started` by a newer heartbeat; null when unobserved. A transitional state (`starting`, `stopping`, `suspending`) is re-read from Fly on each request; `state_source` says whether `state` is that `live` read or the `cached` observation. `heartbeat_status` is `asleep` for a stopped/suspended/created desktop (desktop start wakes it), `stale` only when a desktop not known to be asleep has gone silent, `missing` when it never reported.\"\n}"
+      }
+    ],
+    "structuredContent": {
+      "desktops": [
+        {
+          "active_connections": 0,
+          "display_name": "My ruOS Desktop",
+          "fly_machine_id": "8ee959f7363638",
+          "heartbeat_status": "asleep",
+          "heartbeat_supported": true,
+          "idle_seconds": 1869,
+          "last_heartbeat_at": 1794198360,
+          "machine_id": "40eb5828d43bfce01110e62d334a6de0",
+          "name": "ruos-af940f7f-509c-4227-9498-",
+          "presence_note": null,
+          "presence_status": null,
+          "ready": true,
+          "ready_at": "2026-11-09T03:54:57Z",
+          "relocation": null,
+          "state": "stopped",
+          "state_observed_at": 1794251237,
+          "state_source": "cached"
+        },
+        {
+          "active_connections": null,
+          "display_name": null,
+          "fly_machine_id": null,
+          "heartbeat_status": "missing",
+          "heartbeat_supported": false,
+          "idle_seconds": null,
+          "last_heartbeat_at": null,
+          "machine_id": "fa79757220093984f808e17aebeb4528",
+          "name": "Nicholass-MacBook-Pro",
+          "presence_note": "Local RustDesk presence is not observed by cloud heartbeat. Missing heartbeat is not offline.",
+          "presence_status": "unknown",
+          "ready": false,
+          "ready_at": null,
+          "relocation": null,
+          "state": null,
+          "state_observed_at": null,
+          "state_source": "cached"
+        }
+      ],
+      "lite_browsers": [
+        {
+          "ai_control": {
+            "enabled": true,
+            "how_to_enable": null,
+            "source": "default",
+            "stopped_for_session": false,
+            "usable_now": true
+          },
+          "display_name": "ruOS Lite browser",
+          "how_to_use": "Use this machine_id with desktop_start (restores the saved browser), computer_screenshot / computer_action (machine), desktop_control and desktop_stop. Payment, checkout and password-change pages need the user's confirmation in ruOS Lite.",
+          "kind": "lite_browser",
+          "last_saved_at": 1791003632,
+          "last_used_at": 1791002624,
+          "machine_id": "lite-8cf5c480e130f1b7346a6ffe83175a1e",
+          "name": "ruOS Lite",
+          "open_url": "https://ruos.cognitum.one/dashboard/#desktops",
+          "state": "saved"
+        }
+      ],
+      "ready_is_not_a_probe": "`ready` is the provisioning flag recorded when the desktop was created. `last_heartbeat_at` is the only field here that is evidence the machine is up now.",
+      "state_is_an_observation": "`state` is the Fly run state last observed (at `state_observed_at`), overridden to `started` by a newer heartbeat; null when unobserved. A transitional state (`starting`, `stopping`, `suspending`) is re-read from Fly on each request; `state_source` says whether `state` is that `live` read or the `cached` observation. `heartbeat_status` is `asleep` for a stopped/suspended/created desktop (desktop start wakes it), `stale` only when a desktop not known to be asleep has gone silent, `missing` when it never reported."
+    },
+    "isError": false
+  },
+  "risk": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"unscreened\":true,\"warnings\":[]}"
+      }
+    ],
+    "structuredContent": null,
+    "isError": false
+  },
+  "outcome": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"accepted\":true,\"evidence_id\":\"LLM-Dev-Ops/data-vault/commit/c21e765537d9546e8087cb68d05c6259624a6e19\"}"
+      }
+    ],
+    "structuredContent": null,
+    "isError": false
+  },
+  "learning": {
+    "available": null,
+    "outcomePersisted": null,
+    "feedbackRecorded": null,
+    "trajectoryRecorded": null,
+    "reason": "launcher missing in primary; RuOS start blocked"
+  }
+}
