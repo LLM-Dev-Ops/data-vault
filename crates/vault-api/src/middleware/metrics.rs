@@ -1,10 +1,6 @@
 //! Metrics middleware.
 
-use axum::{
-    extract::Request,
-    middleware::Next,
-    response::Response,
-};
+use axum::{extract::Request, middleware::Next, response::Response};
 use metrics::{counter, gauge, histogram};
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::Arc;
@@ -38,11 +34,7 @@ impl Default for MetricsMiddleware {
 }
 
 /// Metrics layer function.
-pub async fn metrics_layer(
-    middleware: MetricsMiddleware,
-    req: Request,
-    next: Next,
-) -> Response {
+pub async fn metrics_layer(middleware: MetricsMiddleware, req: Request, next: Next) -> Response {
     let method = req.method().to_string();
     let path = normalize_path(req.uri().path());
 
@@ -86,15 +78,15 @@ pub async fn metrics_layer(
 /// Normalizes a path for metrics (removes IDs).
 fn normalize_path(path: &str) -> String {
     // Replace UUIDs with placeholder
-    let uuid_pattern = regex::Regex::new(
-        r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
-    )
-    .unwrap();
+    let uuid_pattern =
+        regex::Regex::new(r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}").unwrap();
     let normalized = uuid_pattern.replace_all(path, "{id}");
 
     // Replace numeric IDs with placeholder
-    let numeric_pattern = regex::Regex::new(r"/\d+(?=/|$)").unwrap();
-    numeric_pattern.replace_all(&normalized, "/{id}").to_string()
+    let numeric_pattern = regex::Regex::new(r"/\d+(/|$)").unwrap();
+    numeric_pattern
+        .replace_all(&normalized, "/{id}$1")
+        .to_string()
 }
 
 /// API metrics collector.
@@ -199,8 +191,16 @@ pub const LATENCY_BUCKETS: [f64; 12] = [
 
 /// Response size histogram buckets (in bytes).
 pub const SIZE_BUCKETS: [f64; 10] = [
-    100.0, 1000.0, 10000.0, 100000.0, 1000000.0, 10000000.0,
-    100000000.0, 1000000000.0, 10000000000.0, 100000000000.0,
+    100.0,
+    1000.0,
+    10000.0,
+    100000.0,
+    1000000.0,
+    10000000.0,
+    100000000.0,
+    1000000000.0,
+    10000000000.0,
+    100000000000.0,
 ];
 
 #[cfg(test)]
@@ -213,9 +213,10 @@ mod tests {
             normalize_path("/api/v1/datasets/550e8400-e29b-41d4-a716-446655440000"),
             "/api/v1/datasets/{id}"
         );
+        assert_eq!(normalize_path("/api/v1/users/123"), "/api/v1/users/{id}");
         assert_eq!(
-            normalize_path("/api/v1/users/123"),
-            "/api/v1/users/{id}"
+            normalize_path("/api/v1/users/123/records"),
+            "/api/v1/users/{id}/records"
         );
         assert_eq!(
             normalize_path("/api/v1/datasets/{id}/records"),

@@ -147,6 +147,19 @@ impl ApiError {
         }
     }
 
+    /// Returns the client-safe error message.
+    ///
+    /// Diagnostic details remain available through `Display` for server-side
+    /// logging, but infrastructure failures are never serialized to callers.
+    fn client_message(&self) -> String {
+        match self {
+            Self::Internal(_) => "Internal server error".to_string(),
+            Self::ServiceUnavailable(_) => "Service unavailable".to_string(),
+            Self::GatewayTimeout(_) => "Gateway timeout".to_string(),
+            _ => self.to_string(),
+        }
+    }
+
     /// Creates a not found error for a resource.
     pub fn not_found_resource(resource: &str, id: &str) -> Self {
         Self::NotFound(format!("{} with id '{}' not found", resource, id))
@@ -177,7 +190,7 @@ impl IntoResponse for ApiError {
 
         let (message, errors) = match &self {
             Self::ValidationError(v) => (v.to_string(), Some(v.fields.clone())),
-            _ => (self.to_string(), None),
+            _ => (self.client_message(), None),
         };
 
         let body = ErrorResponse {
@@ -214,7 +227,9 @@ impl From<vault_access::AccessError> for ApiError {
         match e {
             vault_access::AccessError::Unauthorized(msg) => Self::Unauthorized(msg),
             vault_access::AccessError::Forbidden(msg) => Self::Forbidden(msg),
-            vault_access::AccessError::TokenExpired => Self::Unauthorized("Token expired".to_string()),
+            vault_access::AccessError::TokenExpired => {
+                Self::Unauthorized("Token expired".to_string())
+            }
             vault_access::AccessError::InvalidToken(msg) => Self::Unauthorized(msg),
             _ => Self::Internal(e.to_string()),
         }
@@ -228,8 +243,8 @@ impl From<vault_version::VersionError> for ApiError {
 }
 
 impl From<serde_json::Error> for ApiError {
-    fn from(e: serde_json::Error) -> Self {
-        Self::BadRequest(format!("JSON parsing error: {}", e))
+    fn from(_: serde_json::Error) -> Self {
+        Self::BadRequest("Malformed JSON request".to_string())
     }
 }
 
@@ -290,5 +305,70 @@ mod tests {
         let error = ApiError::not_found_resource("Dataset", "ds-123");
         assert!(error.to_string().contains("Dataset"));
         assert!(error.to_string().contains("ds-123"));
+    }
+
+    async fn response_body(error: ApiError) -> ErrorResponse {
+        let response = error.into_response();
+        let bytes = axum::body::to_bytes(response.into_body(), usize::MAX)
+            .await
+            .expect("error response body should be readable");
+        serde_json::from_slice(&bytes).expect("error response should be valid JSON")
+    }
+
+    #[tokio::test]
+    async fn test_internal_error_response_is_sanitized() {
+        let body = response_body(ApiError::Internal(
+            "postgres://admin:secret@internal/vault".to_string(),
+        ))
+        .await;
+
+        assert_eq!(body.message, "Internal server error");
+        assert!(!body.message.contains("secret"));
+    }
+
+    #[tokio::test]
+    async fn test_service_unavailable_response_is_sanitized() {
+        let body = response_body(ApiError::ServiceUnavailable(
+            "redis://cache.internal:6379 refused connection".to_string(),
+        ))
+        .await;
+
+        assert_eq!(body.message, "Service unavailable");
+        assert!(!body.message.contains("cache.internal"));
+    }
+
+    #[tokio::test]
+    async fn test_gateway_timeout_response_is_sanitized() {
+        let body = response_body(ApiError::GatewayTimeout(
+            "upstream https://vault-admin.internal timed out".to_string(),
+        ))
+        .await;
+
+        assert_eq!(body.message, "Gateway timeout");
+        assert!(!body.message.contains("vault-admin.internal"));
+    }
+
+    #[tokio::test]
+    async fn test_json_parse_error_response_is_sanitized() {
+        let parse_error = serde_json::from_str::<serde_json::Value>("{invalid")
+            .expect_err("input should be malformed");
+        let body = response_body(ApiError::from(parse_error)).await;
+
+        assert_eq!(body.message, "Bad request: Malformed JSON request");
+        assert!(!body.message.contains("column"));
+        assert!(!body.message.contains("line"));
+    }
+
+    #[tokio::test]
+    async fn test_validation_error_response_retains_actionable_details() {
+        let mut errors = ValidationErrors::new();
+        errors.add("dataset_name", "is required");
+        let body = response_body(ApiError::ValidationError(errors)).await;
+
+        assert_eq!(body.message, "dataset_name: is required");
+        assert_eq!(
+            body.errors.expect("validation fields should be included")["dataset_name"],
+            vec!["is required"]
+        );
     }
 }

@@ -22,6 +22,7 @@
   "scripts": {
     "dev": "claude-flow swarm start",
     "test": "claude-flow test",
+    "test:config": "node --experimental-strip-types scripts/probe-config.mjs .",
     "build": "tsc -p tsconfig.json",
     "build:runtime": "tsc -p src/runtime/tsconfig.json",
     "build:watch": "tsc -p tsconfig.json --watch",

@@ -131,8 +131,12 @@ function parseInteger(value: string | undefined, defaultValue: number): number {
   if (value === undefined) {
     return defaultValue;
   }
-  const parsed = parseInt(value, 10);
-  return isNaN(parsed) ? defaultValue : parsed;
+  const normalized = value.trim();
+  // Reject prefixes, fractions and overflow instead of silently changing the
+  // configured port/timeout or passing Infinity through range validation.
+  if (!/^[+-]?\d+$/.test(normalized)) return defaultValue;
+  const parsed = Number(normalized);
+  return Number.isSafeInteger(parsed) ? parsed : defaultValue;
 }
 
 /**
